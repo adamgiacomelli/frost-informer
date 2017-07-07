@@ -7,6 +7,6 @@
     "grunt": false
   },
   "paths": {
-     "public": "assets"
+     "public": "assets/public"
    }
 }
