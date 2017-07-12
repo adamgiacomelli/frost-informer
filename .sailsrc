@@ -3,7 +3,9 @@
     "modules": {}
   },
   "hooks": {
+    "session": false,
     "blueprints": false,
+    "views": false,
     "grunt": false
   },
   "paths": {
