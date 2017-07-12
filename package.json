@@ -11,6 +11,7 @@
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-hook-babel": "^6.0.3",
+    "sails-swagger": "^0.5.1",
     "sails-test-helper": "^0.5.0"
   },
   "scripts": {
