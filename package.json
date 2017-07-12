@@ -1,0 +1,27 @@
+{
+  "name": "cherrydeck",
+  "private": true,
+  "version": "0.0.1",
+  "description": "The CherryDeck backend",
+  "keywords": [],
+  "dependencies": {
+    "ejs": "2.3.4",
+    "include-all": "^1.0.0",
+    "rc": "1.0.1",
+    "sails": "~0.12.13",
+    "sails-disk": "~0.10.9",
+    "sails-hook-babel": "^6.0.3",
+    "sails-test-helper": "^0.5.0"
+  },
+  "scripts": {
+    "debug": "node debug app.js",
+    "start": "node app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cherrydeckone/cherrydeck-backend.git"
+  },
+  "author": "Adam Giacomelli",
+  "license": ""
+}
