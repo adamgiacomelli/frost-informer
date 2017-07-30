@@ -3,8 +3,10 @@
     "modules": {}
   },
   "hooks": {
+    "session": false,
     "blueprints": false,
-    "grunt": false
+    "grunt": false,
+    "views": false
   },
   "paths": {
      "public": "assets/build"
