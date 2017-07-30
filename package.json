@@ -11,6 +11,7 @@
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-hook-babel": "^6.0.3",
+    "sails-swagger": "^0.5.1",
     "sails-test-helper": "^0.5.0"
   },
   "scripts": {
@@ -18,13 +19,13 @@
     "start": "node app.js"
   },
   "main": "app.js",
-  "engines" : { 
-    "node" : ">=0.6" 
+  "engines": {
+    "node": "6.10.0"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/zanyinj/frost-informer.git"
   },
-  "author": "zanyinj",
+  "author": "Adam Giacomelli",
   "license": ""
 }
