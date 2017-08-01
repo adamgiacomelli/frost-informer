@@ -22,28 +22,104 @@
 
 module.exports.routes = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+  'PUT /v1/static-page': {
+    controller: 'StaticPageController',
+    action: 'create',
+    skipAssets: 'true',
+    swagger: {
+      summary: 'Create a static page',
+      description: 'Create a new static page with provided parameters',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'A static page',
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        }
+      },
+      parameters: []
+    }
+  },
 
-  '/': {
-    view: 'homepage'
-  }
+  'POST /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'update',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['POST'],
+      summary: ' Update a static page ',
+      description: 'Update a static page with new parameters',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'A static page',
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        }
+      },
+      parameters: [
+        'StaticPage' // api/model/StaticPage.js
+      ]
+    }
+  },
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+  'GET /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'get',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['GET'],
+      summary: ' Get a static page ',
+      description: 'Get a single static page',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'A static page',
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        }
+      },
+      parameters: [
+        'StaticPage' // api/model/StaticPage.js
+      ]
+    }
+  },
 
+  'DELETE /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'delete',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['DELETE'],
+      summary: ' Delete a static page ',
+      description: 'Delete a single static page',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Static Page MEOW'
+      ],
+      responses: {
+        '200': {
+          description: 'A static page',
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        }
+      },
+      parameters: [
+        'StaticPage' // api/model/StaticPage.js
+      ]
+    }
+  },
 };
