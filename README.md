@@ -21,6 +21,16 @@ SailsJS have been configured to use only the backend:
 
 ## Running
 
+### Docker [not finished yet]
+* must have docker & docker compose installed 
+
+```bash
+docker-compose up
+```
+Access your app on http://localhost:5050
+
+### No-Docker
+
 1. Install dependencies
 ```bash
 yarn install (or npm install)

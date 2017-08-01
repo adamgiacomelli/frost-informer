@@ -32,6 +32,16 @@ module.exports.connections = {
     adapter: 'sails-disk'
   },
 
+  localMysqlDB: {
+    adapter: 'sails-mysql',
+    host: '172.19.0.2',
+    port: 3306,
+    user: 'root',
+    password: 'passrootsword',
+    database: 'cherrdeck-dev',
+  },
+
+
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *
