@@ -1,5 +1,8 @@
 FROM node:boron
 
+#To check if mysql is up
+RUN apt-get update && apt-get install netcat-openbsd -y 
+
 WORKDIR /app
 
 # Install app dependencies

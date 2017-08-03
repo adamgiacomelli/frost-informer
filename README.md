@@ -21,15 +21,22 @@ SailsJS have been configured to use only the backend:
 
 ## Running
 
-### Docker [not finished yet]
+### Docker
 * must have docker & docker compose installed 
 
 ```bash
-docker-compose up
+docker-compose up 
 ```
 Access your app on http://localhost:5050
 
 Note: The docker config works this way: node_modules are installed on the docker image, after that the code is linked directly into the container
+
+#### Adding npm modules
+Add them locally, after that run
+```bash
+docker-compose up --build
+```
+### Restarting the backend
 
 ### No-Docker
 
