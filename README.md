@@ -37,6 +37,9 @@ Add them locally, after that run
 docker-compose up --build
 ```
 ### Restarting the backend
+```bash
+docker-compose restart web
+```
 
 ### No-Docker
 
