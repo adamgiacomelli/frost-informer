@@ -29,6 +29,8 @@ docker-compose up
 ```
 Access your app on http://localhost:5050
 
+Note: The docker config works this way: node_modules are installed on the docker image, after that the code is linked directly into the container
+
 ### No-Docker
 
 1. Install dependencies

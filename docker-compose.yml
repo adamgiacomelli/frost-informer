@@ -15,10 +15,15 @@ services:
       - "3306"
   web:
     build: .
+    command: "npm start"
     ports:
       - "5050:1337"
     volumes:
-      - ./:/usr/src/app
+      - ./:/app
+    environment:
+      - NODE_PATH=/global/node_modules      
+    depends_on:
+      - "db"
     links:
       - db:mysql
  

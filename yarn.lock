@@ -3426,7 +3426,7 @@ pluralize@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-0.0.9.tgz#cc0da2bd676b46af0fd967fa8d39da29d1511942"
 
-pluralize@1.2.1:
+pluralize@1.2.1, pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
@@ -3997,13 +3997,14 @@ sails-stringfile@~0.3.2:
     colors "*"
     lodash "~2.4.1"
 
-sails-swagger@^0.5.1:
+"sails-swagger@https://github.com/adamgiacomelli/sails-swagger":
   version "0.5.1"
-  resolved "https://registry.yarnpkg.com/sails-swagger/-/sails-swagger-0.5.1.tgz#1ee8bec6495e1ed3e79fc588f3630a70e2ff1278"
+  resolved "https://github.com/adamgiacomelli/sails-swagger#f9fd1a71c137647cb8eda8819c8071f4f0dc3c38"
   dependencies:
     hoek "^2.14.0"
     lodash "^3.10.1"
     marlinspike "^0.12.10"
+    pluralize "^1.2.1"
 
 sails-test-helper@^0.5.0:
   version "0.5.0"

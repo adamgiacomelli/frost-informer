@@ -1,3 +1,4 @@
-module.exports = function completeSwaggerHook(sails) {
-   return {};
+module.exports = function cherryHook(sails) {
+  return {
+  };
 }
