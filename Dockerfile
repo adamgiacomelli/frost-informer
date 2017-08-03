@@ -1,20 +1,17 @@
 FROM node:boron
 
-# Create app directory
 WORKDIR /app
 
-RUN mkdir /global
-
 # Install app dependencies
-COPY package.json ./global
-# For npm@5 or later, copy package-lock.json as well
-# COPY package.json package-lock.json .
+ADD . .
 
-RUN cd /global
+RUN npm install -g -s --no-progress yarn
 
-RUN npm install -g -s --no-progress yarn && \
-    yarn global add sails && \
+RUN yarn global add sails && \
     yarn && \
     yarn cache clean
 
+
 EXPOSE 1337
+
+CMD ["npm", "start"]

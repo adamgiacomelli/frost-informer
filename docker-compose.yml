@@ -19,9 +19,10 @@ services:
     ports:
       - "5050:1337"
     volumes:
-      - ./:/app
-    environment:
-      - NODE_PATH=/global/node_modules      
+      - ./api:/app/api
+      - ./assets:/app/assets
+      - ./config:/app/config
+      - ./test:/app/test
     depends_on:
       - "db"
     links:

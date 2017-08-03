@@ -17,7 +17,8 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "docker": "NODE_PATH=../install node app.js"
   },
   "engines": {
     "node": "6.10.0"
