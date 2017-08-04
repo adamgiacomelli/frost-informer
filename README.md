@@ -2,6 +2,10 @@
 
 a [Sails](http://sailsjs.org) application
 
+## Status
+- Master: ![Master Status](https://app.codeship.com/projects/0d1604d0-477d-0135-d6db-760fd79f50b1/status?branch=master)
+- Development: ![Development Status](https://app.codeship.com/projects/0d1604d0-477d-0135-d6db-760fd79f50b1/status?branch=development)
+
 ## Configuration
 
 ### SailsJS
