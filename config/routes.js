@@ -21,7 +21,36 @@
  */
 
 module.exports.routes = {
- 'PUT /v1/static-page/': {
+
+  'GET /v1/featured': {
+    controller: 'ArtistController',
+    action: 'getFeatured',
+    swagger: {
+      methods: ['GET'],
+      summary: 'Get featured artists',
+      description: '#####Action: \nCreate a new static page with provided parameters \n#####Returns: \nThe created static page.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Featured'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns list of featured artists.',
+          //schema: 'StaticPage', // api/models/StaticPage.js,
+        },
+        '400': {
+          description: 'Query parameter error.'
+        }
+      },
+      parameters: []
+    }
+  },
+
+  // static page routes
+
+  'PUT /v1/static-page/': {
     controller: 'StaticPageController',
     action: 'create',
     skipAssets: 'true',
@@ -45,7 +74,7 @@ module.exports.routes = {
     }
   },
 
- 
+
   'POST /v1/static-page/:id': {
     controller: 'StaticPageController',
     action: 'update',
@@ -63,7 +92,7 @@ module.exports.routes = {
       responses: {
         '200': {
           schema: 'StaticPage', // api/model/StaticPage.js,
-        },      
+        },
       },
       parameters: []
     }
@@ -115,4 +144,5 @@ module.exports.routes = {
       parameters: []
     }
   },
+
 };
