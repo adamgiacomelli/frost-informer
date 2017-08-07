@@ -13,6 +13,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     expose:
       - "3306"
+    ports:
+      - "3306"
   web:
     build: .
     command: "npm start"
