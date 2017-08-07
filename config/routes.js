@@ -24,7 +24,125 @@ module.exports.routes = {
 
   'GET /v1/featured': {
     controller: 'ArtistController',
-    action: 'getFeatured'
-  }
+    action: 'getFeatured',
+    swagger: {
+      methods: ['GET'],
+      summary: 'Get featured artists',
+      description: '#####Action: \nCreate a new static page with provided parameters \n#####Returns: \nThe created static page.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Featured'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns list of featured artists.',
+          //schema: 'StaticPage', // api/models/StaticPage.js,
+        },
+        '400': {
+          description: 'Query parameter error.'
+        }
+      },
+      parameters: []
+    }
+  },
+
+  // static page routes
+
+  'PUT /v1/static-page/': {
+    controller: 'StaticPageController',
+    action: 'create',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['PUT'],
+      summary: 'Create a static page',
+      description: '#####Action: \nCreate a new static page with provided parameters \n#####Returns: \nThe created static page.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns the new static page',
+          schema: 'StaticPage', // api/models/StaticPage.js,
+        }
+      },
+      parameters: []
+    }
+  },
+
+
+  'POST /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'update',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['POST'],
+      summary: ' Update a static page ',
+      description: '#####Action: \nUpdates a static page with the provided parameters \n#####Returns: \nThe updated static page.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        },
+      },
+      parameters: []
+    }
+  },
+
+  'GET /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'get',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['GET'],
+      summary: ' Get a static page ',
+      description: '#####Action: \nGets a static page with the provided id \n#####Returns: \nThe static page.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'A static page',
+          schema: 'StaticPage', // api/model/StaticPage.js,
+        }
+      },
+      parameters: []
+    }
+  },
+
+  'DELETE /v1/static-page/:id': {
+    controller: 'StaticPageController',
+    action: 'delete',
+    skipAssets: 'true',
+    swagger: {
+      methods: ['DELETE'],
+      summary: ' Delete a static page ',
+      description: '#####Action: \nDeletes a static page with the provided id.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'StaticPage'
+      ],
+      responses: {
+        '200': {
+          description: 'Page has been successfully deleted **{deleted_id: <id>, result: success}**',
+        }
+      },
+      parameters: []
+    }
+  },
 
 };
