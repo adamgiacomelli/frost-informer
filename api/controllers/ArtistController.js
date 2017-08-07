@@ -29,6 +29,7 @@ module.exports = {
       artists.push(hardcodedHelpers.generateArtist());
     }
 
+    // todo: replace total_pages number with real number of total pages
     res.status(200).send({
       results: artists,
       total_pages: 24
