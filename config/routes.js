@@ -27,8 +27,8 @@ module.exports.routes = {
     action: 'getFeatured',
     swagger: {
       methods: ['GET'],
-      summary: 'Get featured artists',
-      description: '#####Action: \nCreate a new static page with provided parameters \n#####Returns: \nThe created static page.',
+      summary: 'Get featured photographers',
+      description: '#####Action: \nGet currently featured photographers',
       produces: [
         'application/json'
       ],
@@ -38,7 +38,6 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Returns list of featured artists.',
-          //schema: 'StaticPage', // api/models/StaticPage.js,
         },
         '400': {
           description: 'Query parameter error.'
