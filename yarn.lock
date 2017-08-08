@@ -97,6 +97,10 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@sailshq/qs/-/qs-4.0.2.tgz#a0013321b0dfd89894d9feef2db02d27d6af2f04"
 
+"@types/geojson@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.2.tgz#b02d10ab028e2928ac592a051aaa4981a1941d03"
+
 "JSV@>= 4.0.x":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/JSV/-/JSV-4.0.2.tgz#d077f6825571f82132f9dffaed587b4029feff57"
@@ -248,6 +252,13 @@ assert-plus@^0.2.0:
 assertion-error@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assertion-error/-/assertion-error-1.0.0.tgz#c7f85438fdd466bc7ca16ab90c81513797a5d23b"
+
+async-listener@^0.6.0:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/async-listener/-/async-listener-0.6.7.tgz#793971ce6f431e41f75cef6c0a1706b9053e4d5b"
+  dependencies:
+    semver "^5.3.0"
+    shimmer "^1.1.0"
 
 async@0.2.x, async@~0.2.6, async@~0.2.9:
   version "0.2.10"
@@ -741,10 +752,6 @@ better-assert@~1.0.0:
   dependencies:
     callsite "1.0.0"
 
-bignumber.js@2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-2.1.4.tgz#29b3bb693dbb238e88b72eac2fb89650888b2d59"
-
 blob@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/blob/-/blob-0.0.4.tgz#bcf13052ca54463f30f9fc7e95b9a47630a94921"
@@ -753,7 +760,7 @@ bluebird@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.2.1.tgz#3cecf3504904c30ce3e79c170877e893a11910fd"
 
-bluebird@^3.1.1:
+bluebird@^3.1.1, bluebird@^3.3.4, bluebird@^3.4.6:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -1091,6 +1098,13 @@ content-type@~1.0.1, content-type@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.2.tgz#b7d113aee7a8dd27bd21133c4dc2529df1721eed"
 
+continuation-local-storage@^3.1.4:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/continuation-local-storage/-/continuation-local-storage-3.2.0.tgz#e19fc36b597090a5d4e4a3b2ea3ebc5e29694a24"
+  dependencies:
+    async-listener "^0.6.0"
+    emitter-listener "^1.0.1"
+
 convert-source-map@^1.1.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.0.tgz#9acd70851c6d5dfdd93d9282e5edf94a03ff46b5"
@@ -1279,7 +1293,7 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
 
-depd@1.1.0, depd@~1.1.0:
+depd@1.1.0, depd@^1.1.0, depd@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
 
@@ -1318,6 +1332,10 @@ diff@1.4.0:
 dot-access@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dot-access/-/dot-access-1.0.0.tgz#a362e5a25906b55bab48a42d101538726061fa68"
+
+dottie@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/dottie/-/dottie-1.1.1.tgz#45c2a3f48bd6528eeed267a69a848eaaca6faa6a"
 
 duplexer2@0.0.2:
   version "0.0.2"
@@ -1358,6 +1376,12 @@ ejs@0.8.x:
 ejs@2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.3.4.tgz#3c76caa09664b3583b0037af9dc136e79ec68b98"
+
+emitter-listener@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/emitter-listener/-/emitter-listener-1.0.1.tgz#b2499ea6e58230a52c268d5df261eecd9f10fe97"
+  dependencies:
+    shimmer "1.0.0"
 
 end-of-stream@~0.1.5:
   version "0.1.5"
@@ -1782,6 +1806,10 @@ gaze@^1.0.0:
   resolved "https://registry.yarnpkg.com/gaze/-/gaze-1.1.2.tgz#847224677adb8870d679257ed3388fdb61e40105"
   dependencies:
     globule "^1.0.0"
+
+generic-pool@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-2.4.2.tgz#886bc5bf0beb7db96e81bcbba078818de5a62683"
 
 geojsonhint@^1.1.0:
   version "1.2.1"
@@ -2358,7 +2386,7 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
-inflection@^1.7.1:
+inflection@^1.6.0, inflection@^1.7.1:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/inflection/-/inflection-1.12.0.tgz#a200935656d6f5f6bc4dc7502e1aecb703228416"
 
@@ -2774,13 +2802,13 @@ lodash@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-2.4.1.tgz#5b7723034dda4d262e5a46fb2c58d7cc22f71420"
 
-lodash@3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.0.tgz#93d51c672828a4416a12af57220ba8a8737e2fbb"
-
 lodash@3.10.1, lodash@^3.10.1, lodash@^3.6.0, lodash@^3.8.0, lodash@~3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+
+lodash@4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.12.0.tgz#2bd6dc46a040f59e686c972ed21d93dc59053258"
 
 lodash@>=2.4.x, lodash@^4.0.1, lodash@^4.2.0, lodash@^4.8.0, lodash@^4.8.2, lodash@~4.17.4:
   version "4.17.4"
@@ -3079,6 +3107,16 @@ mock-res@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/mock-res/-/mock-res-0.3.0.tgz#0c2034cc6336d0595a3af109f7448283ee9c47f5"
 
+moment-timezone@^0.5.4:
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.13.tgz#99ce5c7d827262eb0f1f702044177f60745d7b90"
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.13.0:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+
 morgan@~1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.6.1.tgz#5fd818398c6819cba28a7cd6664f292fe1c0bbf2"
@@ -3124,13 +3162,6 @@ mustache@*:
 mute-stream@~0.0.4:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
-
-mysql@2.10.2:
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/mysql/-/mysql-2.10.2.tgz#9ee5e46f056b2ba3a7840a10eae3426f59384292"
-  dependencies:
-    bignumber.js "2.1.4"
-    readable-stream "~1.1.13"
 
 native-or-bluebird@~1.1.2:
   version "1.1.2"
@@ -3616,7 +3647,7 @@ readable-stream@^2.1.5:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
-readable-stream@~1.1.13, readable-stream@~1.1.8, readable-stream@~1.1.9:
+readable-stream@~1.1.8, readable-stream@~1.1.9:
   version "1.1.14"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.1.14.tgz#7cf4c54ef648e3813084c636dd2079e166c081d9"
   dependencies:
@@ -3762,6 +3793,13 @@ response-time@~2.3.1:
   dependencies:
     depd "~1.1.0"
     on-headers "~1.0.1"
+
+retry-as-promised@^2.0.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-2.3.0.tgz#27bf5ccd999932b31665696825cf3630c27c562d"
+  dependencies:
+    bluebird "^3.4.6"
+    debug "^2.2.0"
 
 revalidator@0.1.x:
   version "0.1.8"
@@ -3968,6 +4006,13 @@ sails-hook-orm@~1.0.9:
     rttc "~9.3.0"
     waterline "~0.11.0"
 
+sails-hook-sequelize@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/sails-hook-sequelize/-/sails-hook-sequelize-1.0.1.tgz#7193e2f0ecbe37a902ec052f51ce088443aa839b"
+  dependencies:
+    continuation-local-storage "^3.1.4"
+    sequelize "^3.5.1"
+
 sails-hook-sockets@^0.13.9:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/sails-hook-sockets/-/sails-hook-sockets-0.13.11.tgz#7270cdebcf95959d051502621112a042b74e4d3a"
@@ -3978,17 +4023,6 @@ sails-hook-sockets@^0.13.9:
     semver "^4.3.4"
     socket.io "1.7.3"
     uid2 "0.0.3"
-
-sails-mysql@^0.11.5:
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/sails-mysql/-/sails-mysql-0.11.5.tgz#ab2a2cd7b8b48d32190cc961f8e984921b7fe60b"
-  dependencies:
-    async "1.5.2"
-    lodash "3.10.1"
-    mysql "2.10.2"
-    waterline-cursor "0.0.6"
-    waterline-errors "0.10.1"
-    waterline-sequel "0.5.7"
 
 sails-stringfile@~0.3.2:
   version "0.3.2"
@@ -4115,13 +4149,17 @@ scandirectory@^2.5.0:
     safefs "^3.1.2"
     taskgroup "^4.0.5"
 
-"semver@2 || 3 || 4 || 5", semver@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
+"semver@2 || 3 || 4 || 5", semver@^5.3.0:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
 semver@4.3.6, semver@^4.1.0, semver@^4.3.4:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
+semver@5.1.0, semver@^5.0.1:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
 
 send@0.13.0:
   version "0.13.0"
@@ -4156,6 +4194,27 @@ send@0.13.1:
     on-finished "~2.3.0"
     range-parser "~1.0.3"
     statuses "~1.2.1"
+
+sequelize@^3.5.1:
+  version "3.30.4"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-3.30.4.tgz#bda2df1e31854b099e4149a111e9fc0a5ca1d1a4"
+  dependencies:
+    bluebird "^3.3.4"
+    depd "^1.1.0"
+    dottie "^1.0.0"
+    generic-pool "2.4.2"
+    inflection "^1.6.0"
+    lodash "4.12.0"
+    moment "^2.13.0"
+    moment-timezone "^0.5.4"
+    retry-as-promised "^2.0.0"
+    semver "^5.0.1"
+    shimmer "1.1.0"
+    terraformer-wkt-parser "^1.1.0"
+    toposort-class "^1.0.1"
+    uuid "^3.0.0"
+    validator "^5.2.0"
+    wkx "0.2.0"
 
 sequencify@~0.0.7:
   version "0.0.7"
@@ -4197,6 +4256,14 @@ setprototypeof@1.0.2:
 setprototypeof@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.0.3.tgz#66567e37043eeb4f04d91bd658c0cbefb55b8e04"
+
+shimmer@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shimmer/-/shimmer-1.0.0.tgz#49c2d71c678360b802be18b278382d1cbb805c39"
+
+shimmer@1.1.0, shimmer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shimmer/-/shimmer-1.1.0.tgz#97d7377137ffbbab425522e429fe0aa89a488b35"
 
 sigmund@~1.0.0:
   version "1.0.1"
@@ -4494,6 +4561,18 @@ taskgroup@^4.0.5, taskgroup@^4.2.0:
     ambi "^2.2.0"
     csextends "^1.0.3"
 
+terraformer-wkt-parser@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/terraformer-wkt-parser/-/terraformer-wkt-parser-1.1.2.tgz#336a0c8fc82094a5aff83288f69aedecd369bf0c"
+  dependencies:
+    terraformer "~1.0.5"
+
+terraformer@~1.0.5:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/terraformer/-/terraformer-1.0.8.tgz#51e0ad89746fcf2161dc6f65aa70e42377c8b593"
+  dependencies:
+    "@types/geojson" "^1.0.0"
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
@@ -4544,6 +4623,10 @@ to-fast-properties@^1.0.1:
 to-iso-string@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/to-iso-string/-/to-iso-string-0.0.2.tgz#4dc19e664dfccbe25bd8db508b00c6da158255d1"
+
+toposort-class@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/toposort-class/-/toposort-class-1.0.1.tgz#7ffd1f78c8be28c3ba45cd4e1a3f5ee193bd9988"
 
 tough-cookie@~2.3.0:
   version "2.3.2"
@@ -4720,6 +4803,10 @@ validator@4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-4.4.0.tgz#35e29555dd5f7826f970a4eaecff9e6df6df3da6"
 
+validator@^5.2.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-5.7.0.tgz#7a87a58146b695ac486071141c0c49d67da05e5c"
+
 validator@~3.41.2:
   version "3.41.3"
   resolved "https://registry.yarnpkg.com/validator/-/validator-3.41.3.tgz#bd214a4f7372db32ba78b899525f5f91adb3d217"
@@ -4801,13 +4888,6 @@ waterline-criteria@~1.0.1:
   dependencies:
     lodash "3.10.1"
 
-waterline-cursor@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/waterline-cursor/-/waterline-cursor-0.0.6.tgz#7750eea88b88f800996d1153047dbc850f452f4f"
-  dependencies:
-    async "~0.9.0"
-    lodash "~2.4.1"
-
 waterline-cursor@~0.0.6:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/waterline-cursor/-/waterline-cursor-0.0.7.tgz#ccd9cfed661d94af6027495942b5fa27ad65feb3"
@@ -4815,7 +4895,7 @@ waterline-cursor@~0.0.6:
     async "1.5.2"
     lodash "3.10.1"
 
-waterline-errors@0.10.1, waterline-errors@~0.10.1:
+waterline-errors@~0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/waterline-errors/-/waterline-errors-0.10.1.tgz#ee63632aadde993271b7514b7ca98d9fd5b86a2e"
 
@@ -4824,12 +4904,6 @@ waterline-schema@~0.2.1:
   resolved "https://registry.yarnpkg.com/waterline-schema/-/waterline-schema-0.2.2.tgz#3a5af0d795e5c23b080fbb0b99f9d00a5e407a4c"
   dependencies:
     lodash "3.10.1"
-
-waterline-sequel@0.5.7:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/waterline-sequel/-/waterline-sequel-0.5.7.tgz#1d7e4328babfad8a31bd3fb26a86d71800ad828d"
-  dependencies:
-    lodash "3.10.0"
 
 waterline@~0.11.0:
   version "0.11.11"
@@ -4876,6 +4950,10 @@ winston@0.8.x:
     isstream "0.1.x"
     pkginfo "0.3.x"
     stack-trace "0.0.x"
+
+wkx@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.2.0.tgz#76c24f16acd0cd8f93cd34aa331e0f7961256e84"
 
 wordwrap@0.0.2:
   version "0.0.2"

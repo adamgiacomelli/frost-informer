@@ -3,6 +3,8 @@
     "modules": {}
   },
   "hooks": {
+    "orm": false,
+    "pubsub": false,
     "session": false,
     "blueprints": false,
     "views": false,
