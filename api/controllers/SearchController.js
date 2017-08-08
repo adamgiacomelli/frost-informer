@@ -16,16 +16,21 @@ module.exports = {
         followers_max     = req.query.followers_max;
 
 
-    let artists = [];
+    if (!validationHelper.isPositiveInt(results_per_page)) {
+      res.status(400).send({message: 'Number od results is not a positive integer.'});
+    } else {
 
-    for (let i=0; i<results_per_page; i++) {
-      artists.push(hardcodedHelpers.generateArtist());
+      let artists = [];
+      for (let i = 0; i < results_per_page; i++) {
+        artists.push(hardcodedHelpers.generateArtist());
+      }
+
+      res.status(200).send({
+        results: artists,
+        total_pages: 24
+      });
+
     }
-
-    res.status(200).send({
-      results: artists,
-      total_pages: 24
-    });
 
   }
 

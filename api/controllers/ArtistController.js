@@ -15,10 +15,10 @@ module.exports = {
         results_per_page  = req.query.results_per_page || 6;
 
 
-    if (!/^\d+$/.test(page) || page < 1) {
+    if (!validationHelper.isPositiveInt(page)) {
       res.status(400).send({message: 'Page does not exist. Please use page number that equals or is greater than 1.'});
-    } else if (!/^\d+$/.test(results_per_page)) {
-      res.status(400).send({message: 'Number of results per page is negative or is not an integer'});
+    } else if (!validationHelper.isPositiveInt(results_per_page)) {
+      res.status(400).send({message: 'Number of results per page is not a positive integer'});
     } else  {
 
       // hardcoded response for frontend use
