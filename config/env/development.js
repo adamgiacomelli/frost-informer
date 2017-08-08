@@ -18,8 +18,12 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'localMysqlDB',
+    connection: 'DockerMysqlDB',
     migrate: 'drop'
-  }
+  },
+
+  log: {
+    level: "verbose"
+  },
 
 };

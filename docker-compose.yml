@@ -27,6 +27,7 @@ services:
       - ./assets:/app/assets
       - ./config:/app/config
       - ./test:/app/test
+      - ./.sailsrc:/app/.sailsrc
     depends_on:
       - "db"
     links:

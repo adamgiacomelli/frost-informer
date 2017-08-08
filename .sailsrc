@@ -7,6 +7,7 @@
     "pubsub": false,
     "session": false,
     "blueprints": false,
+    "waterline": false,
     "views": false,
     "grunt": false
   },
