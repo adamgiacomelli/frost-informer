@@ -44,7 +44,22 @@ module.exports.routes = {
           description: 'Query parameter error.'
         }
       },
-      parameters: []
+      parameters: [
+        {
+          name: 'page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '1'
+        },
+        {
+          name: 'results_per_page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '6'
+        }
+      ]
     }
   },
 
@@ -55,11 +70,12 @@ module.exports.routes = {
     swagger: {
       methods: ['GET'],
       summary: 'Search artists',
+      description: '#####Action: \n query the database for photographers with given parameters. \n#####Returns:\nArray of matching artists.',
       produces: [
         'application/json'
       ],
       tags: [
-        'Featured'
+        'Search'
       ],
       responses: {
         '200': {
@@ -69,7 +85,34 @@ module.exports.routes = {
           description: 'Query parameter error.'
         }
       },
-      parameters: []
+      parameters: [
+        {
+          name: 'lat',
+          in: 'query',
+          required: true,
+          type: 'float'
+        },
+        {
+          name: 'lon',
+          in: 'query',
+          required: true,
+          type: 'float'
+        },
+        {
+          name: 'page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '1'
+        },
+        {
+          name: 'results_per_page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '10'
+        }
+      ]
     }
   },
 
