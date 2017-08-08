@@ -1,7 +1,7 @@
 /**
- * Created on 08/08/2017.
- *
  * User.js
+ *
+ * @description :: User model associated with users table in the database
  */
 
 module.exports = {

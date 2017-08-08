@@ -1,7 +1,6 @@
 /**
- * Created on 08/08/2017.
- *
  * Photographer.js
+ * @description :: Photographer options connected with User model
  */
 
 module.exports = {

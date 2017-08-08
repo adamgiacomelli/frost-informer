@@ -1,7 +1,6 @@
 /**
- * Created on 08/08/2017.
- *
  * Photo.js
+ * @description :: Photo model
  */
 
 module.exports = {
