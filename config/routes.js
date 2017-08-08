@@ -48,6 +48,31 @@ module.exports.routes = {
     }
   },
 
+  // search
+  'GET /v1/search': {
+    controller: 'SearchController',
+    action: 'search',
+    swagger: {
+      methods: ['GET'],
+      summary: 'Search artists',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Featured'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns list of artists filtered by given parameters.',
+        },
+        '400': {
+          description: 'Query parameter error.'
+        }
+      },
+      parameters: []
+    }
+  },
+
   // static page routes
 
   'PUT /v1/static-page/': {
