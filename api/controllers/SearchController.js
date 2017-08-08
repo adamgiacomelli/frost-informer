@@ -18,6 +18,12 @@ module.exports = {
 
     if (!validationHelper.isPositiveInt(results_per_page)) {
       res.status(400).send({message: 'Number od results is not a positive integer.'});
+    } else if(!validationHelper.isPositiveInt(page)) {
+      res.status(400).send({message: 'Page number is not a positive integer.'});
+    } else if(!lat || !validationHelper.isValidCoordinate(lat)) {
+      res.status(400).send({message: 'Latitude is not a valid coordinate.'});
+    } else if(!lon || !validationHelper.isValidCoordinate(lon)) {
+      res.status(400).send({message: 'Longitude is not a valid coordinate.'});
     } else {
 
       let artists = [];
