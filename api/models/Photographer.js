@@ -32,7 +32,7 @@ module.exports = {
   defaultScope: function () {
   },
   options: {
-    tableName: 'Photographer_options',
+    tableName: 'photographer_options',
     classMethods: {},
     instanceMethods: {},
     hooks: {},

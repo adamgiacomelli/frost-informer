@@ -15,7 +15,7 @@ module.exports = {
   associations: function () {},
   defaultScope: function () {},
   options: {
-    tableName: 'Categories',
+    tableName: 'categories',
     classMethods: {},
     instanceMethods: {},
     hooks: {},

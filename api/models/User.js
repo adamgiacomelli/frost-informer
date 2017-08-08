@@ -35,7 +35,7 @@ module.exports = {
   defaultScope: function () {
   },
   options: {
-    tableName: 'Users',
+    tableName: 'users',
     classMethods: {},
     instanceMethods: {},
     hooks: {},

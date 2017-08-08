@@ -28,7 +28,7 @@ module.exports = {
   },
   defaultScope: function () {},
   options: {
-    tableName: 'Photos',
+    tableName: 'photos',
     classMethods: {},
     instanceMethods: {},
     hooks: {},
