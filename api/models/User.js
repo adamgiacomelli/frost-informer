@@ -1,34 +1,45 @@
 /**
- * User.js
+ * Created on 08/08/2017.
  *
- * @description :: User model associated with users table in the database
- * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
+ * User.js
  */
 
 module.exports = {
 
-  connection: 'localMysqlDB',
-  tableName: 'User',
+  schema: true,
+
   attributes: {
     username: {
-      type: 'string'
+      type: Sequelize.STRING,
     },
     password: {
-      type: 'string'
+      type: Sequelize.STRING,
     },
     fullname: {
-      type: 'string'
+      type: Sequelize.STRING,
     },
     authToken: {
-      type: 'string'
+      type: Sequelize.STRING,
     },
     lat: {
-      type: 'float'
+      type: Sequelize.FLOAT,
+      allowNull: true
     },
     lon: {
-      type: 'float'
-    },
-    
+      type: Sequelize.FLOAT,
+      allowNull: false
+    }
+  },
+  associations: function () {
+  },
+  defaultScope: function () {
+  },
+  options: {
+    tableName: 'Users',
+    classMethods: {},
+    instanceMethods: {},
+    hooks: {},
+    scopes: {}
   }
 
 };

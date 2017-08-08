@@ -1,7 +1,7 @@
 /**
  * Created on 08/08/2017.
  *
- * Photographer.js
+ * Photo.js
  */
 
 module.exports = {
@@ -9,31 +9,27 @@ module.exports = {
   schema: true,
 
   attributes: {
-    studio: {
-      type: Sequelize.BOOLEAN,
-    },
-    expertise: {
-      type: Sequelize.STRING,
-    },
-    priceRange: {
-      type: Sequelize.INTEGER,
-    },
-    instagramToken: {
+    instagramImageId: {
       type: Sequelize.STRING,
     }
   },
   associations: function () {
-    Photographer.belongsTo(User, {
+    Photo.belongsTo(Category, {
+      foreignKey: {
+        name: 'categoryId',
+        allowNull: false
+      }
+    });
+    Photo.belongsTo(User, {
       foreignKey: {
         name: 'userId',
         allowNull: false
       }
-    })
+    });
   },
-  defaultScope: function () {
-  },
+  defaultScope: function () {},
   options: {
-    tableName: 'Photographer_options',
+    tableName: 'Photos',
     classMethods: {},
     instanceMethods: {},
     hooks: {},
