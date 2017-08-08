@@ -10,15 +10,23 @@ module.exports = {
 
   attributes: {
     url: {
-      type: 'string',
-      required: true,
-      unique: true,
-      alphanumericdashed: true
+      type: Sequelize.STRING,
+      allowNull: false
     },
-
     content: {
-      type: 'string'
+      type: Sequelize.STRING,
     },
+  },
+  associations: function () {
+  },
+  defaultScope: function () {
+  },
+  options: {
+    tableName: 'staticpage',
+    classMethods: {},
+    instanceMethods: {},
+    hooks: {},
+    scopes: {}
   }
 };
 

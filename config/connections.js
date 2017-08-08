@@ -38,9 +38,22 @@ module.exports.connections = {
     database: 'cherrydeck-dev',
     dialect: 'mysql',
     options: {
+      dialect: 'mysql',
       host: 'mysql',
       port: 3306,
-      logging: true
+      logging: console.log
+    },
+  },
+
+  HerokuMysqlDB: {
+    user: 'bb458bc07bfd70',
+    password: '5d8d22c5',
+    database: 'heroku_506a445ccb4df1f',
+    dialect: 'mysql',
+    options: {
+      dialect: 'mysql',
+      host: 'eu-cdbr-west-01.cleardb.com',
+      logging: console.log
     },
   },
 
