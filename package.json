@@ -21,6 +21,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
+    "test": "nyc make test",
     "docker": "NODE_PATH=../install node app.js"
   },
   "engines": {
@@ -34,6 +35,8 @@
   "author": "Adam Giacomelli",
   "license": "",
   "devDependencies": {
-    "eslint-config-google": "^0.9.1"
+    "babel-plugin-istanbul": "^4.1.4",
+    "eslint-config-google": "^0.9.1",
+    "nyc": "^11.1.0"
   }
 }

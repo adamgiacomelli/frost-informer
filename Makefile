@@ -13,6 +13,7 @@
 ENV_VARS=NODE_ENV=test PORT=9999
 TEST_DIR=test/unit/
 
+NYC_BIN=./node_modules/.bin/nyc
 MOCHA_BIN=mocha
 MOCHA_DEFAULT_OPTS=--recursive -t 30000
 MOCHA_OPTS=-R spec
@@ -24,7 +25,6 @@ ifneq "$(wildcard ./node_modules/.bin/mocha)" ""
     MOCHA_BIN=./node_modules/.bin/mocha
 endif
 
-
 check: test
 
 test:
@@ -34,7 +34,7 @@ test:
 	@$(eval TARGETS=$(TARGETS:/%=%))
 	@$(eval TARGETS=$(addprefix $(TEST_DIR),$(TARGETS)))
 	@$(eval TARGET=$(shell [ -z $(firstword ${TARGETS}) ] && echo ${TEST_DIR}))
-	@$(ENV_VARS) $(MOCHA_BIN) $(MOCHA_DEFAULT_OPTS) $(MOCHA_OPTS) $(TARGET) $(TARGETS)
+	@$(ENV_VARS) $(NYC_BIN) $(MOCHA_BIN) $(MOCHA_DEFAULT_OPTS) $(MOCHA_OPTS) $(TARGET) $(TARGETS)
 
 clean:
 	@echo 'deleting node_modules...'

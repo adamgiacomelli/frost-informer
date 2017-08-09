@@ -1,0 +1,11 @@
+{
+  "exclude": [
+    "app.js",
+    "assets/**/*.js",
+    "config/**/*.js",
+    "test/**/*.js"
+  ],
+  "sourceMap": false,
+  "instrument": true,
+  "all": true
+}
