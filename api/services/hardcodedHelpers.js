@@ -1,7 +1,3 @@
-/**
- * Created by zigakerec on 07/08/2017.
- */
-
 module.exports = {
 
   /**
@@ -19,6 +15,9 @@ module.exports = {
         city: arrayHelpers.getRandomArrayString(cities)
       },
       followers: Math.floor((Math.random() * 120239) + 8300),
+      studio: Math.random() >= 0.5,
+      expertise: Math.random() >= 0.5 ? 'professional' : 'amateur',
+      price_range: Math.floor((Math.random() * 5) + 1),
       photos: [
         {
           thumbnail_url: arrayHelpers.getRandomArrayString(photos)

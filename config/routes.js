@@ -43,7 +43,75 @@ module.exports.routes = {
           description: 'Query parameter error.'
         }
       },
-      parameters: []
+      parameters: [
+        {
+          name: 'page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '1'
+        },
+        {
+          name: 'results_per_page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '6'
+        }
+      ]
+    }
+  },
+
+  // search
+  'GET /v1/search': {
+    controller: 'SearchController',
+    action: 'search',
+    swagger: {
+      methods: ['GET'],
+      summary: 'Search artists',
+      description: '#####Action: \n query the database for photographers with given parameters. \n#####Returns:\nArray of matching artists.',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Search'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns list of artists filtered by given parameters.',
+        },
+        '400': {
+          description: 'Query parameter error.'
+        }
+      },
+      parameters: [
+        {
+          name: 'lat',
+          in: 'query',
+          required: true,
+          type: 'float'
+        },
+        {
+          name: 'lon',
+          in: 'query',
+          required: true,
+          type: 'float'
+        },
+        {
+          name: 'page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '1'
+        },
+        {
+          name: 'results_per_page',
+          in: 'query',
+          required: false,
+          type: 'int',
+          default: '10'
+        }
+      ]
     }
   },
 
