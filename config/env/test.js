@@ -18,8 +18,8 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'localDiskDb',
-    migrate: 'drop',
+    connection: 'HerokuMysqlDB',
+    migrate: 'safe',
   },
 
   /***************************************************************************
