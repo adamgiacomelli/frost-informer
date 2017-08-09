@@ -1,3 +1,7 @@
+/* ESLint local declarations */
+/* global validationHelper, hardcodedHelpers */
+/* ESLint end */
+
 module.exports = {
 
   /**
@@ -7,8 +11,8 @@ module.exports = {
    * @return artists: array of featured artists
    * */
   getFeatured: function(req, res) {
-    let page              = req.query.page || 1,
-        results_per_page  = req.query.results_per_page || 6;
+    let page              = req.query.page || 1;
+    let results_per_page  = req.query.results_per_page || 6;
 
 
     if (!validationHelper.isPositiveInt(page)) {
