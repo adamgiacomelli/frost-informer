@@ -7,12 +7,12 @@ api.use({
 
 module.exports = {
 
-  authorizeUser: function(req, res) {
-    res.redirect(api.get_authorization_url(redirect_url, { scope: ['likes'], state: 'a state' }));
+  authorizeUser: function (req, res) {
+    res.redirect(api.get_authorization_url(redirect_url, {scope: ['likes'], state: 'a state'}));
   },
 
-  handleAuth: function(req, res) {
-    api.authorize_user(req.query.code, redirect_url, function(err, result) {
+  handleAuth: function (req, res) {
+    api.authorize_user(req.query.code, redirect_url, function (err, result) {
       if (err) {
         console.log(err.body);
         res.send("Didn't work");
@@ -27,5 +27,4 @@ module.exports = {
       }
     });
   }
-
-};
+}
