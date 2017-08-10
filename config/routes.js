@@ -22,6 +22,7 @@
 
 module.exports.routes = {
 
+  // featured
   'GET /v1/featured': {
     controller: 'ArtistController',
     action: 'getFeatured',
@@ -115,8 +116,7 @@ module.exports.routes = {
     }
   },
 
-  // static page routes
-
+  // static page
   'PUT /v1/static-page/': {
     controller: 'StaticPageController',
     action: 'create',
@@ -211,5 +211,16 @@ module.exports.routes = {
       parameters: []
     }
   },
+
+  // authentication
+  'GET /v1/authorize-user': {
+    controller: 'AuthController',
+    action: 'authorizeUser'
+  },
+
+  'GET /v1/handle-auth': {
+    controller: 'AuthController',
+    action: 'handleAuth'
+  }
 
 };

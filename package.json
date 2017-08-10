@@ -8,6 +8,7 @@
     "ejs": "2.3.4",
     "eslint": "^4.4.1",
     "include-all": "^1.0.0",
+    "instagram-node": "^0.5.8",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.0",
     "rc": "1.0.1",
