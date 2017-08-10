@@ -19,6 +19,10 @@ module.exports = {
     },
     instagramToken: {
       type: Sequelize.STRING,
+    },
+    instagramId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     }
   },
   associations: function () {

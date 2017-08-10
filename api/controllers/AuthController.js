@@ -17,13 +17,19 @@ module.exports = {
         console.log(err.body);
         res.send("Didn't work");
       } else {
-        console.log(result);
-        console.log('Yay! Access token is ' + result.access_token);
 
-        let access_token = result.access_token;
+        console.log('Instagram access token granted');
+
+        // todo: find user by instagram id [Photographer]
+
+        // todo: if the user does not exist create user [User] and user options [Photographer]
+
+        // todo: return token with user id in it
+
+        let token = jwToken.issue({id : result.user.id });
 
 
-        res.send('You made it!!');
+
       }
     });
   }
