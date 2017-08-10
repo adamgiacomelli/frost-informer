@@ -15,21 +15,44 @@ module.exports = {
     api.authorize_user(req.query.code, redirect_url, function (err, result) {
       if (err) {
         console.log(err.body);
-        res.send("Didn't work");
       } else {
 
-        console.log('Instagram access token granted');
+        let instagramId = result.user.id;
+        let token;
 
         // todo: find user by instagram id [Photographer]
+        let p_photographer = Photographer.findOne({
+          where: {instagramId},
+          include: [
+            {model: User, as: 'user'}
+          ]
+        });
 
-        // todo: if the user does not exist create user [User] and user options [Photographer]
-
-        // todo: return token with user id in it
-
-        let token = jwToken.issue({id : result.user.id });
-
-
-
+        p_photographer.then(photographer => {
+          if (photographer) {
+            res.status(200).send({
+              token: jwToken.issue({id: photographer.userId})
+            });
+          } else {
+            let p_user = User.create({
+              username: result.user.username,
+              fullname: result.user.full_name,
+              status: 'PENDING'
+            });
+            p_user.then(user => {
+              if (user) {
+                Photographer.create({
+                  instagramId,
+                  userId: user.id
+                }).then(newPhotographer => {
+                  res.status(200).send({
+                    token: jwToken.issue({id: newPhotographer.userId})
+                  })
+                });
+              }
+            });
+          }
+        });
       }
     });
   }
