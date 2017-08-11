@@ -35,4 +35,6 @@ module.exports = {
   //   level: "silent"
   // }
 
+
+  redirectUrl: 'https://cherrydeck-backend.herokuapp.com/v1/handle-auth'
 };

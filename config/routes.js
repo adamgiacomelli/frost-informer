@@ -22,6 +22,7 @@
 
 module.exports.routes = {
 
+  // featured
   'GET /v1/featured': {
     controller: 'ArtistController',
     action: 'getFeatured',
@@ -115,8 +116,7 @@ module.exports.routes = {
     }
   },
 
-  // static page routes
-
+  // static page
   'PUT /v1/static-page/': {
     controller: 'StaticPageController',
     action: 'create',
@@ -211,5 +211,36 @@ module.exports.routes = {
       parameters: []
     }
   },
+
+  // authentication
+  'GET /v1/authorize-user': {
+    controller: 'AuthController',
+    action: 'authorizeUser',
+    swagger: {
+      methods: ['GET'],
+      summary: ' Authorize user ',
+      description: '#####Action: \nLogs in existing user or creates new user.\n#####Returns: object -> {token: jwt token}',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Login'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns newly issued token',
+        },
+        '400': {
+          description: 'Error with creating new or logging in existing user.'
+        }
+      },
+      parameters: []
+    }
+  },
+
+  'GET /v1/handle-auth': {
+    controller: 'AuthController',
+    action: 'handleAuth'
+  }
 
 };

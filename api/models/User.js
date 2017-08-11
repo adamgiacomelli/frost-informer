@@ -23,11 +23,12 @@ module.exports = {
     },
     lat: {
       type: Sequelize.FLOAT,
-      allowNull: true
     },
     lon: {
       type: Sequelize.FLOAT,
-      allowNull: false
+    },
+    status: {
+      type: Sequelize.STRING
     }
   },
   associations: function () {

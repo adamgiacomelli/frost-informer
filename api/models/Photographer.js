@@ -19,10 +19,15 @@ module.exports = {
     },
     instagramToken: {
       type: Sequelize.STRING,
+    },
+    instagramId: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   },
   associations: function () {
     Photographer.belongsTo(User, {
+      as: 'user',
       foreignKey: {
         name: 'userId',
         allowNull: false
