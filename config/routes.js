@@ -215,7 +215,27 @@ module.exports.routes = {
   // authentication
   'GET /v1/authorize-user': {
     controller: 'AuthController',
-    action: 'authorizeUser'
+    action: 'authorizeUser',
+    swagger: {
+      methods: ['GET'],
+      summary: ' Authorize user ',
+      description: '#####Action: \nLogs in existing user or creates new user.\n#####Returns: object -> {token: jwt token}',
+      produces: [
+        'application/json'
+      ],
+      tags: [
+        'Login'
+      ],
+      responses: {
+        '200': {
+          description: 'Returns newly issued token',
+        },
+        '400': {
+          description: 'Error with creating new or logging in existing user.'
+        }
+      },
+      parameters: []
+    }
   },
 
   'GET /v1/handle-auth': {

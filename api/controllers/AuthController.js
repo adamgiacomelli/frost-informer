@@ -1,8 +1,8 @@
 const api = require('instagram-node').instagram();
 const redirect_url = 'http://localhost:5050/v1/handle-auth';
 api.use({
-  client_id: '68546bcfaf2c47dd934fdc3ef3f936d8',
-  client_secret: '093508203e2c4f93a0d8f4594ffde329'
+  client_id: sails.config.auth.IG_CLIENTID,
+  client_secret: sails.config.auth.IG_CLIENT_SECRET
 });
 
 module.exports = {
@@ -20,7 +20,6 @@ module.exports = {
         let instagramId = result.user.id;
         let token;
 
-        // todo: find user by instagram id [Photographer]
         let p_photographer = Photographer.findOne({
           where: {instagramId},
           include: [

@@ -8,6 +8,7 @@
 module.exports = function (req, res, next) {
     let token;
 
+    // check for headers & parameters
     if (req.headers && req.headers.authorization) {
         let parts = req.headers.authorization.split(' ');
         if (parts.length == 2) {
@@ -22,16 +23,15 @@ module.exports = function (req, res, next) {
         }
     } else if (req.param('token')) {
         token = req.param('token');
-        // We delete the token from param to not mess with blueprints
         delete req.query.token;
     } else {
         return res.json(401, {err: 'No Authorization header was found'});
     }
 
+    // verify token
     jwToken.verify(token, function (err, token) {
         if (err) return res.json(401, {err: 'Invalid Token!'});
-        console.log('Decrypted token:', token);
-        req.token = token; // This is the decrypted token or the payload you provided
+        req.token = token;
         next();
     });
 };
