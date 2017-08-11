@@ -26,4 +26,6 @@ module.exports = {
     level: "verbose"
   },
 
+  redirectUrl: 'http://localhost:5050/v1/handle-auth'
+
 };

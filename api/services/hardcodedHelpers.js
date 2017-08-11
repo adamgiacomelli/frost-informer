@@ -17,16 +17,16 @@ module.exports = {
       followers: Math.floor((Math.random() * 120239) + 8300),
       studio: Math.random() >= 0.5,
       expertise: Math.random() >= 0.5 ? 'professional' : 'amateur',
-      price_range: Math.floor((Math.random() * 5) + 1),
+      priceRange: Math.floor((Math.random() * 5) + 1),
       photos: [
         {
-          thumbnail_url: arrayHelpers.getRandomArrayString(photos)
+          thumbnailUrl: arrayHelpers.getRandomArrayString(photos)
         },
         {
-          thumbnail_url: arrayHelpers.getRandomArrayString(photos)
+          thumbnailUrl: arrayHelpers.getRandomArrayString(photos)
         },
         {
-          thumbnail_url: arrayHelpers.getRandomArrayString(photos)
+          thumbnailUrl: arrayHelpers.getRandomArrayString(photos)
         }
       ]
     }
