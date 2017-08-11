@@ -1,3 +1,4 @@
+import uuid from 'uuid/v1';
 module.exports = {
 
   /**
@@ -14,6 +15,7 @@ module.exports = {
       location: {
         city: arrayHelpers.getRandomArrayString(cities)
       },
+      id: uuid(),
       followers: Math.floor((Math.random() * 120239) + 8300),
       studio: Math.random() >= 0.5,
       expertise: Math.random() >= 0.5 ? 'professional' : 'amateur',
