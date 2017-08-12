@@ -18,6 +18,7 @@ module.exports = {
       id: uuid(),
       followers: Math.floor((Math.random() * 120239) + 8300),
       studio: Math.random() >= 0.5,
+      avatar: arrayHelpers.getRandomArrayString(photos),
       expertise: Math.random() >= 0.5 ? 'professional' : 'amateur',
       priceRange: Math.floor((Math.random() * 5) + 1),
       photos: [
