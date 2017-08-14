@@ -19,9 +19,9 @@ module.exports = {
         allowNull: false
       }
     });
-    Photo.belongsTo(User, {
+    Photo.belongsTo(Photographer, {
       foreignKey: {
-        name: 'userId',
+        name: 'photographerId',
         allowNull: false
       }
     });

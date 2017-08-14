@@ -12,7 +12,14 @@ module.exports = {
       type: Sequelize.STRING,
     }
   },
-  associations: function () {},
+  associations: function () {
+    Category.hasMany(Photo, {
+      foreignKey: {
+        name: 'categoryId',
+        allowNull: false
+      }
+    });
+  },
   defaultScope: function () {},
   options: {
     tableName: 'categories',
