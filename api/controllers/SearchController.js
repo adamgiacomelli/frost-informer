@@ -2,14 +2,9 @@ module.exports = {
 
   search: function(req, res) {
 
-    let page              = req.query.page || 1,
-        results_per_page  = req.query.results_per_page || 10,
-        lat               = req.query.lat,
-        lon               = req.query.lon,
-        category          = req.query.category,
-        radius            = req.query.radius,
-        followers_min     = req.query.followers_min,
-        followers_max     = req.query.followers_max;
+    let { lat, lon, category, radius, followers_min, followers_max, page, results_per_page } = req.query;
+    page = page || 1;
+    results_per_page = results_per_page || 10;
 
     // todo: test for page out of range
 
@@ -23,6 +18,28 @@ module.exports = {
       res.status(400).send({message: 'Longitude is not defined or is not a valid coordinate.'});
     } else {
 
+      let query = searchHelpers.querySetup(req.query);
+
+      let promises = [];
+      promises.push(Photographer.count());
+
+      /** grab users from database */
+      promises.push(Photographer.findAll({
+        limit: results_per_page,
+        offset: (page-1)*results_per_page
+      }));
+
+      Promise.all(promises)
+        .then(results => {
+          res.status(200).send(results);
+        });
+
+      /**
+       * hardcore generated users
+       * todo: remove code block
+       * */
+
+      /*
       let artists = [];
       for (let i = 0; i < results_per_page; i++) {
         artists.push(hardcodedHelpers.generateArtist());
@@ -32,6 +49,7 @@ module.exports = {
         results: artists,
         total_pages: 24
       });
+      */
 
     }
 

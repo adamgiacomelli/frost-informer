@@ -10,28 +10,37 @@ module.exports = {
 
   attributes: {
     username: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     fullname: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     authToken: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
+    },
+    avatar: {
+      type: Sequelize.STRING
     },
     lat: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.FLOAT
     },
     lon: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.FLOAT
     },
     status: {
       type: Sequelize.STRING
     }
   },
   associations: function () {
+    User.hasOne(Photographer, {
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      }
+    })
   },
   defaultScope: function () {
   },

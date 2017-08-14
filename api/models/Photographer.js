@@ -32,12 +32,18 @@ module.exports = {
         name: 'userId',
         allowNull: false
       }
+    });
+    Photographer.hasMany(Photo, {
+      foreignKey: {
+        name: 'photographerId',
+        allowNull: false
+      }
     })
   },
   defaultScope: function () {
   },
   options: {
-    tableName: 'photographer_options',
+    tableName: 'photographers',
     classMethods: {},
     instanceMethods: {},
     hooks: {},
