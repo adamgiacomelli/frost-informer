@@ -35,12 +35,23 @@ module.exports = {
     let where = {
       expertise: 'professional'
     };
+    let photosWhere = {};
+    if (category) {
+      photosWhere.categoryId = category;
+    }
 
     return {
       where,
       include: [
-        {model: User, as: 'user'},
-        {model: Photo, as: 'photos'}
+        {
+          model: User,
+          as: 'user'
+        },
+        {
+          model: Photo,
+          as: 'photos',
+          where: photosWhere
+        }
       ]
     };
   }

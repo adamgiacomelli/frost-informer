@@ -18,6 +18,8 @@ module.exports = {
       res.status(400).send({message: 'Latitude is not defined or is not a valid coordinate.'});
     } else if(!lon || !validationHelper.isValidCoordinate(lon)) {
       res.status(400).send({message: 'Longitude is not defined or is not a valid coordinate.'});
+    } else if(category && !validationHelper.isPositiveInt(parseInt(category))) {
+      res.status(400).send({message: 'Category is not a positive integer.'});
     } else {
 
       let pagination = {
