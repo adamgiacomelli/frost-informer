@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 module.exports = {
 
   search: function(req, res) {
@@ -18,20 +20,32 @@ module.exports = {
       res.status(400).send({message: 'Longitude is not defined or is not a valid coordinate.'});
     } else {
 
-      let query = searchHelpers.querySetup(req.query);
-
-      let promises = [];
-      promises.push(Photographer.count());
-
-      /** grab users from database */
-      promises.push(Photographer.findAll({
+      let pagination = {
         limit: results_per_page,
         offset: (page-1)*results_per_page
-      }));
+      };
+      let query = searchHelpers.querySetup(req.query);
+
+      // count users
+      let promises = [];
+      promises.push(Photographer.count(query));
+
+      // grab users from database
+      promises.push(
+        Photographer.findAll(Object.assign(pagination, query))
+      );
 
       Promise.all(promises)
         .then(results => {
-          res.status(200).send(results);
+          let photographers = [];
+          _.map(results[1], photographer => {
+            photographers.push(searchHelpers.generatePhotographer(photographer));
+          });
+
+          res.status(200).send({
+            results: photographers,
+            totalPages: Math.ceil(results[0]/results_per_page)
+          });
         });
 
       /**

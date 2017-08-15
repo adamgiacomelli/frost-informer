@@ -34,6 +34,7 @@ module.exports = {
       }
     });
     Photographer.hasMany(Photo, {
+      as: 'photos',
       foreignKey: {
         name: 'photographerId',
         allowNull: false
