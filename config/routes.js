@@ -241,6 +241,12 @@ module.exports.routes = {
   'GET /v1/handle-auth': {
     controller: 'AuthController',
     action: 'handleAuth'
+  },
+
+  // invitations
+  'POST /v1/invitation/submit': {
+    controller: 'InvitationController',
+    action: 'submitInvitation'
   }
 
 };
