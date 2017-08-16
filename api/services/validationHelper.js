@@ -1,6 +1,10 @@
 module.exports = {
 
   isPositiveInt: (val) => {
+    val = parseInt(val);
+    if (val < 0) {
+      return false;
+    }
     let regEx = new RegExp('[1-9][0-9]*');
     return regEx.test(val);
   },

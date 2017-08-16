@@ -25,10 +25,10 @@ module.exports = {
       type: Sequelize.STRING
     },
     lat: {
-      type: Sequelize.FLOAT
+      type: Sequelize.DOUBLE
     },
     lon: {
-      type: Sequelize.FLOAT
+      type: Sequelize.DOUBLE
     },
     status: {
       type: Sequelize.STRING

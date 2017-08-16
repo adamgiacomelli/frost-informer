@@ -17,6 +17,9 @@ module.exports = {
     priceRange: {
       type: Sequelize.INTEGER,
     },
+    followers: {
+      type: Sequelize.BIGINT
+    },
     instagramToken: {
       type: Sequelize.STRING,
     },

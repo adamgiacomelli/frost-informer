@@ -3,17 +3,16 @@ module.exports = {
 
   generatePhotographer: (record) => {
 
-    let selection = arrayHelpers.getRandomArrayItems(record.photos, 3);
-    let photos = [];
+    //let selection = arrayHelpers.getRandomArrayItems(record.photos, 3);
 
+    let photos = [];
     // retrieve instagram photo details
-    _.map(selection, photo => {
+    _.map(record.photos, photo => {
       let p = instagramApiService.getMedia(photo.instagramImageId);
       photos.push({
         thumbnailUrl: p.data.images.thumbnail.url
       })
     });
-
 
     return {
       name: record.user.fullname,
@@ -21,7 +20,7 @@ module.exports = {
         city: 'This is yet to be retrieved'
       },
       id: record.user.id,
-      followers: Math.floor((Math.random() * 120239) + 8300),
+      followers: record.followers,
       studio: record.studio,
       avatar: record.user.avatar,
       expertise: record.expertise,
@@ -32,12 +31,32 @@ module.exports = {
 
   querySetup: (query) => {
     let { lat, lon, category, radius, followers_min, followers_max } = query;
-    let where = {
-      expertise: 'professional'
-    };
+    let where = {};
+    let usersWhere = {};
     let photosWhere = {};
+
+    lat = parseFloat(lat);
+    lon = parseFloat(lon);
+
+    if (followers_max && followers_min) {
+      where.followers = {
+        $between: [followers_min, followers_max]
+      }
+    }
+
     if (category) {
       photosWhere.categoryId = category;
+    }
+
+    if (radius) {
+      // 111km is aprox. 1 degree on a map
+      let degDist = parseInt(radius) / 111;
+      usersWhere.lat = {
+        $between: [lat - degDist, lat + degDist]
+      };
+      usersWhere.lon = {
+        $between: [lon - degDist, lon + degDist]
+      };
     }
 
     return {
@@ -45,7 +64,8 @@ module.exports = {
       include: [
         {
           model: User,
-          as: 'user'
+          as: 'user',
+          where: usersWhere
         },
         {
           model: Photo,

@@ -5,8 +5,8 @@ module.exports = {
   search: function(req, res) {
 
     let { lat, lon, category, radius, followers_min, followers_max, page, results_per_page } = req.query;
-    page = page || 1;
-    results_per_page = results_per_page || 10;
+    page = parseInt(page) || 1;
+    results_per_page = parseInt(results_per_page) || 10;
 
     // todo: test for page out of range
 
@@ -20,6 +20,14 @@ module.exports = {
       res.status(400).send({message: 'Longitude is not defined or is not a valid coordinate.'});
     } else if(category && !validationHelper.isPositiveInt(parseInt(category))) {
       res.status(400).send({message: 'Category is not a positive integer.'});
+    } else if((followers_min && !followers_max) || followers_max && !followers_min) {
+      res.status(400).send({message: 'Both followers_min and followers_max have to be set!'});
+    } else if(followers_max && followers_min && (!validationHelper.isPositiveInt(parseInt(followers_min)) || !validationHelper.isPositiveInt(parseInt(followers_max)))) {
+      res.status(400).send({message: 'Both followers_min and followers_max have to be positive integers!'});
+    } else if(followers_max < followers_min) {
+      res.status(400).send({message: 'followers_max has to be higher number than followers_mon'});
+    } else if(radius && !validationHelper.isPositiveInt(radius)) {
+      res.status(400).send({message: 'Radius should be positive integer (distance in kilometers).'})
     } else {
 
       let pagination = {
@@ -27,45 +35,25 @@ module.exports = {
         offset: (page-1)*results_per_page
       };
       let query = searchHelpers.querySetup(req.query);
+      let props = {};
 
-      // count users
-      let promises = [];
-      promises.push(Photographer.count(query));
+      Object.assign(props, ...[pagination, query, {distinct: true}]);
 
       // grab users from database
-      promises.push(
-        Photographer.findAll(Object.assign(pagination, query))
-      );
+      let pUsers = Photographer.findAndCountAll(props);
+      pUsers
+        .then(result => {
 
-      Promise.all(promises)
-        .then(results => {
           let photographers = [];
-          _.map(results[1], photographer => {
+          _.map(result.rows, photographer => {
             photographers.push(searchHelpers.generatePhotographer(photographer));
           });
 
           res.status(200).send({
             results: photographers,
-            totalPages: Math.ceil(results[0]/results_per_page)
+            totalPages: Math.ceil(result.count/results_per_page)
           });
         });
-
-      /**
-       * hardcore generated users
-       * todo: remove code block
-       * */
-
-      /*
-      let artists = [];
-      for (let i = 0; i < results_per_page; i++) {
-        artists.push(hardcodedHelpers.generateArtist());
-      }
-
-      res.status(200).send({
-        results: artists,
-        total_pages: 24
-      });
-      */
 
     }
 

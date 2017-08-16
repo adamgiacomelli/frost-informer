@@ -16,7 +16,7 @@ module.exports.bootstrap = function(cb) {
   const NUMBER_OF_USERS = 100;
 
   // seed database with users
-  if(process.env.NODE_ENV !== 'development')
+  if(process.env.NODE_ENV === 'production')
     return cb();
 
   // create two sample categories
