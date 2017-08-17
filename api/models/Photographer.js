@@ -42,7 +42,12 @@ module.exports = {
         name: 'photographerId',
         allowNull: false
       }
-    })
+    });
+    Photographer.belongsToMany(Category, {
+      through: 'photographerCategories',
+      as: 'categories',
+      foreignKey: 'photographerId'
+    });
   },
   defaultScope: function () {
   },

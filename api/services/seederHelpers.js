@@ -28,7 +28,7 @@ module.exports = {
       expertise: Math.random() >= 0.5 ? 'professional' : 'amateur',
       priceRange: Math.floor((Math.random() * 5) + 1),
       instagramId: Math.floor(Math.random() * 20000 + 99),
-      followers: Math.floor(Math.random() * 2500 + 1000)
+      followers: Math.floor(Math.random() * 2500 + 1000),
     })
   },
 
