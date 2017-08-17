@@ -9,15 +9,8 @@ describe(TEST_NAME, () => {
       .send({
         code: 'this-is-the-code'
       })
-      .expect(200)
-      .end((err, res) => {
-        if (err)
-          done(err);
-        else {
-          res.body.should.have.property('code');
-          done();
-        }
-      });
+      .expect(400)
+      .end(done);
   });
 
   it(`POST ${path} - no invitation code supplied`, (done) => {
