@@ -1,7 +1,3 @@
-/**
- * Created by zigakerec on 07/08/2017.
- */
-
 require('sails-test-helper');
 
 describe(TEST_NAME, () => {
