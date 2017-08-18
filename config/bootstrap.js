@@ -61,30 +61,6 @@ module.exports.bootstrap = function(cb) {
 
     });
 
-  // generate photographers and 9 sample photos per photographer
-  /*
-  let pPhotographers = [];
-  Promise.all(pUsers)
-    .then(users => {
-      // create photographers
-        _.map(users, user => {
-            pPhotographers.push(Photographer.create(seederHelpers.generatePhotographer(user.id)));
-          });
-
-        Promise.all(pPhotographers)
-          .then(photographers => {
-            // generate 9 photos per user
-            _.map(photographers, photographer => {
-              for (let i=0; i<9; i++) {
-                Photo.create(seederHelpers.generatePhoto(photographer, Math.floor(Math.random() * 5) + 1))
-              }
-            })
-          });
-      });
-      */
-
-
-
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

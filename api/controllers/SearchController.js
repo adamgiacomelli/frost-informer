@@ -37,15 +37,22 @@ module.exports = {
       let query = searchHelpers.querySetup(req.query);
       let props = {};
 
-      Object.assign(props, ...[pagination, query, {distinct: true}]);
+      if (category) {
+        pagination = {};
+      }
+
+      Object.assign(props, ...[query, {distinct: true}, pagination]);
 
       // grab users from database
-      let pUsers = Photographer.findAndCountAll(props);
-      pUsers
+      let pPhotographers = Photographer.findAndCountAll(props);
+      pPhotographers
         .then(result => {
-
+          let r = result.rows;
+          if (category) {
+            r = _.slice(result.rows, (page-1)*results_per_page, (page-1)*results_per_page + results_per_page);
+          }
           let photographers = [];
-          _.map(result.rows, photographer => {
+          _.map(r, photographer => {
             photographers.push(searchHelpers.generatePhotographer(photographer));
           });
 
@@ -53,7 +60,10 @@ module.exports = {
             results: photographers,
             totalPages: Math.ceil(result.count/results_per_page)
           });
-        });
+        })
+        .catch(err => {
+          res.status(400).send({ message: 'Error retrieving photographers:', err });
+        })
 
     }
 

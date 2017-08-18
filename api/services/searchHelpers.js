@@ -32,8 +32,8 @@ module.exports = {
   querySetup: (query) => {
     let { lat, lon, category, radius, followers_min, followers_max } = query;
     let where = {};
+    let categoryWhere = {};
     let usersWhere = {};
-    let photosWhere = {};
 
     lat = parseFloat(lat);
     lon = parseFloat(lon);
@@ -42,10 +42,6 @@ module.exports = {
       where.followers = {
         $between: [followers_min, followers_max]
       }
-    }
-
-    if (category) {
-      photosWhere.categoryId = category;
     }
 
     if (radius) {
@@ -59,6 +55,13 @@ module.exports = {
       };
     }
 
+    if (category) {
+      categoryWhere = {
+        id: parseInt(category)
+      };
+    }
+
+
     return {
       where,
       include: [
@@ -70,7 +73,11 @@ module.exports = {
         {
           model: Photo,
           as: 'photos',
-          where: photosWhere
+        },
+        {
+          model: Category,
+          as: 'categories',
+          where: categoryWhere,
         }
       ]
     };
