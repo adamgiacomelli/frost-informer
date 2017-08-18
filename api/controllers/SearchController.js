@@ -8,8 +8,6 @@ module.exports = {
     page = parseInt(page) || 1;
     results_per_page = parseInt(results_per_page) || 10;
 
-    // todo: test for page out of range
-
     if (!validationHelper.isPositiveInt(results_per_page)) {
       res.status(400).send({message: 'Number od results is not a positive integer.'});
     } else if(!validationHelper.isPositiveInt(page)) {
@@ -37,10 +35,6 @@ module.exports = {
       let query = searchHelpers.querySetup(req.query);
       let props = {};
 
-      if (category) {
-        pagination = {};
-      }
-
       Object.assign(props, ...[query, {distinct: true}, pagination]);
 
       // grab users from database
@@ -48,9 +42,6 @@ module.exports = {
       pPhotographers
         .then(result => {
           let r = result.rows;
-          if (category) {
-            r = _.slice(result.rows, (page-1)*results_per_page, (page-1)*results_per_page + results_per_page);
-          }
           let photographers = [];
           _.map(r, photographer => {
             photographers.push(searchHelpers.generatePhotographer(photographer));

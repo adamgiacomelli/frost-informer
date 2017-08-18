@@ -57,7 +57,7 @@ module.exports = {
 
     if (category) {
       categoryWhere = {
-        id: parseInt(category)
+        categoryId: parseInt(category)
       };
     }
 
@@ -68,18 +68,18 @@ module.exports = {
         {
           model: User,
           as: 'user',
-          where: usersWhere
+          where: usersWhere,
         },
         {
           model: Photo,
           as: 'photos',
         },
         {
-          model: Category,
-          as: 'categories',
+          model: PhotographerCategories,
+          as: 'categoryIds',
           where: categoryWhere,
         }
-      ]
+      ],
     };
   }
 };

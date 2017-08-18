@@ -44,10 +44,17 @@ module.exports = {
       }
     });
     Photographer.belongsToMany(Category, {
-      through: 'photographerCategories',
+      through: PhotographerCategories,
       as: 'categories',
       foreignKey: 'photographerId'
     });
+    Photographer.hasMany(PhotographerCategories, {
+      foreignKey: {
+        name: 'photographerId',
+        allowNull: false
+      },
+      as: 'categoryIds'
+    })
   },
   defaultScope: function () {
   },

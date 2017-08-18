@@ -20,7 +20,7 @@ module.exports = {
       }
     });
     Category.belongsToMany(Photographer, {
-      through: 'photographerCategories',
+      through: PhotographerCategories,
       as: 'categoryPhotographers',
       foreignKey: 'categoryId'
     })
