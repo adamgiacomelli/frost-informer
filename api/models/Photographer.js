@@ -17,6 +17,9 @@ module.exports = {
     priceRange: {
       type: Sequelize.INTEGER,
     },
+    followers: {
+      type: Sequelize.BIGINT
+    },
     instagramToken: {
       type: Sequelize.STRING,
     },
@@ -34,10 +37,23 @@ module.exports = {
       }
     });
     Photographer.hasMany(Photo, {
+      as: 'photos',
       foreignKey: {
         name: 'photographerId',
         allowNull: false
       }
+    });
+    Photographer.belongsToMany(Category, {
+      through: PhotographerCategories,
+      as: 'categories',
+      foreignKey: 'photographerId'
+    });
+    Photographer.hasMany(PhotographerCategories, {
+      foreignKey: {
+        name: 'photographerId',
+        allowNull: false
+      },
+      as: 'categoryIds'
     })
   },
   defaultScope: function () {
