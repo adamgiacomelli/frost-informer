@@ -24,7 +24,7 @@ module.exports.routes = {
 
   // featured
   'GET /v1/featured': {
-    controller: 'ArtistController',
+    controller: 'PhotographerController',
     action: 'getFeatured',
     swagger: {
       methods: ['GET'],
@@ -247,6 +247,12 @@ module.exports.routes = {
   'POST /v1/invitation/submit': {
     controller: 'InvitationController',
     action: 'submitInvitation'
+  },
+
+  // photographer routes
+  'GET /v1/user/:id': {
+    controller: 'PhotographerController',
+    action: 'getBasicInfo'
   }
 
 };

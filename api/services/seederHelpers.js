@@ -13,7 +13,8 @@ module.exports = {
     const randomPoint = arrayHelpers.getRandomArrayItem(seederHelpers.locations);
     return ({
       username: arrayHelpers.getRandomArrayItem(seederHelpers.usernames),
-      fullname: arrayHelpers.getRandomArrayItem(seederHelpers.fullnames),
+      firstName: arrayHelpers.getRandomArrayItem(seederHelpers.fullnames).split(" ")[0],
+      lastName: arrayHelpers.getRandomArrayItem(seederHelpers.fullnames).split(" ")[1],
       avatar: arrayHelpers.getRandomArrayItem(seederHelpers.avatars),
       lat: randomPoint.lat,
       lon: randomPoint.lon,

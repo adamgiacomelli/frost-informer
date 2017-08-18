@@ -3,8 +3,6 @@ module.exports = {
 
   generatePhotographer: (record) => {
 
-    //let selection = arrayHelpers.getRandomArrayItems(record.photos, 3);
-
     let photos = [];
     // retrieve instagram photo details
     _.map(record.photos, photo => {
@@ -15,7 +13,7 @@ module.exports = {
     });
 
     return {
-      name: record.user.fullname,
+      name: `${record.user.firstName} ${record.user.lastName}`,
       location: {
         city: 'This is yet to be retrieved'
       },

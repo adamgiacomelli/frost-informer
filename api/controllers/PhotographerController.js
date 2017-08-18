@@ -5,7 +5,37 @@
 module.exports = {
 
   /**
-   * GET featured artists [landing page]
+   * GET basic information for single photographer
+   * */
+  getBasicInfo: function(req, res) {
+    let userId = req.param('id');
+
+    if(!validationHelper.isPositiveInt(userId)) {
+      res.status(400).send({ message: 'User ID is not a positive integer.' });
+    } else {
+      let pPhotographer = Photographer.findOne({
+        where: { userId },
+        include: [
+          {
+            model: User,
+            as: 'user'
+          },
+          {
+            model: Category,
+            as: 'categories'
+          }
+        ]
+      });
+
+      pPhotographer.then(photographer => {
+        res.status(200).send(responseParseService.photographerBasicInfo(photographer));
+      })
+    }
+
+  },
+
+  /**
+   * GET featured photographers [landing page]
    * @query page: pagination current page
    * @query results_per_page: number of wanted results per page
    * @return artists: array of featured artists
@@ -35,7 +65,8 @@ module.exports = {
         total_pages: 24
       });
     }
-
   }
+
+
 };
 

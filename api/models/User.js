@@ -15,7 +15,13 @@ module.exports = {
     password: {
       type: Sequelize.STRING
     },
-    fullname: {
+    firstName: {
+      type: Sequelize.STRING
+    },
+    lastName: {
+      type: Sequelize.STRING
+    },
+    email: {
       type: Sequelize.STRING
     },
     authToken: {
@@ -38,7 +44,8 @@ module.exports = {
     User.hasOne(Photographer, {
       foreignKey: {
         name: 'userId',
-        allowNull: false
+        allowNull: false,
+        as: 'photographer'
       }
     })
   },
