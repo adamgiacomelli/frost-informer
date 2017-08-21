@@ -106,6 +106,8 @@ npm-debug.log
 # operating systems, file systems, etc.
 ################################################
 assets/public/apidoc
+assets/public/*.hot-update.json
+assets/public/*.hot-update.js
 
 
 ################################################
