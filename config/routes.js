@@ -250,7 +250,7 @@ module.exports.routes = {
   },
 
   // photographer routes
-  'GET /v1/user/:id': {
+  'GET /v1/me': {
     controller: 'PhotographerController',
     action: 'getBasicInfo'
   }

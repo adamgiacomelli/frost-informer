@@ -16,8 +16,12 @@ module.exports = {
       if (err) {
         console.log(err.body);
       } else {
-invitat
+
         let instagramId = result.user.id;
+        let name = result.user.full_name.split(" ");
+        let firstName = name[0];
+        name.shift();
+        let lastName = name.join(" ");
         let token;
 
         let pPhotographer = Photographer.findOne({
@@ -35,8 +39,9 @@ invitat
           } else {
             let pUser = User.create({
               username: result.user.username,
-              fullname: result.user.full_name,
-              status: 'PENDING'
+              status: 'PENDING',
+              firstName,
+              lastName,
             });
             pUser.then(user => {
               if (user) {

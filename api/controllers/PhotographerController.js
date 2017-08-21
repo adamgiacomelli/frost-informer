@@ -8,7 +8,9 @@ module.exports = {
    * GET basic information for single photographer
    * */
   getBasicInfo: function(req, res) {
-    let userId = req.param('id');
+
+    let userId = req.token.id;
+    //let userId = 1;
 
     if(!validationHelper.isPositiveInt(userId)) {
       res.status(400).send({ message: 'User ID is not a positive integer.' });
