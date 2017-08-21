@@ -13,13 +13,11 @@ module.exports = {
       allowNull: false
     },
     content: {
-      type: Sequelize.STRING,
-    },
+      type: Sequelize.STRING
+    }
   },
-  associations: function () {
-  },
-  defaultScope: function () {
-  },
+  associations: function() {},
+  defaultScope: function() {},
   options: {
     tableName: 'staticpage',
     classMethods: {},
@@ -28,5 +26,3 @@ module.exports = {
     scopes: {}
   }
 };
-
-

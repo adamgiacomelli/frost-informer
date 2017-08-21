@@ -4,15 +4,14 @@
  */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
     instagramImageId: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   },
-  associations: function () {
+  associations: function() {
     Photo.belongsTo(Category, {
       foreignKey: {
         name: 'categoryId',
@@ -26,7 +25,7 @@ module.exports = {
       }
     });
   },
-  defaultScope: function () {},
+  defaultScope: function() {},
   options: {
     tableName: 'photos',
     classMethods: {},
@@ -34,5 +33,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };

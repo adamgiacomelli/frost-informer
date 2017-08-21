@@ -5,7 +5,6 @@
  */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
@@ -15,7 +14,13 @@ module.exports = {
     password: {
       type: Sequelize.STRING
     },
-    fullname: {
+    firstName: {
+      type: Sequelize.STRING
+    },
+    lastName: {
+      type: Sequelize.STRING
+    },
+    email: {
       type: Sequelize.STRING
     },
     authToken: {
@@ -34,16 +39,16 @@ module.exports = {
       type: Sequelize.STRING
     }
   },
-  associations: function () {
+  associations: function() {
     User.hasOne(Photographer, {
       foreignKey: {
         name: 'userId',
-        allowNull: false
+        allowNull: false,
+        as: 'photographer'
       }
-    })
+    });
   },
-  defaultScope: function () {
-  },
+  defaultScope: function() {},
   options: {
     tableName: 'users',
     classMethods: {},
@@ -51,5 +56,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };

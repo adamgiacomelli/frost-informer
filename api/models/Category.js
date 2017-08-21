@@ -4,15 +4,14 @@
  */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     }
   },
-  associations: function () {
+  associations: function() {
     Category.hasMany(Photo, {
       foreignKey: {
         name: 'categoryId',
@@ -23,9 +22,9 @@ module.exports = {
       through: PhotographerCategories,
       as: 'categoryPhotographers',
       foreignKey: 'categoryId'
-    })
+    });
   },
-  defaultScope: function () {},
+  defaultScope: function() {},
   options: {
     tableName: 'categories',
     classMethods: {},
@@ -33,5 +32,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };

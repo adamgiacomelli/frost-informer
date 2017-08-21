@@ -4,31 +4,30 @@
  */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
     studio: {
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.BOOLEAN
     },
     expertise: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     priceRange: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER
     },
     followers: {
       type: Sequelize.BIGINT
     },
     instagramToken: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     instagramId: {
       type: Sequelize.STRING,
       allowNull: false
     }
   },
-  associations: function () {
+  associations: function() {
     Photographer.belongsTo(User, {
       as: 'user',
       foreignKey: {
@@ -54,10 +53,9 @@ module.exports = {
         allowNull: false
       },
       as: 'categoryIds'
-    })
+    });
   },
-  defaultScope: function () {
-  },
+  defaultScope: function() {},
   options: {
     tableName: 'photographers',
     classMethods: {},
@@ -65,5 +63,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };

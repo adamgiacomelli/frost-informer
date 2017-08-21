@@ -5,44 +5,39 @@
  */
 
 module.exports = {
-
   /**
    * `StaticPageController.create()`
    */
-  create: function (req, res) {
+  create: function(req, res) {
     return res.json({
       todo: 'create() is not implemented yet!'
     });
   },
 
-
   /**
    * `StaticPageController.update()`
    */
-  update: function (req, res) {
+  update: function(req, res) {
     return res.json({
       todo: 'update() is not implemented yet!'
     });
   },
 
-
   /**
    * `StaticPageController.delete()`
    */
-  delete: function (req, res) {
+  delete: function(req, res) {
     return res.json({
       todo: 'delete() is not implemented yet!'
     });
   },
 
-
   /**
    * `StaticPageController.get()`
    */
-  get: function (req, res) {
+  get: function(req, res) {
     return res.json({
       todo: 'get() is not implemented yet!'
     });
   }
 };
-
