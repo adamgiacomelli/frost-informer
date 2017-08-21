@@ -23,11 +23,11 @@
 module.exports.routes = {
 
   /**
-   * @api {get} /v1/featured/ Request featured photographers
+   * @api {get} /featured Request featured photographers
    * @apiName GetFeatured
    * @apiGroup Featured
    *   
-   * @apiParam {Number} page Which page of results to return .
+   * @apiParam {Number} page Which page of results to return.
    * @apiParam {Number} results_per_page How many results per page.
    *
    * @apiSuccess {Array} photographer List of featured artists.
@@ -38,14 +38,18 @@ module.exports.routes = {
   },
 
   /**
-   * @api {get} /v1/search/ Search photographers
+   * @api {get} /search Search photographers
    * @apiName Search
    * @apiGroup Search
    *   
    * @apiParam {Number} lat Lattitude.
    * @apiParam {Number} lon Longitude.
-   * @apiParam {Number} page Which page of results to return .
-   * @apiParam {Number} results_per_page How many results per page.
+   * @apiParam {Number} [page=1] Which page of results to return.
+   * @apiParam {Number} [results_per_page=10] How many results per page.
+   * @apiParam {Number} [category] CategoryId.
+   * @apiParam {Number} [radius] Filter results by radius in km.
+   * @apiParam {Number} [followers_min] Filter by minimal number of followers.
+   * @apiParam {Number} [followers_max] Filter by maximal number of followers.
    *
    * @apiSuccess {Array} photographer List of results.
    */
@@ -59,24 +63,6 @@ module.exports.routes = {
     controller: 'StaticPageController',
     action: 'create',
     skipAssets: 'true',
-    swagger: {
-      methods: ['PUT'],
-      summary: 'Create a static page',
-      description: '#####Action: \nCreate a new static page with provided parameters \n#####Returns: \nThe created static page.',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'StaticPage'
-      ],
-      responses: {
-        '200': {
-          description: 'Returns the new static page',
-          schema: 'StaticPage', // api/models/StaticPage.js,
-        }
-      },
-      parameters: []
-    }
   },
 
 
@@ -84,96 +70,24 @@ module.exports.routes = {
     controller: 'StaticPageController',
     action: 'update',
     skipAssets: 'true',
-    swagger: {
-      methods: ['POST'],
-      summary: ' Update a static page ',
-      description: '#####Action: \nUpdates a static page with the provided parameters \n#####Returns: \nThe updated static page.',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'StaticPage'
-      ],
-      responses: {
-        '200': {
-          schema: 'StaticPage', // api/model/StaticPage.js,
-        },
-      },
-      parameters: []
-    }
   },
 
   'GET /v1/static-page/:id': {
     controller: 'StaticPageController',
     action: 'get',
     skipAssets: 'true',
-    swagger: {
-      methods: ['GET'],
-      summary: ' Get a static page ',
-      description: '#####Action: \nGets a static page with the provided id \n#####Returns: \nThe static page.',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'StaticPage'
-      ],
-      responses: {
-        '200': {
-          description: 'A static page',
-          schema: 'StaticPage', // api/model/StaticPage.js,
-        }
-      },
-      parameters: []
-    }
   },
 
   'DELETE /v1/static-page/:id': {
     controller: 'StaticPageController',
     action: 'delete',
     skipAssets: 'true',
-    swagger: {
-      methods: ['DELETE'],
-      summary: ' Delete a static page ',
-      description: '#####Action: \nDeletes a static page with the provided id.',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'StaticPage'
-      ],
-      responses: {
-        '200': {
-          description: 'Page has been successfully deleted **{deleted_id: <id>, result: success}**',
-        }
-      },
-      parameters: []
-    }
   },
 
   // authentication
   'GET /v1/authorize-user': {
     controller: 'AuthController',
     action: 'authorizeUser',
-    swagger: {
-      methods: ['GET'],
-      summary: ' Authorize user ',
-      description: '#####Action: \nLogs in existing user or creates new user.\n#####Returns: object -> {token: jwt token}',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'Login'
-      ],
-      responses: {
-        '200': {
-          description: 'Returns newly issued token',
-        },
-        '400': {
-          description: 'Error with creating new or logging in existing user.'
-        }
-      },
-      parameters: []
-    }
   },
 
   'GET /v1/handle-auth': {
@@ -187,7 +101,15 @@ module.exports.routes = {
     action: 'submitInvitation'
   },
 
-  // photographer routes
+  /**
+   * @api {get} /me Get basic information for logged in user
+   * @apiName User
+   * @apiGroup User
+   *
+   * @apiHeader {String} authorization JW token.
+   *
+   * @apiSuccess {Object} Current user basic data.
+   */
   'GET /v1/me': {
     controller: 'PhotographerController',
     action: 'getBasicInfo'
