@@ -1,15 +1,13 @@
 const _ = require('lodash');
 module.exports = {
-
-  generatePhotographer: (record) => {
-
+  generatePhotographer: record => {
     let photos = [];
     // retrieve instagram photo details
     _.map(record.photos, photo => {
       let p = instagramApiService.getMedia(photo.instagramImageId);
       photos.push({
         thumbnailUrl: p.data.images.thumbnail.url
-      })
+      });
     });
 
     return {
@@ -27,7 +25,7 @@ module.exports = {
     };
   },
 
-  querySetup: (query) => {
+  querySetup: query => {
     let { lat, lon, category, radius, followers_min, followers_max } = query;
     let where = {};
     let categoryWhere = {};
@@ -39,7 +37,7 @@ module.exports = {
     if (followers_max && followers_min) {
       where.followers = {
         $between: [followers_min, followers_max]
-      }
+      };
     }
 
     if (radius) {
@@ -59,25 +57,24 @@ module.exports = {
       };
     }
 
-
     return {
       where,
       include: [
         {
           model: User,
           as: 'user',
-          where: usersWhere,
+          where: usersWhere
         },
         {
           model: Photo,
-          as: 'photos',
+          as: 'photos'
         },
         {
           model: PhotographerCategories,
           as: 'categoryIds',
-          where: categoryWhere,
+          where: categoryWhere
         }
-      ],
+      ]
     };
   }
 };

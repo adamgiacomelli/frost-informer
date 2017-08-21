@@ -1,6 +1,5 @@
 module.exports = {
-
-  isPositiveInt: (val) => {
+  isPositiveInt: val => {
     val = parseInt(val);
     if (val < 0) {
       return false;
@@ -9,9 +8,8 @@ module.exports = {
     return regEx.test(val);
   },
 
-  isValidCoordinate: (c) => {
+  isValidCoordinate: c => {
     let regEx = new RegExp('-?[0-9]{1,3}[.][0-9]+');
     return regEx.test(c);
   }
-
 };

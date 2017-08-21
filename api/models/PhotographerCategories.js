@@ -1,5 +1,4 @@
 module.exports = {
-
   schema: true,
 
   attributes: {
@@ -9,15 +8,14 @@ module.exports = {
       autoIncrement: true
     }
   },
-  associations: function () {
+  associations: function() {
     PhotographerCategories.belongsTo(Photographer, {
       foreignKey: 'photographerId',
       as: 'categoryIds',
       allowNull: false
-    })
+    });
   },
-  defaultScope: function () {
-  },
+  defaultScope: function() {},
   options: {
     tableName: 'photographerCategories',
     classMethods: {},
@@ -25,5 +23,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };

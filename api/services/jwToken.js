@@ -9,18 +9,10 @@ const jwt = require('jsonwebtoken');
 const tokenSecret = sails.config.auth.TOKEN_SECRET;
 
 module.exports = {
-    issue: (payload) => {
-        return jwt.sign(
-            payload,
-            tokenSecret
-        );
-    },
-    verify: (token, callback) => {
-        return jwt.verify(
-            token,
-            tokenSecret,
-            {},
-            callback
-        );
-    }
+  issue: payload => {
+    return jwt.sign(payload, tokenSecret);
+  },
+  verify: (token, callback) => {
+    return jwt.verify(token, tokenSecret, {}, callback);
+  }
 };

@@ -3,16 +3,14 @@
 /* ESLint end */
 
 module.exports = {
-
   /**
    * GET basic information for single photographer
    * */
   getBasicInfo: function(req, res) {
-
     let userId = req.token.id;
     //let userId = 1;
 
-    if(!validationHelper.isPositiveInt(userId)) {
+    if (!validationHelper.isPositiveInt(userId)) {
       res.status(400).send({ message: 'User ID is not a positive integer.' });
     } else {
       let pPhotographer = Photographer.findOne({
@@ -30,10 +28,11 @@ module.exports = {
       });
 
       pPhotographer.then(photographer => {
-        res.status(200).send(responseParseService.photographerBasicInfo(photographer));
-      })
+        res
+          .status(200)
+          .send(responseParseService.photographerBasicInfo(photographer));
+      });
     }
-
   },
 
   /**
@@ -43,21 +42,28 @@ module.exports = {
    * @return artists: array of featured artists
    * */
   getFeatured: function(req, res) {
-    let page              = req.query.page || 1;
-    let results_per_page  = req.query.results_per_page || 6;
-
+    let page = req.query.page || 1;
+    let results_per_page = req.query.results_per_page || 6;
 
     if (!validationHelper.isPositiveInt(page)) {
-      res.status(400).send({message: 'Page does not exist. Please use page number that equals or is greater than 1.'});
+      res
+        .status(400)
+        .send({
+          message:
+            'Page does not exist. Please use page number that equals or is greater than 1.'
+        });
     } else if (!validationHelper.isPositiveInt(results_per_page)) {
-      res.status(400).send({message: 'Number of results per page is not a positive integer'});
-    } else  {
-
+      res
+        .status(400)
+        .send({
+          message: 'Number of results per page is not a positive integer'
+        });
+    } else {
       // hardcoded response for frontend use
       // todo: to be replaced with real database-model data
       let artists = [];
 
-      for (let i=0; i<results_per_page; i++) {
+      for (let i = 0; i < results_per_page; i++) {
         artists.push(hardcodedHelpers.generateArtist());
       }
 
@@ -68,7 +74,4 @@ module.exports = {
       });
     }
   }
-
-
 };
-

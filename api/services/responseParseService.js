@@ -1,7 +1,9 @@
 module.exports = {
-
   photographerBasicInfo: photographer => {
-    let categories = photographer.categories.map(({id, name}) => ({id, name}));
+    let categories = photographer.categories.map(({ id, name }) => ({
+      id,
+      name
+    }));
     return {
       id: photographer.user.id,
       firstName: photographer.user.firstName,
@@ -15,5 +17,4 @@ module.exports = {
       categories
     };
   }
-
 };
