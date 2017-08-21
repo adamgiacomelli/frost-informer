@@ -8,7 +8,7 @@ api.use({
 module.exports = {
 
   authorizeUser: function (req, res) {
-    res.redirect(api.get_authorization_url(redirectUrl, {scope: ['likes'], state: 'a state'}));
+    res.redirect(api.get_authorization_url(redirectUrl));
   },
 
   handleAuth: function (req, res) {
@@ -33,9 +33,19 @@ module.exports = {
 
         pPhotographer.then(photographer => {
           if (photographer) {
-            res.status(200).send({
-              token: jwToken.issue({id: photographer.userId})
-            });
+            token = jwToken.issue({id:photographer.userId});
+            User.update({
+              authToken:token
+            }, { where: {id: photographer.userId} })
+              .then(result => {
+                res.status(200).send({
+                  token
+                });
+              })
+              .catch(err => {
+                res.status(400).send({ message: 'Error updating auth token.' });
+              });
+
           } else {
             let pUser = User.create({
               username: result.user.username,
@@ -45,12 +55,14 @@ module.exports = {
             });
             pUser.then(user => {
               if (user) {
+                token = jwToken.issue({id:user.id});
+                user.update({ authToken: token });
                 Photographer.create({
                   instagramId,
                   userId: user.id
                 }).then(newPhotographer => {
                   res.status(200).send({
-                    token: jwToken.issue({id: newPhotographer.userId})
+                    token
                   })
                 });
               }
