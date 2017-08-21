@@ -31,7 +31,9 @@ module.exports = {
         res
           .status(200)
           .send(responseParseService.photographerBasicInfo(photographer));
-      });
+      }).catch(err => {
+        res.status(400).send({ message: `Error retrieving photographers data: ${err}` });
+      })
     }
   },
 
