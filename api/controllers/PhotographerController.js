@@ -37,6 +37,94 @@ module.exports = {
     }
   },
 
+  updateBasicInfo: function(req, res) {
+    //let userId = req.token.id;
+    let userId = 1;
+    let { firstName, lastName, lat, lon, email, studio, priceRange, categories } = req.body;
+
+    if(!validationHelper.isPositiveInt(userId)) {
+      res.status(400).send({ message: 'User ID is not a positive integer.' });
+    } else if((lat && !validationHelper.isValidCoordinate(lat)) || (lon && !validationHelper.isValidCoordinate(lon))) {
+      res.status(400).send({ message: 'lat & lon are not valid coordinates.' });
+    } else if (priceRange && (!validationHelper.isPositiveInt(priceRange) || priceRange > 5 || priceRange < 1)) {
+      res.status(400).send({ message: 'Price range needs to be an integer between 1 and 5.' });
+    } else if (email && !validationHelper.isValidEmail(email)) {
+      res.status(400).send({ message: 'Email address is not valid' });
+    } else {
+
+      Photographer.findOne({
+        where: { userId },
+        include: [
+          {
+            model: User,
+            as: 'user'
+          },
+          {
+            model: Category,
+            as: 'categories'
+          }
+        ]
+      })
+        .then(photographer => {
+          photographer.user.updateAttributes({
+            firstName
+          });
+          photographer.updateAttributes({
+            studio,
+            priceRange,
+          }).then(p => {
+            res.status(200).send(p);
+          })
+            .catch(err => {
+              res.status(400).send({message: `Error updating photographer attributes ${err}`});
+            })
+        })
+        .catch(err => {
+          res.status(400).send({message: `Error retrieving photographer: ${err}`})
+        });
+      /*
+      Photographer.update(
+        {
+          priceRange,
+          studio
+        }, {
+          where: { userId },
+        }
+      ).then(photographer => {
+        if (!photographer) {
+          res.status(400).send({ message: 'Phtographer not found.' });
+        } else {
+
+          Photographer.findOne({
+            where: { userId },
+            include: [
+              {
+                model: User,
+                as: 'user'
+              },
+              {
+                model: Category,
+                as: 'categories'
+              }
+            ]
+          })
+            .then(p => {
+              res.status(200).send(p);
+            })
+            .catch(err => {
+              res.status(400).send({ message: 'Error retrieving data.' });
+            });
+        }
+      })
+        .catch(err => {
+          res.status(500).send({ message: `Error updating photographer: ${err}` });
+        });
+        */
+
+    }
+
+  },
+
   /**
    * GET featured photographers [landing page]
    * @query page: pagination current page

@@ -108,7 +108,7 @@ module.exports.routes = {
 
   /**
    * @api {get} /me Get basic information for logged in user
-   * @apiName User
+   * @apiName Get basic user information
    * @apiGroup User
    *
    * @apiHeader {String} authorization JW token.
@@ -118,6 +118,20 @@ module.exports.routes = {
   'GET /v1/me': {
     controller: 'PhotographerController',
     action: 'getBasicInfo'
+  },
+
+  /**
+   * @api {put} /me Update basic information for logged in user
+   * @apiName Update basic user information
+   * @apiGroup User
+   *
+   * @apiHeader {String} authorization JW token.
+   *
+   * @apiSuccess {Object} Current user basic data.
+   * */
+  'PUT /v1/me': {
+    controller: 'PhotographerController',
+    action: 'updateBasicInfo'
   }
 
 };
