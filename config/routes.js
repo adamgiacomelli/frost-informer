@@ -33,7 +33,7 @@ module.exports.routes = {
    * @apiSuccess {Array} photographer List of featured artists.
    */
   'GET /v1/featured': {
-    controller: 'ArtistController',
+    controller: 'PhotographerController',
     action: 'getFeatured'  
   },
 
