@@ -19,6 +19,11 @@ module.exports = {
         allowNull: false
       }
     });
+    Category.belongsToMany(Photographer, {
+      through: PhotographerCategories,
+      as: 'categoryPhotographers',
+      foreignKey: 'categoryId'
+    })
   },
   defaultScope: function () {},
   options: {

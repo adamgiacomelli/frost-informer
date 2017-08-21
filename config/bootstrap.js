@@ -20,9 +20,12 @@ module.exports.bootstrap = function(cb) {
     return cb();
 
   // create two sample categories
-  let categories = [];
-  Category.create(seederHelpers.generateCategory('People & Lifestyle'));
-  Category.create(seederHelpers.generateCategory('Editorial & Documentary'));
+  let pCategories = [];
+  pCategories.push(Category.create(seederHelpers.generateCategory('People & Lifestyle')));
+  pCategories.push(Category.create(seederHelpers.generateCategory('Editorial & Documentary')));
+  pCategories.push(Category.create(seederHelpers.generateCategory('Sports & Transportation')));
+  pCategories.push(Category.create(seederHelpers.generateCategory('Architecture & Interior')));
+  pCategories.push(Category.create(seederHelpers.generateCategory('Business & Corporate')));
 
   let pUsers = [];
   // create multiple users
@@ -30,26 +33,33 @@ module.exports.bootstrap = function(cb) {
     pUsers.push(User.create(seederHelpers.generateUser()));
   }
 
-  // generate photographers and 9 sample photos per photographer
-  let pPhotographers = [];
-  Promise.all(pUsers)
-    .then(users => {
-      // create photographers
-      _.map(users, user => {
-          pPhotographers.push(Photographer.create(seederHelpers.generatePhotographer(user.id)));
-        });
+  Promise.all(pCategories)
+    .then(categories => {
 
-      Promise.all(pPhotographers)
-        .then(photographers => {
-          // generate 9 photos per user
-          _.map(photographers, photographer => {
-            for (let i=0; i<9; i++) {
-              Photo.create(seederHelpers.generatePhoto(photographer, Math.floor(Math.random() * 2) + 1))
-            }
+      let pPhotographers = [];
+      Promise.all(pUsers)
+        .then(users => {
+          // create photographers
+          _.map(users, user => {
+            pPhotographers.push(Photographer.create(seederHelpers.generatePhotographer(user.id, categories)));
+          });
+
+          Promise.all(pPhotographers)
+            .then(photographers => {
+              // generate 9 photos per user
+              _.map(photographers, photographer => {
+                let chosenCategories = arrayHelpers.getRandomArrayItems(categories, 2);
+                for (let i=0; i<9; i++) {
+                  Photo.create(seederHelpers.generatePhoto(photographer, Math.floor(Math.random() * 5) + 1))
+                }
+                photographer.setCategories(chosenCategories);
+              })
+            }).catch(err => {
+              console.log('Error: ', err);
           })
         });
-    });
 
+    });
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
