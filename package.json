@@ -28,7 +28,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js",
+    "start": "./node_modules/.bin/apidoc -i config/ -o assets/public/apidoc/ && node app.js",
     "test": "nyc make test",
     "apidoc": "./node_modules/.bin/apidoc -i config/ -o assets/public/apidoc/",
     "docker": "NODE_PATH=../install node app.js"
