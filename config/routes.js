@@ -22,98 +22,36 @@
 
 module.exports.routes = {
 
-  // featured
+  /**
+   * @api {get} /v1/featured/ Request featured photographers
+   * @apiName GetFeatured
+   * @apiGroup Featured
+   *   
+   * @apiParam {Number} page Which page of results to return .
+   * @apiParam {Number} results_per_page How many results per page.
+   *
+   * @apiSuccess {Array} photographer List of featured artists.
+   */
   'GET /v1/featured': {
-    controller: 'PhotographerController',
-    action: 'getFeatured',
-    swagger: {
-      methods: ['GET'],
-      summary: 'Get featured photographers',
-      description: '#####Action: \nGet currently featured photographers',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'Featured'
-      ],
-      responses: {
-        '200': {
-          description: 'Returns list of featured artists.',
-        },
-        '400': {
-          description: 'Query parameter error.'
-        }
-      },
-      parameters: [
-        {
-          name: 'page',
-          in: 'query',
-          required: false,
-          type: 'int',
-          default: '1'
-        },
-        {
-          name: 'results_per_page',
-          in: 'query',
-          required: false,
-          type: 'int',
-          default: '6'
-        }
-      ]
-    }
+    controller: 'ArtistController',
+    action: 'getFeatured'  
   },
 
-  // search
+  /**
+   * @api {get} /v1/search/ Search photographers
+   * @apiName Search
+   * @apiGroup Search
+   *   
+   * @apiParam {Number} lat Lattitude.
+   * @apiParam {Number} lon Longitude.
+   * @apiParam {Number} page Which page of results to return .
+   * @apiParam {Number} results_per_page How many results per page.
+   *
+   * @apiSuccess {Array} photographer List of results.
+   */
   'GET /v1/search': {
     controller: 'SearchController',
-    action: 'search',
-    swagger: {
-      methods: ['GET'],
-      summary: 'Search artists',
-      description: '#####Action: \n query the database for photographers with given parameters. \n#####Returns:\nArray of matching artists.',
-      produces: [
-        'application/json'
-      ],
-      tags: [
-        'Search'
-      ],
-      responses: {
-        '200': {
-          description: 'Returns list of artists filtered by given parameters.',
-        },
-        '400': {
-          description: 'Query parameter error.'
-        }
-      },
-      parameters: [
-        {
-          name: 'lat',
-          in: 'query',
-          required: true,
-          type: 'float'
-        },
-        {
-          name: 'lon',
-          in: 'query',
-          required: true,
-          type: 'float'
-        },
-        {
-          name: 'page',
-          in: 'query',
-          required: false,
-          type: 'int',
-          default: '1'
-        },
-        {
-          name: 'results_per_page',
-          in: 'query',
-          required: false,
-          type: 'int',
-          default: '10'
-        }
-      ]
-    }
+    action: 'search',   
   },
 
   // static page

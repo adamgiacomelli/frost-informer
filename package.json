@@ -5,6 +5,7 @@
   "description": "The CherryDeck backend",
   "keywords": [],
   "dependencies": {
+    "apidoc": "^0.17.6",
     "ejs": "2.3.4",
     "eslint": "^4.4.1",
     "include-all": "^1.0.0",
@@ -13,20 +14,25 @@
     "lodash": "^4.17.4",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.0",
+    "prettier-standard": "^6.0.0",
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-hook-babel": "^6.0.3",
     "sails-hook-sequelize": "https://github.com/festo/sails-hook-sequelize.git",
-    "sails-swagger": "https://github.com/adamgiacomelli/sails-swagger",
     "sails-test-helper": "^0.5.0",
     "uuid": "^3.1.0"
   },
+  "apidoc": {
+    "title": "Cherrydeck API documentation",
+    "url": "/v1"
+  },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js",
+    "start": "./node_modules/.bin/apidoc -i config/ -o assets/public/apidoc/ && node app.js",
     "test": "nyc make test",
-    "docker": "NODE_PATH=../install node app.js"
+    "apidoc": "./node_modules/.bin/apidoc -i config/ -o assets/public/apidoc/",
+    "standard-formatter": "node ./node_modules/.bin/prettier-standard api/**/*.js"
   },
   "engines": {
     "node": "6.10.0"
@@ -37,7 +43,7 @@
     "url": "https://github.com/cherrydeckone/cherrydeck-backend.git"
   },
   "author": "Adam Giacomelli",
-  "license": "",
+  "license": "CherryDeck All rights reserved.",
   "devDependencies": {
     "babel-plugin-istanbul": "^4.1.4",
     "eslint-config-google": "^0.9.1",
