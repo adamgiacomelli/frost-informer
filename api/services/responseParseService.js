@@ -4,6 +4,7 @@ module.exports = {
       id,
       name
     }));
+
     return {
       id: photographer.user.id,
       firstName: photographer.user.firstName,
@@ -16,5 +17,6 @@ module.exports = {
       price_range: photographer.priceRange,
       categories
     };
+
   }
 };
