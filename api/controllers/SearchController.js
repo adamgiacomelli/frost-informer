@@ -24,17 +24,13 @@ module.exports = {
         .status(400)
         .send({ message: 'Page number is not a positive integer.' });
     } else if (!lat || !validationHelper.isValidCoordinate(lat)) {
-      res
-        .status(400)
-        .send({
-          message: 'Latitude is not defined or is not a valid coordinate.'
-        });
+      res.status(400).send({
+        message: 'Latitude is not defined or is not a valid coordinate.'
+      });
     } else if (!lon || !validationHelper.isValidCoordinate(lon)) {
-      res
-        .status(400)
-        .send({
-          message: 'Longitude is not defined or is not a valid coordinate.'
-        });
+      res.status(400).send({
+        message: 'Longitude is not defined or is not a valid coordinate.'
+      });
     } else if (
       category &&
       !validationHelper.isPositiveInt(parseInt(category))
@@ -44,35 +40,27 @@ module.exports = {
       (followers_min && !followers_max) ||
       (followers_max && !followers_min)
     ) {
-      res
-        .status(400)
-        .send({
-          message: 'Both followers_min and followers_max have to be set!'
-        });
+      res.status(400).send({
+        message: 'Both followers_min and followers_max have to be set!'
+      });
     } else if (
       followers_max &&
       followers_min &&
       (!validationHelper.isPositiveInt(parseInt(followers_min)) ||
         !validationHelper.isPositiveInt(parseInt(followers_max)))
     ) {
-      res
-        .status(400)
-        .send({
-          message:
-            'Both followers_min and followers_max have to be positive integers!'
-        });
+      res.status(400).send({
+        message:
+          'Both followers_min and followers_max have to be positive integers!'
+      });
     } else if (followers_max < followers_min) {
-      res
-        .status(400)
-        .send({
-          message: 'followers_max has to be higher number than followers_mon'
-        });
+      res.status(400).send({
+        message: 'followers_max has to be higher number than followers_mon'
+      });
     } else if (radius && !validationHelper.isPositiveInt(radius)) {
-      res
-        .status(400)
-        .send({
-          message: 'Radius should be positive integer (distance in kilometers).'
-        });
+      res.status(400).send({
+        message: 'Radius should be positive integer (distance in kilometers).'
+      });
     } else {
       let pagination = {
         limit: results_per_page,
