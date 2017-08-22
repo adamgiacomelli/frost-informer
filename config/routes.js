@@ -118,6 +118,14 @@ module.exports.routes = {
   'GET /v1/me': {
     controller: 'PhotographerController',
     action: 'getBasicInfo'
+  },
+
+  /**
+   *
+   * */
+  'GET /v1/me/most-liked': {
+    controller: 'PhotographerController',
+    action: 'instagramMostLiked'
   }
 
 };

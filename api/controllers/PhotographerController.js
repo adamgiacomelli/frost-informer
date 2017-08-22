@@ -37,12 +37,22 @@ module.exports = {
     }
   },
 
-  /**
-   * GET featured photographers [landing page]
-   * @query page: pagination current page
-   * @query results_per_page: number of wanted results per page
-   * @return artists: array of featured artists
-   * */
+  instagramMostLiked: function(req, res) {
+    let userId = req.token.id;
+
+    Photographer.findOne({
+      where: { userId }
+    })
+      .then(photographer => {
+        instagramApiService.getUsersMedia(photographer, (medias) => {
+          res.status(200).send(medias);
+        });
+      })
+      .catch(err => {
+        res.status(400).send({ message: `Photographer not found ${err}` });
+      })
+  },
+
   getFeatured: function(req, res) {
     let page = req.query.page || 1;
     let results_per_page = req.query.results_per_page || 6;
@@ -75,5 +85,5 @@ module.exports = {
         total_pages: 24
       });
     }
-  }
+  },
 };
