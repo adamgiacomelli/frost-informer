@@ -26,7 +26,7 @@ $yellow:                          #ffc107 !default;
 $green:                           #4dbd74;
 $teal:                            #20c997 !default;
 $cyan:                            #63c2de;
-$cherryred:                       #FF1C4B;
+$cherryred:                       #EC607E;
 
 $colors: (
   blue:                           $blue,
@@ -41,7 +41,7 @@ $colors: (
   cyan:                           $cyan,
   white:                          $white,
   gray:                           $gray-600,
-  gray-dark:                      $gray-800  
+  gray-dark:                        $gray-800  
 );
 
 $theme-colors: (
@@ -50,7 +50,7 @@ $theme-colors: (
   success:                        $green,
   info:                           $cyan,
   warning:                        $yellow,
-  danger:                         $red,
+  danger:                         $orange,
   light:                          $gray-100,
   dark:                           $gray-800
 );
