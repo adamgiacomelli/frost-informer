@@ -8,9 +8,7 @@ const options = {
 const geocoder = NodeGeocoder(options);
 
 module.exports = {
-
   getGeolocString: ({ lat, lon }) => {
-    return geocoder.reverse({lat, lon});
+    return geocoder.reverse({ lat, lon });
   }
-
 };

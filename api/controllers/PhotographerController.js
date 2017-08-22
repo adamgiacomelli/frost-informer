@@ -29,7 +29,7 @@ module.exports = {
       pPhotographer
         .then(photographer => {
           if (!photographer) {
-            res.status(400).send({ message: 'Photographer not found.' })
+            res.status(400).send({ message: 'Photographer not found.' });
           } else {
             res
               .status(200)
@@ -70,11 +70,9 @@ module.exports = {
         priceRange > 5 ||
         priceRange < 1)
     ) {
-      res
-        .status(400)
-        .send({
-          message: 'Price range needs to be an integer between 1 and 5.'
-        });
+      res.status(400).send({
+        message: 'Price range needs to be an integer between 1 and 5.'
+      });
     } else if (email && !validationHelper.isValidEmail(email)) {
       res.status(400).send({ message: 'Email address is not valid' });
     } else if (
@@ -106,29 +104,37 @@ module.exports = {
           if (photographer) {
             let promisses = [];
             promisses.push(photographer.setCategories(categories));
-            promisses.push(photographer.user.updateAttributes({
-              firstName,
-              lastName,
-              email,
-              lat,
-              lon
-            }));
-            promisses.push(photographer
-              .updateAttributes({
+            promisses.push(
+              photographer.user.updateAttributes({
+                firstName,
+                lastName,
+                email,
+                lat,
+                lon
+              })
+            );
+            promisses.push(
+              photographer.updateAttributes({
                 studio,
                 priceRange
-              }));
+              })
+            );
 
-            Promise.all(promisses).then(resolves => {
-              res.status(200).send({message: `User updated!`});
-            }).catch(err => {
-              res.status(400).send({message: `Error updating photographer information: ${err}`});
-            });
+            Promise.all(promisses)
+              .then(resolves => {
+                res.status(200).send({ message: `User updated!` });
+              })
+              .catch(err => {
+                res
+                  .status(400)
+                  .send({
+                    message: `Error updating photographer information: ${err}`
+                  });
+              });
           } else {
             res.status(400).send({ message: 'Photograpeher not found.' });
           }
-          
-        }) 
+        })
         .catch(err => {
           res
             .status(400)

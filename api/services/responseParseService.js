@@ -17,6 +17,5 @@ module.exports = {
       price_range: photographer.priceRange,
       categories
     };
-
   }
 };

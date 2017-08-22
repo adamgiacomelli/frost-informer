@@ -18,18 +18,14 @@ module.exports = {
           if (invite) {
             Invite.update({ status: 'ACTIVE' }, { where: { id: invite.id } })
               .then(updated => {
-                res
-                  .status(200)
-                  .send({
-                    message: 'Invitation status is active. Code accepted.'
-                  });
+                res.status(200).send({
+                  message: 'Invitation status is active. Code accepted.'
+                });
               })
               .catch(err => {
-                res
-                  .status(400)
-                  .send({
-                    message: `Error updating invitation status: ${err}`
-                  });
+                res.status(400).send({
+                  message: `Error updating invitation status: ${err}`
+                });
               });
           } else {
             res
@@ -64,11 +60,9 @@ module.exports = {
       pInvite
         .then(invite => {
           if (invite) {
-            res
-              .status(400)
-              .send({
-                message: `User with email ${email} already requested an invitation code.`
-              });
+            res.status(400).send({
+              message: `User with email ${email} already requested an invitation code.`
+            });
           } else {
             let code = randomstring.generate(12);
             // save invitation request to database
