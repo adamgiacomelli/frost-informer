@@ -28,9 +28,13 @@ module.exports = {
 
       pPhotographer
         .then(photographer => {
-          res
-            .status(200)
-            .send(responseParseService.photographerBasicInfo(photographer));
+          if (!photographer) {
+            res.status(400).send({ message: 'Photographer not found.' })
+          } else {
+            res
+              .status(200)
+              .send(responseParseService.photographerBasicInfo(photographer));
+          }
         })
         .catch(err => {
           res
@@ -99,26 +103,30 @@ module.exports = {
         ]
       })
         .then(photographer => {
-          let promisses = [];
-          promisses.push(photographer.setCategories(categories));
-          promisses.push(photographer.user.updateAttributes({
-            firstName,
-            lastName,
-            email,
-            lat,
-            lon
-          }));
-          promisses.push(photographer
-            .updateAttributes({
-              studio,
-              priceRange
+          if (photographer) {
+            let promisses = [];
+            promisses.push(photographer.setCategories(categories));
+            promisses.push(photographer.user.updateAttributes({
+              firstName,
+              lastName,
+              email,
+              lat,
+              lon
             }));
+            promisses.push(photographer
+              .updateAttributes({
+                studio,
+                priceRange
+              }));
 
-          Promise.all(promisses).then(resolves => {
-            res.status(200).send({message: `User updated!`});
-          }).catch(err => {
-            res.status(400).send({message: `Error updating photographer information: ${err}`});
-          })
+            Promise.all(promisses).then(resolves => {
+              res.status(200).send({message: `User updated!`});
+            }).catch(err => {
+              res.status(400).send({message: `Error updating photographer information: ${err}`});
+            });
+          } else {
+            res.status(400).send({ message: 'Photograpeher not found.' });
+          }
           
         }) 
         .catch(err => {
