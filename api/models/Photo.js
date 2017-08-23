@@ -15,7 +15,7 @@ module.exports = {
     Photo.belongsTo(Category, {
       foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
       }
     });
     Photo.belongsTo(Photographer, {

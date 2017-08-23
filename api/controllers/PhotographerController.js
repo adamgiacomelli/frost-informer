@@ -190,6 +190,61 @@ module.exports = {
       });
   },
 
+  updatePhotos: function(req, res) {
+    let userId = req.token.id;
+    let { photos } = req.body;
+
+    if (photos.length == 0) {
+      res.status(400).send({message: 'Photo ids not defined'});
+    } else if (photos.length > 9) {
+      res.status(400).send({message: 'More than 9 photos specified.'});
+    } else {
+      Photographer.findOne({
+        where: {
+          userId
+        },
+        include: [
+          {
+            model: Photo,
+            as: 'photos'
+          }
+        ]
+      })
+        .then(photographer => {
+          let pPhotos = [];
+          Photo.destroy({
+            where: {
+              photographerId: photographer.id
+            }
+          }).then(deleted => {
+            pPhotos = [];
+            photos.map(photo => {
+              pPhotos.push(Photo.create({
+                instagramImageId: photo,
+                photographerId: photographer.id
+              }));
+            });
+            Promise.all(pPhotos).then(results => {
+              res.status(200).send({message: 'Success updating photos.'});
+            }).catch(err => {
+              res.status(400).send({
+                message: 'Error creating photos',
+                err
+              })
+            });
+            return null;
+          })
+            .catch(err => {
+              res.status(400).send({message: 'Error updating photos.', err});
+            });
+        })
+        .catch(err => {
+          res.status(400).send({message: 'Photographer not found', err});
+        });
+    }
+
+  },
+
   getFeatured: function(req, res) {
     let page = req.query.page || 1;
     let results_per_page = req.query.results_per_page || 6;

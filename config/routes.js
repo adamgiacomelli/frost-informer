@@ -155,6 +155,21 @@ module.exports.routes = {
   'GET /v1/me/most-liked': {
     controller: 'PhotographerController',
     action: 'instagramMostLiked'
+  },
+
+  /**
+   * @api {post} /me/update-photos
+   * @apiName Update photos for logged in user
+   * @apiGroup User
+   * @apiDescription Endpoint updates photographers photos
+   *
+   * @apiHeader {String} authorization JW token.
+   *
+   * @apiSuccess {Array} Array of strings: instagram ids of photos
+   * */
+  'POST /v1/me/update-photos': {
+    controller: 'PhotographerController',
+    action: 'updatePhotos'
   }
 
 };
