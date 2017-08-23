@@ -19,10 +19,12 @@ module.exports = {
   },
 
   mediaPhotos: medias => {
-    let parsed = _.map(medias, item => {
-      return item.images.low_resolution.url;
-    })
-    return parsed;
+    return _.map(medias, item => {
+      return {
+        id: item.id,
+        photo: item.images.low_resolution.url
+      };
+    });
   }
 
 };

@@ -121,7 +121,14 @@ module.exports.routes = {
   },
 
   /**
+   * @api {get} /me/most-liked Get 33 of the most liked user photos
+   * @apiName Most liked photos
+   * @apiGroup User
+   * @apiDescription This endpoint only returns 20 photos at the moment due to application not being reviewed by instagram wizards yet.
    *
+   * @apiHeader {String} authorization JW token.
+   *
+   * @apiSuccess {Array} Array of objects with attributes: id and photo (url to photo)
    * */
   'GET /v1/me/most-liked': {
     controller: 'PhotographerController',
