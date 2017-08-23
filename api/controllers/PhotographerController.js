@@ -1,6 +1,7 @@
 /* ESLint local declarations */
 /* global validationHelper, hardcodedHelpers */
 /* ESLint end */
+const _ = require('lodash');
 
 module.exports = {
   /**
@@ -45,7 +46,10 @@ module.exports = {
     })
       .then(photographer => {
         instagramApiService.getUsersMedia(photographer, (medias) => {
-          res.status(200).send(medias);
+          res.status(200).send(_.orderBy(medias, (photo) => {
+            return photo.likes.count;
+          }, ['desc']));
+
         });
       })
       .catch(err => {
