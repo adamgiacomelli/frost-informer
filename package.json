@@ -14,6 +14,7 @@
     "lodash": "^4.17.4",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.0",
+    "node-geocoder": "^3.19.0",
     "prettier-standard": "^6.0.0",
     "randomstring": "^1.1.5",
     "rc": "1.0.1",

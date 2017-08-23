@@ -53,6 +53,7 @@ module.exports = {
             let pUser = User.create({
               username: result.user.username,
               status: 'PENDING',
+              avatar: result.user.profile_picture,
               firstName,
               lastName
             });

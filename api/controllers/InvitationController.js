@@ -30,7 +30,8 @@ module.exports = {
                   .send({
                     message: `Error updating invitation status: ${err}`
                   });
-              });
+              })
+
           } else {
             res
               .status(400)
