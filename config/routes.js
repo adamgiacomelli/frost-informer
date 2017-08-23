@@ -131,6 +131,7 @@ module.exports.routes = {
    * @apiParam {Number} lat latitude
    * @apiParam {Number} lon longitude
    * @apiParam {String} email User email
+   * @apiParam {String="amateur","professional"} expertise
    * @apiParam {Boolean} studio
    * @apiParam {Number} priceRange Price range 1-5
    * @apiParam {Array} categories Array of category ids (Example: [1, 2])

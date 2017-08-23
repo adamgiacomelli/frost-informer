@@ -52,6 +52,7 @@ module.exports = {
       lat,
       lon,
       email,
+      expertise,
       studio,
       priceRange,
       categories
@@ -83,9 +84,16 @@ module.exports = {
       !email ||
       !studio ||
       !priceRange ||
+      !expertise ||
       !categories
     ) {
       res.status(400).send({ message: 'POST data object is not complete.' });
+    } else if (expertise != 'amateur' && expertise != 'professional') {
+      res
+        .status(400)
+        .send({
+          message: "Expertise should be either 'amateur' or 'professional'"
+        });
     } else {
       Photographer.findOne({
         where: { userId },
@@ -116,7 +124,8 @@ module.exports = {
             promisses.push(
               photographer.updateAttributes({
                 studio,
-                priceRange
+                priceRange,
+                expertise
               })
             );
 
@@ -125,11 +134,9 @@ module.exports = {
                 res.status(200).send({ message: `User updated!` });
               })
               .catch(err => {
-                res
-                  .status(400)
-                  .send({
-                    message: `Error updating photographer information: ${err}`
-                  });
+                res.status(400).send({
+                  message: `Error updating photographer information: ${err}`
+                });
               });
           } else {
             res.status(400).send({ message: 'Photograpeher not found.' });

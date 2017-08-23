@@ -11,6 +11,7 @@ module.exports = {
       lastName: photographer.user.lastName,
       avatar: photographer.user.avatar,
       email: photographer.user.email,
+      expertise: photographer.expertise,
       lat: photographer.user.lat,
       lon: photographer.user.lon,
       studio: photographer.studio,
