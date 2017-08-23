@@ -108,7 +108,7 @@ module.exports.routes = {
 
   /**
    * @api {get} /me Get basic information for logged in user
-   * @apiName User
+   * @apiName Get basic user information
    * @apiGroup User
    *
    * @apiHeader {String} authorization JW token.
@@ -118,6 +118,29 @@ module.exports.routes = {
   'GET /v1/me': {
     controller: 'PhotographerController',
     action: 'getBasicInfo'
+  },
+
+  /**
+   * @api {put} /me Update basic information for logged in user
+   * @apiName Update basic user information
+   * @apiGroup User
+   *
+   * @apiHeader {String} authorization JW token.
+   * @apiParam {String} firstName User first name
+   * @apiParam {String} lastName User last name
+   * @apiParam {Number} lat latitude
+   * @apiParam {Number} lon longitude
+   * @apiParam {String} email User email
+   * @apiParam {String="amateur","professional"} expertise
+   * @apiParam {Boolean} studio
+   * @apiParam {Number} priceRange Price range 1-5
+   * @apiParam {Array} categories Array of category ids (Example: [1, 2])
+   *
+   * @apiSuccess {Object} Current user basic data.
+   * */
+  'PUT /v1/me': {
+    controller: 'PhotographerController',
+    action: 'updateBasicInfo'
   }
 
 };
