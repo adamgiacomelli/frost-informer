@@ -27,13 +27,17 @@ module.exports = {
         ]
       });
 
-      pPhotographer.then(photographer => {
-        res
-          .status(200)
-          .send(responseParseService.photographerBasicInfo(photographer));
-      }).catch(err => {
-        res.status(400).send({ message: `Error retrieving photographers data: ${err}` });
-      })
+      pPhotographer
+        .then(photographer => {
+          res
+            .status(200)
+            .send(responseParseService.photographerBasicInfo(photographer));
+        })
+        .catch(err => {
+          res
+            .status(400)
+            .send({ message: `Error retrieving photographers data: ${err}` });
+        });
     }
   },
 
@@ -44,25 +48,35 @@ module.exports = {
       where: { userId }
     })
       .then(photographer => {
-        instagramApiService.getUsersMedia(photographer, (medias) => {
+        instagramApiService.getUsersMedia(photographer, medias => {
           if (medias.error) {
-            res.status(400).send({ message: 'Error retrieving data from instagram API.', err: medias.err });
+            res
+              .status(400)
+              .send({
+                message: 'Error retrieving data from instagram API.',
+                err: medias.err
+              });
           } else {
             res.status(200).send(
               responseParseService.mediaPhotos(
                 _.take(
-                  _.orderBy(medias, (photo) => {
-                    return photo.likes.count;
-                  }, ['desc']), 33
+                  _.orderBy(
+                    medias,
+                    photo => {
+                      return photo.likes.count;
+                    },
+                    ['desc']
+                  ),
+                  33
                 )
               )
-            )
+            );
           }
         });
       })
       .catch(err => {
         res.status(400).send({ message: `Photographer not found ${err}` });
-      })
+      });
   },
 
   getFeatured: function(req, res) {
@@ -70,18 +84,14 @@ module.exports = {
     let results_per_page = req.query.results_per_page || 6;
 
     if (!validationHelper.isPositiveInt(page)) {
-      res
-        .status(400)
-        .send({
-          message:
-            'Page does not exist. Please use page number that equals or is greater than 1.'
-        });
+      res.status(400).send({
+        message:
+          'Page does not exist. Please use page number that equals or is greater than 1.'
+      });
     } else if (!validationHelper.isPositiveInt(results_per_page)) {
-      res
-        .status(400)
-        .send({
-          message: 'Number of results per page is not a positive integer'
-        });
+      res.status(400).send({
+        message: 'Number of results per page is not a positive integer'
+      });
     } else {
       // hardcoded response for frontend use
       // todo: to be replaced with real database-model data
@@ -97,5 +107,5 @@ module.exports = {
         total_pages: 24
       });
     }
-  },
+  }
 };

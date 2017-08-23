@@ -33,19 +33,20 @@ module.exports = {
   },
 
   getUsersMedia: (photographer, resolve) => {
+    ig.use({ access_token: photographer.instagramToken });
 
-    ig.use({access_token: photographer.instagramToken});
-
-    ig.user_media_recent(photographer.instagramId, (err, medias, pagination, remaining, limit) => {
-      if (err) {
-        resolve({
-          error: true,
-          err
-        })
-      } else {
-        resolve(medias);
+    ig.user_media_recent(
+      photographer.instagramId,
+      (err, medias, pagination, remaining, limit) => {
+        if (err) {
+          resolve({
+            error: true,
+            err
+          });
+        } else {
+          resolve(medias);
+        }
       }
-    })
+    );
   }
-
 };
