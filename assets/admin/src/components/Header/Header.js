@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Nav,
-  NavItem,
-  NavLink,
-  NavbarToggler,
-  NavbarBrand,
-} from 'reactstrap';
+import { Nav, NavItem, NavLink, NavbarToggler, NavbarBrand } from 'reactstrap';
 
 class Header extends Component {
-
   sidebarToggle(e) {
     e.preventDefault();
     document.body.classList.toggle('sidebar-hidden');
@@ -32,16 +25,23 @@ class Header extends Component {
   render() {
     return (
       <header className="app-header navbar">
-        <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
-        <NavbarBrand href="#"></NavbarBrand>
-        <NavbarToggler className="d-md-down-none mr-auto" onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
+        <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
+          &#9776;
+        </NavbarToggler>
+        <NavbarBrand href="#" />
+        <NavbarToggler
+          className="d-md-down-none mr-auto"
+          onClick={this.sidebarToggle}
+        >
+          &#9776;
+        </NavbarToggler>
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink href="/apidoc">API Documentation</NavLink>
-          </NavItem>          
+          </NavItem>
         </Nav>
       </header>
-    )
+    );
   }
 }
 

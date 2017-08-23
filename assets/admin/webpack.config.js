@@ -15,7 +15,7 @@ console.log('SRC_DIR', SRC_DIR);
 
 module.exports = {
   entry: {
-    index: [SRC_DIR + '/index.js']
+    index: ['babel-polyfill', SRC_DIR + '/index.js']
   },
   output: {
     path: BUILD_DIR,
