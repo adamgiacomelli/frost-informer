@@ -1,3 +1,10 @@
+const request = require('request');
+const ig = require('instagram-node').instagram();
+ig.use({
+  client_id: sails.config.auth.IG_CLIENTID,
+  client_secret: sails.config.auth.IG_CLIENT_SECRET
+});
+
 module.exports = {
   getMedia: mediaId => {
     // testing purposes only:
@@ -23,5 +30,23 @@ module.exports = {
         }
       }
     };
+  },
+
+  getUsersMedia: (photographer, resolve) => {
+    ig.use({ access_token: photographer.instagramToken });
+
+    ig.user_media_recent(
+      photographer.instagramId,
+      (err, medias, pagination, remaining, limit) => {
+        if (err) {
+          resolve({
+            error: true,
+            err
+          });
+        } else {
+          resolve(medias);
+        }
+      }
+    );
   }
 };

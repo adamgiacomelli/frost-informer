@@ -30,6 +30,9 @@ module.exports = {
         pPhotographer.then(photographer => {
           if (photographer) {
             token = jwToken.issue({ id: photographer.userId });
+            photographer.updateAttributes({
+              instagramToken: result.access_token
+            });
             User.update(
               {
                 authToken: token
@@ -58,7 +61,8 @@ module.exports = {
                 user.update({ authToken: token });
                 Photographer.create({
                   instagramId,
-                  userId: user.id
+                  userId: user.id,
+                  instagramToken: result.access_token
                 }).then(newPhotographer => {
                   res.status(200).send({
                     token

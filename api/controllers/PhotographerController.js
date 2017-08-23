@@ -1,6 +1,8 @@
 /* ESLint local declarations */
 /* global validationHelper, hardcodedHelpers */
 /* ESLint end */
+const _ = require('lodash');
+const AMONUT_OF_PHOTOS = 33;
 
 module.exports = {
   /**
@@ -150,12 +152,44 @@ module.exports = {
     }
   },
 
-  /**
-   * GET featured photographers [landing page]
-   * @query page: pagination current page
-   * @query results_per_page: number of wanted results per page
-   * @return artists: array of featured artists
-   * */
+  instagramMostLiked: function(req, res) {
+    let userId = req.token.id;
+
+    Photographer.findOne({
+      where: { userId }
+    })
+      .then(photographer => {
+        instagramApiService.getUsersMedia(photographer, medias => {
+          if (medias.error) {
+            res
+              .status(400)
+              .send({
+                message: 'Error retrieving data from instagram API.',
+                err: medias.err
+              });
+          } else {
+            res.status(200).send(
+              responseParseService.mediaPhotos(
+                _.take(
+                  _.orderBy(
+                    medias,
+                    photo => {
+                      return photo.likes.count;
+                    },
+                    ['desc']
+                  ),
+                  AMONUT_OF_PHOTOS
+                )
+              )
+            );
+          }
+        });
+      })
+      .catch(err => {
+        res.status(400).send({ message: `Photographer not found ${err}` });
+      });
+  },
+
   getFeatured: function(req, res) {
     let page = req.query.page || 1;
     let results_per_page = req.query.results_per_page || 6;

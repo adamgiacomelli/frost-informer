@@ -120,8 +120,7 @@ module.exports.routes = {
     action: 'getBasicInfo'
   },
 
-  /**
-   * @api {put} /me Update basic information for logged in user
+  /** @api {put} /me Update basic information for logged in user
    * @apiName Update basic user information
    * @apiGroup User
    *
@@ -141,6 +140,21 @@ module.exports.routes = {
   'PUT /v1/me': {
     controller: 'PhotographerController',
     action: 'updateBasicInfo'
+  },
+
+  /**
+   * @api {get} /me/most-liked Get 33 of the most liked user photos
+   * @apiName Most liked photos
+   * @apiGroup User
+   * @apiDescription This endpoint only returns 20 photos at the moment due to application not being reviewed by instagram wizards yet.
+   *
+   * @apiHeader {String} authorization JW token.
+   *
+   * @apiSuccess {Array} Array of objects with attributes: id and photo (url to photo)
+   * */
+  'GET /v1/me/most-liked': {
+    controller: 'PhotographerController',
+    action: 'instagramMostLiked'
   }
 
 };

@@ -18,5 +18,14 @@ module.exports = {
       price_range: photographer.priceRange,
       categories
     };
+  },
+
+  mediaPhotos: medias => {
+    return _.map(medias, item => {
+      return {
+        id: item.id,
+        photo: item.images.low_resolution.url
+      };
+    });
   }
 };
