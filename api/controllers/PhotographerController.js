@@ -2,6 +2,7 @@
 /* global validationHelper, hardcodedHelpers */
 /* ESLint end */
 const _ = require('lodash');
+const AMONUT_OF_PHOTOS = 33;
 
 module.exports = {
   /**
@@ -177,7 +178,7 @@ module.exports = {
                     },
                     ['desc']
                   ),
-                  33
+                  AMONUT_OF_PHOTOS
                 )
               )
             );

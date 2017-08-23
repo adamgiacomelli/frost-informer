@@ -14,14 +14,14 @@ const _ = require('lodash');
 module.exports.bootstrap = function(cb) {
 
   const NUMBER_OF_USERS = 100;
-  const POULATE = false;
+  const POPULATE = false;
 
   // seed database with users
   if(process.env.NODE_ENV !== 'development')
     return cb();
 
   // create two sample categories
-  if (POULATE) {
+  if (POPULATE) {
     let pCategories = [];
     pCategories.push(Category.create(seederHelpers.generateCategory('People & Lifestyle')));
     pCategories.push(Category.create(seederHelpers.generateCategory('Editorial & Documentary')));

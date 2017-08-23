@@ -22,8 +22,6 @@ module.exports = {
         let lastName = name.join(' ');
         let token;
 
-        console.log(result);
-
         let pPhotographer = Photographer.findOne({
           where: { instagramId },
           include: [{ model: User, as: 'user' }]
