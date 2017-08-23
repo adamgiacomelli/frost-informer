@@ -16,5 +16,13 @@ module.exports = {
       price_range: photographer.priceRange,
       categories
     };
+  },
+
+  mediaPhotos: medias => {
+    let parsed = _.map(medias, item => {
+      return item.images.low_resolution.url;
+    })
+    return parsed;
   }
+
 };

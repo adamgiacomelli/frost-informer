@@ -46,9 +46,15 @@ module.exports = {
     })
       .then(photographer => {
         instagramApiService.getUsersMedia(photographer, (medias) => {
-          res.status(200).send(_.orderBy(medias, (photo) => {
-            return photo.likes.count;
-          }, ['desc']));
+          res.status(200).send(
+            responseParseService.mediaPhotos(
+              _.take(
+                _.orderBy(medias, (photo) => {
+                  return photo.likes.count;
+                }, ['desc']), 33
+              )
+            )
+          );
 
         });
       })

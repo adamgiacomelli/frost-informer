@@ -19,7 +19,7 @@ module.exports = {
 
   models: {
     connection: 'DockerMysqlDB',
-    migrate: 'drop'
+    migrate: 'safe'
   },
 
   log: {
