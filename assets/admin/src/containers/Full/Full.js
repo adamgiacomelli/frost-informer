@@ -9,6 +9,8 @@ import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/';
 import Translations from '../../views/Translations/';
+import ReferralCodes from '../../views/ReferralCodes/';
+import Users from '../../views/Users/';
 
 class Full extends Component {
   render() {
@@ -30,6 +32,12 @@ class Full extends Component {
                   path="/translations"
                   name="Translations"
                   component={Translations}
+                />
+                <Route path="/users" name="Users" component={Users} />
+                <Route
+                  path="/referral-codes"
+                  name="Referral Codes"
+                  component={ReferralCodes}
                 />
                 <Redirect from="/" to="/dashboard" />
               </Switch>

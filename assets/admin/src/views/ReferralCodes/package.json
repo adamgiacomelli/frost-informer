@@ -1,0 +1,6 @@
+{
+  "name": "ReferralCodes",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ReferralCodes.js"
+}
