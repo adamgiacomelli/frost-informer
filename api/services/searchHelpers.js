@@ -10,6 +10,8 @@ module.exports = {
       });
     });
 
+    photos = arrayHelpers.getRandomArrayItems(photos, 3);
+
     return {
       name: `${record.user.firstName} ${record.user.lastName}`,
       location: {

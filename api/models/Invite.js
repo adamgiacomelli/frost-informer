@@ -4,7 +4,6 @@
  * */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
@@ -24,8 +23,8 @@ module.exports = {
       type: Sequelize.STRING
     }
   },
-  associations: function () {},
-  defaultScope: function () {},
+  associations: function() {},
+  defaultScope: function() {},
   options: {
     tableName: 'invitations',
     classMethods: {},
@@ -33,5 +32,4 @@ module.exports = {
     hooks: {},
     scopes: {}
   }
-
 };
