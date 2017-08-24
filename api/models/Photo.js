@@ -9,6 +9,9 @@ module.exports = {
   attributes: {
     instagramImageId: {
       type: Sequelize.STRING
+    },
+    photo: {
+      type: Sequelize.STRING
     }
   },
   associations: function() {

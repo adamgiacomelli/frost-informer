@@ -150,7 +150,7 @@ module.exports.routes = {
    *
    * @apiHeader {String} authorization JW token.
    *
-   * @apiSuccess {Array} Array of objects with attributes: id and photo (url to photo)
+   * @apiSuccess {Array} Array of objects with attributes: id and photo (url)
    * */
   'GET /v1/me/most-liked': {
     controller: 'PhotographerController',
@@ -164,8 +164,18 @@ module.exports.routes = {
    * @apiDescription Endpoint updates photographers photos
    *
    * @apiHeader {String} authorization JW token.
+   * @apiParamExample {json} Request-Example:
+   *    {
+   *      "photos": [
+   *        {
+   *          "id": "312312312",
+   *          "photo": "photo-url"
+   *        }
+   *      ]
+   *    }
    *
-   * @apiSuccess {Array} Array of strings: instagram ids of photos
+   * @apiSuccess {Object} Success message
+   *
    * */
   'POST /v1/me/update-photos': {
     controller: 'PhotographerController',

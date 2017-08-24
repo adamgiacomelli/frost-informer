@@ -193,11 +193,21 @@ module.exports = {
   updatePhotos: function(req, res) {
     let userId = req.token.id;
     let { photos } = req.body;
+    let invalidArr = false;
+    // check for object array validity
+    photos.map(item => {
+      if (!('id' in item) || !('photo' in item)){
+        invalidArr = true;
+      }
+      return null;
+    });
 
     if (photos.length == 0) {
       res.status(400).send({message: 'Photo ids not defined'});
     } else if (photos.length > 9) {
       res.status(400).send({message: 'More than 9 photos specified.'});
+    } else if (invalidArr) {
+      res.status(400).send({message: '"photos" array of objects is not structured correctly.'})
     } else {
       Photographer.findOne({
         where: {
@@ -218,10 +228,11 @@ module.exports = {
             }
           }).then(deleted => {
             pPhotos = [];
-            photos.map(photo => {
+            photos.map(item => {
               pPhotos.push(Photo.create({
-                instagramImageId: photo,
-                photographerId: photographer.id
+                instagramImageId: item.id,
+                photographerId: photographer.id,
+                photo: item.photo
               }));
             });
             Promise.all(pPhotos).then(results => {
