@@ -9,13 +9,16 @@ module.exports = {
   attributes: {
     instagramImageId: {
       type: Sequelize.STRING
+    },
+    photo: {
+      type: Sequelize.STRING
     }
   },
   associations: function() {
     Photo.belongsTo(Category, {
       foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
       }
     });
     Photo.belongsTo(Photographer, {

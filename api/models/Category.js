@@ -15,7 +15,7 @@ module.exports = {
     Category.hasMany(Photo, {
       foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
       }
     });
     Category.belongsToMany(Photographer, {
