@@ -91,11 +91,9 @@ module.exports = {
     ) {
       res.status(400).send({ message: 'POST data object is not complete.' });
     } else if (expertise != 'amateur' && expertise != 'professional') {
-      res
-        .status(400)
-        .send({
-          message: "Expertise should be either 'amateur' or 'professional'"
-        });
+      res.status(400).send({
+        message: "Expertise should be either 'amateur' or 'professional'"
+      });
     } else {
       Photographer.findOne({
         where: { userId },
@@ -161,12 +159,10 @@ module.exports = {
       .then(photographer => {
         instagramApiService.getUsersMedia(photographer, medias => {
           if (medias.error) {
-            res
-              .status(400)
-              .send({
-                message: 'Error retrieving data from instagram API.',
-                err: medias.err
-              });
+            res.status(400).send({
+              message: 'Error retrieving data from instagram API.',
+              err: medias.err
+            });
           } else {
             res.status(200).send(
               responseParseService.mediaPhotos(
@@ -196,18 +192,22 @@ module.exports = {
     let invalidArr = false;
     // check for object array validity
     photos.map(item => {
-      if (!('id' in item) || !('photo' in item)){
+      if (!('id' in item) || !('photo' in item)) {
         invalidArr = true;
       }
       return null;
     });
 
     if (photos.length == 0) {
-      res.status(400).send({message: 'Photo ids not defined'});
+      res.status(400).send({ message: 'Photo ids not defined' });
     } else if (photos.length > 9) {
-      res.status(400).send({message: 'More than 9 photos specified.'});
+      res.status(400).send({ message: 'More than 9 photos specified.' });
     } else if (invalidArr) {
-      res.status(400).send({message: '"photos" array of objects is not structured correctly.'})
+      res
+        .status(400)
+        .send({
+          message: '"photos" array of objects is not structured correctly.'
+        });
     } else {
       Photographer.findOne({
         where: {
@@ -226,34 +226,38 @@ module.exports = {
             where: {
               photographerId: photographer.id
             }
-          }).then(deleted => {
-            pPhotos = [];
-            photos.map(item => {
-              pPhotos.push(Photo.create({
-                instagramImageId: item.id,
-                photographerId: photographer.id,
-                photo: item.photo
-              }));
-            });
-            Promise.all(pPhotos).then(results => {
-              res.status(200).send({message: 'Success updating photos.'});
-            }).catch(err => {
-              res.status(400).send({
-                message: 'Error creating photos',
-                err
-              })
-            });
-            return null;
           })
+            .then(deleted => {
+              pPhotos = [];
+              photos.map(item => {
+                pPhotos.push(
+                  Photo.create({
+                    instagramImageId: item.id,
+                    photographerId: photographer.id,
+                    photo: item.photo
+                  })
+                );
+              });
+              Promise.all(pPhotos)
+                .then(results => {
+                  res.status(200).send({ message: 'Success updating photos.' });
+                })
+                .catch(err => {
+                  res.status(400).send({
+                    message: 'Error creating photos',
+                    err
+                  });
+                });
+              return null;
+            })
             .catch(err => {
-              res.status(400).send({message: 'Error updating photos.', err});
+              res.status(400).send({ message: 'Error updating photos.', err });
             });
         })
         .catch(err => {
-          res.status(400).send({message: 'Photographer not found', err});
+          res.status(400).send({ message: 'Photographer not found', err });
         });
     }
-
   },
 
   getFeatured: function(req, res) {
