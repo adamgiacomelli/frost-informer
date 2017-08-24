@@ -150,7 +150,7 @@ module.exports.routes = {
    *
    * @apiHeader {String} authorization JW token.
    *
-   * @apiSuccess {Array} Array of objects with attributes: id and photo (url)
+   * @apiSuccess {Object[]} Array of objects with attributes: id and photo (url)
    * */
   'GET /v1/me/most-liked': {
     controller: 'PhotographerController',
@@ -164,6 +164,7 @@ module.exports.routes = {
    * @apiDescription Endpoint updates photographers photos
    *
    * @apiHeader {String} authorization JW token.
+   * @apiParam {Object[]} photos array of photos
    * @apiParamExample {json} Request-Example:
    *    {
    *      "photos": [
@@ -180,6 +181,26 @@ module.exports.routes = {
   'POST /v1/me/update-photos': {
     controller: 'PhotographerController',
     action: 'updatePhotos'
+  },
+
+  /**
+   * @api {put} /me/update-photo-category
+   * @apiName Update photo's category
+   * @apiGroup User
+   *
+   * @apiHeader {String} authorization JW token
+   * @apiParam {Object} photo Array of objects with photoId - categoryId pairs
+   * @apiParamExample {json} Request-Example:
+   *    {
+   *      "photoId": "109",
+   *      "categoryId": "1"
+   *    }
+   *
+   * @apiSuccess {Object} Success message
+   * */
+  'PUT /v1/me/update-photo-category': {
+    controller: 'PhotographerController',
+    action: 'updatePhotoCategory'
   }
 
 };
