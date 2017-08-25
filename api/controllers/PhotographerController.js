@@ -24,6 +24,10 @@ module.exports = {
           {
             model: Category,
             as: 'categories'
+          },
+          {
+            model: Photo,
+            as: 'photos'
           }
         ]
       });
@@ -203,11 +207,9 @@ module.exports = {
     } else if (photos.length > 9) {
       res.status(400).send({ message: 'More than 9 photos specified.' });
     } else if (invalidArr) {
-      res
-        .status(400)
-        .send({
-          message: '"photos" array of objects is not structured correctly.'
-        });
+      res.status(400).send({
+        message: '"photos" array of objects is not structured correctly.'
+      });
     } else {
       Photographer.findOne({
         where: {
@@ -227,7 +229,7 @@ module.exports = {
               photographerId: photographer.id
             }
           })
-            .then(deleted => {
+            .then(() => {
               pPhotos = [];
               photos.map(item => {
                 pPhotos.push(
@@ -256,6 +258,44 @@ module.exports = {
         })
         .catch(err => {
           res.status(400).send({ message: 'Photographer not found', err });
+        });
+    }
+  },
+
+  updatePhotoCategory: function(req, res) {
+    let { photoId, categoryId } = req.body;
+    console.log(photoId, categoryId);
+
+    if (
+      !photoId ||
+      !categoryId ||
+      !validationHelper.isPositiveInt(parseInt(photoId)) ||
+      !validationHelper.isPositiveInt(parseInt(categoryId))
+    ) {
+      res
+        .status(400)
+        .send({
+          message:
+            'Both - photoId and categoryId - have to be positive integers.'
+        });
+    } else {
+      Photo.findOne({
+        where: {
+          id: photoId
+        }
+      })
+        .then(p => {
+          return p.updateAttributes({
+            categoryId: categoryId
+          });
+        })
+        .then(() => {
+          res.status(200).send({ message: 'Photo category updated' });
+        })
+        .catch(err => {
+          res
+            .status(400)
+            .send({ message: 'Error updating photo category.', err });
         });
     }
   },

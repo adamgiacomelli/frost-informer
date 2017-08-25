@@ -5,6 +5,12 @@ module.exports = {
       name
     }));
 
+    let photos = photographer.photos.map(({ id, photo, categoryId }) => ({
+      id,
+      photo,
+      categoryId
+    }));
+
     return {
       id: photographer.user.id,
       firstName: photographer.user.firstName,
@@ -16,7 +22,8 @@ module.exports = {
       lon: photographer.user.lon,
       studio: photographer.studio,
       price_range: photographer.priceRange,
-      categories
+      categories,
+      photos
     };
   },
 
