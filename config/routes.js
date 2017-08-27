@@ -65,5 +65,5 @@ let otherRoutes = {
 
 };
 let routes = {};
-Object.assign(routes, otherRoutes, meRoutes, invitationRoutes, staticRoutes);
+Object.assign(routes, ...[otherRoutes, authRoutes, meRoutes, invitationRoutes, staticRoutes]);
 module.exports.routes = routes;
