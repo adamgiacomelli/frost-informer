@@ -1,14 +1,11 @@
 module.exports = {
 
   /**
-   * @api {get} /featured Request featured photographers
-   * @apiName GetFeatured
-   * @apiGroup Featured
+   * @api {get} /authorize
+   * @apiName Authentication
+   * @apiGroup Authentication
    *
-   * @apiParam {Number} page Which page of results to return.
-   * @apiParam {Number} results_per_page How many results per page.
-   *
-   * @apiSuccess {Array} photographer List of featured artists.
+   * @apiSuccess {Object} JW token
    * */
   'GET /v1/authorize-user': {
     controller: 'AuthController',
