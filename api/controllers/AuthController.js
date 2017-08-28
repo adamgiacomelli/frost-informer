@@ -43,9 +43,10 @@ module.exports = {
               { where: { id: photographer.userId } }
             )
               .then(result => {
-                res.status(200).send({
+                /*res.status(200).send({
                   token
-                });
+                });*/
+                res.redirect(`http://localhost:3000?token=${token}`);
               })
               .catch(err => {
                 res.status(400).send({ message: 'Error updating auth token.' });
@@ -67,9 +68,10 @@ module.exports = {
                   userId: user.id,
                   instagramToken: result.access_token
                 }).then(newPhotographer => {
-                  res.status(200).send({
+                  /*res.status(200).send({
                     token
-                  });
+                  });*/
+                  res.redirect(`http://localhost:3000?token=${token}`);
                 });
               }
             });
