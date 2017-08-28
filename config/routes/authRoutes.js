@@ -5,7 +5,7 @@ module.exports = {
    * @apiName Authentication
    * @apiGroup Authentication
    *
-   * @apiSuccess {Object} JW token
+   * @apiSuccess {Object} property redirectUrl contains redirectUrl
    * */
   'GET /v1/authorize-user': {
     controller: 'AuthController',

@@ -7,7 +7,8 @@ api.use({
 
 module.exports = {
   authorizeUser: function(req, res) {
-    res.redirect(api.get_authorization_url(redirectUrl));
+    let redirect = api.get_authorization_url(redirectUrl);
+    res.status(200).send({ redirectUrl: redirect });
   },
 
   handleAuth: function(req, res) {
