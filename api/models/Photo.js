@@ -12,6 +12,9 @@ module.exports = {
     },
     photo: {
       type: Sequelize.STRING
+    },
+    hiresPhoto: {
+      type: Sequelize.STRING
     }
   },
   associations: function() {

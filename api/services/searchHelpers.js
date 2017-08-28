@@ -3,14 +3,12 @@ module.exports = {
   generatePhotographer: record => {
     let photos = [];
     // retrieve instagram photo details
-    _.map(record.photos, photo => {
-      let p = instagramApiService.getMedia(photo.instagramImageId);
-      photos.push({
-        thumbnailUrl: p.data.images.thumbnail.url
-      });
+    photos = _.map(record.photos, photo => {
+      return {
+        thumbnailUrl: photo.photo,
+        hiresPhoto: photo.hiresPhoto
+      }
     });
-
-    photos = arrayHelpers.getRandomArrayItems(photos, 3);
 
     return {
       name: `${record.user.firstName} ${record.user.lastName}`,

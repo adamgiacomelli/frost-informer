@@ -8,6 +8,7 @@ module.exports = {
     let photos = photographer.photos.map(({ id, photo, categoryId }) => ({
       id,
       photo,
+      hiresPhoto,
       categoryId
     }));
 
