@@ -46,7 +46,7 @@ module.exports = {
                 /*res.status(200).send({
                   token
                 });*/
-                res.redirect(`http://localhost:3000?token=${token}`);
+                res.redirect(`http://localhost:3000/authorize-user?token=${token}`);
               })
               .catch(err => {
                 res.status(400).send({ message: 'Error updating auth token.' });
@@ -71,7 +71,7 @@ module.exports = {
                   /*res.status(200).send({
                     token
                   });*/
-                  res.redirect(`http://localhost:3000?token=${token}`);
+                  res.redirect(`http://localhost:3000/authorize-user?token=${token}`);
                 });
               }
             });
