@@ -64,7 +64,7 @@ let otherRoutes = {
   },
 
   /**
-   * @api {get} /search Search photographers
+   * @api {get} /categories get categories
    * @apiName GetCategories
    * @apiGroup BasicData
    *
