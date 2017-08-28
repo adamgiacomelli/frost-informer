@@ -61,6 +61,18 @@ let otherRoutes = {
   'GET /v1/search': {
     controller: 'SearchController',
     action: 'search',   
+  },
+
+  /**
+   * @api {get} /search Search photographers
+   * @apiName GetCategories
+   * @apiGroup BasicData
+   *
+   * @apiSuccess {Array} List of existing categories.
+   */
+  'GET /v1/categories': {
+    controller: 'BasicDataController',
+    action: 'getCategories'
   }
 
 };

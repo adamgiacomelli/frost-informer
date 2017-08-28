@@ -14,7 +14,7 @@ const _ = require('lodash');
 module.exports.bootstrap = function(cb) {
 
   const NUMBER_OF_USERS = 100;
-  const POPULATE = true;
+  const POPULATE = false;
 
   // seed database with users
   if(process.env.NODE_ENV !== 'development')
