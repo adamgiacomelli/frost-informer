@@ -452,6 +452,7 @@ module.exports = {
       avatar: arrayHelpers.getRandomArrayItem(seederHelpers.avatars),
       lat: randomPoint.lat,
       lon: randomPoint.lon,
+      locationString: 'City, Country',
       status: 'ACTIVE'
     };
   },

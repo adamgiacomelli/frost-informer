@@ -23,6 +23,7 @@ module.exports = {
    * @apiParam {String} lastName User last name
    * @apiParam {Number} lat latitude
    * @apiParam {Number} lon longitude
+   * @apiParam {String} locationString location string: city, country
    * @apiParam {String} email User email
    * @apiParam {String="amateur","professional"} expertise
    * @apiParam {Boolean} studio

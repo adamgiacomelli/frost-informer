@@ -23,6 +23,7 @@ module.exports = {
       expertise: photographer.expertise,
       lat: photographer.user.lat,
       lon: photographer.user.lon,
+      locationString: photographer.user.locationString,
       studio: photographer.studio,
       price_range: photographer.priceRange,
       categories,

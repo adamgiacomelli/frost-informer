@@ -13,7 +13,7 @@ module.exports = {
     return {
       name: `${record.user.firstName} ${record.user.lastName}`,
       location: {
-        city: 'This is yet to be retrieved'
+        city: record.user.locationString
       },
       id: record.user.id,
       followers: record.followers,

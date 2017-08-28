@@ -36,7 +36,7 @@ module.exports = {
     ig.use({ access_token: photographer.instagramToken });
 
     ig.user_media_recent(
-      photographer.instagramId,
+      photographer.instagramId, {count: 50},
       (err, medias, pagination, remaining, limit) => {
         if (err) {
           resolve({

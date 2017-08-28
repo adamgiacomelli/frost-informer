@@ -57,6 +57,7 @@ module.exports = {
       lastName,
       lat,
       lon,
+      locationString,
       email,
       expertise,
       studio,
@@ -91,7 +92,8 @@ module.exports = {
       !studio ||
       !priceRange ||
       !expertise ||
-      !categories
+      !categories ||
+      !locationString
     ) {
       res.status(400).send({ message: 'POST data object is not complete.' });
     } else if (expertise != 'amateur' && expertise != 'professional') {
@@ -122,7 +124,8 @@ module.exports = {
                 lastName,
                 email,
                 lat,
-                lon
+                lon,
+                locationString
               })
             );
             promisses.push(

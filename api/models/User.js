@@ -35,6 +35,9 @@ module.exports = {
     lon: {
       type: Sequelize.DOUBLE
     },
+    locationString: {
+      type: Sequelize.STRING
+    },
     status: {
       type: Sequelize.STRING
     }
