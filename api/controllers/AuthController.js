@@ -7,7 +7,9 @@ api.use({
 
 module.exports = {
   authorizeUser: function(req, res) {
-    let redirect = api.get_authorization_url(redirectUrl);
+    let redirect = api.get_authorization_url(redirectUrl, {
+      scope: ['public_content', 'basic']
+    });
     res.status(200).send({ redirectUrl: redirect });
   },
 

@@ -193,23 +193,11 @@ module.exports = {
   updatePhotos: function(req, res) {
     let userId = req.token.id;
     let { photos } = req.body;
-    let invalidArr = false;
-    // check for object array validity
-    photos.map(item => {
-      if (!('id' in item) || !('photo' in item)) {
-        invalidArr = true;
-      }
-      return null;
-    });
 
     if (photos.length == 0) {
       res.status(400).send({ message: 'Photo ids not defined' });
     } else if (photos.length > 9) {
       res.status(400).send({ message: 'More than 9 photos specified.' });
-    } else if (invalidArr) {
-      res.status(400).send({
-        message: '"photos" array of objects is not structured correctly.'
-      });
     } else {
       Photographer.findOne({
         where: {
@@ -231,25 +219,54 @@ module.exports = {
           })
             .then(() => {
               pPhotos = [];
-              photos.map(item => {
-                pPhotos.push(
-                  Photo.create({
-                    instagramImageId: item.id,
-                    photographerId: photographer.id,
-                    photo: item.photo
-                  })
+              let medias = [];
+              photos.map(photoId => {
+                medias.push(
+                  instagramApiService.getPhoto(photoId, photographer)
                 );
               });
-              Promise.all(pPhotos)
-                .then(results => {
-                  res.status(200).send({ message: 'Success updating photos.' });
-                })
-                .catch(err => {
-                  res.status(400).send({
-                    message: 'Error creating photos',
-                    err
+
+              Promise.all(medias).then(m => {
+                let err = _.filter(m, media => media.err);
+                if (err.length) {
+                  res
+                    .status(400)
+                    .send({ message: 'Error retrieving instagram photo', err });
+                } else {
+                  m.map(item => {
+                    pPhotos.push(
+                      Photo.create({
+                        instagramImageId: item.intagramImageId,
+                        photographerId: photographer.id,
+                        photo: item.photo,
+                        hiresPhoto: item.hiresPhoto
+                      })
+                    );
                   });
-                });
+
+                  Promise.all(pPhotos)
+                    .then(results => {
+                      let err = _.filter(results, photo => {
+                        return photo.err;
+                      });
+                      if (err.length) {
+                        res
+                          .status(400)
+                          .send({ message: 'Error updating photo' });
+                      } else {
+                        res
+                          .status(200)
+                          .send({ message: 'Success updating photos.' });
+                      }
+                    })
+                    .catch(err => {
+                      res.status(400).send({
+                        message: 'Error creating photos',
+                        err
+                      });
+                    });
+                }
+              });
               return null;
             })
             .catch(err => {
@@ -272,12 +289,9 @@ module.exports = {
       !validationHelper.isPositiveInt(parseInt(photoId)) ||
       !validationHelper.isPositiveInt(parseInt(categoryId))
     ) {
-      res
-        .status(400)
-        .send({
-          message:
-            'Both - photoId and categoryId - have to be positive integers.'
-        });
+      res.status(400).send({
+        message: 'Both - photoId and categoryId - have to be positive integers.'
+      });
     } else {
       Photo.findOne({
         where: {

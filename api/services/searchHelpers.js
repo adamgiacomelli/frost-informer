@@ -7,7 +7,7 @@ module.exports = {
       return {
         thumbnailUrl: photo.photo,
         hiresPhoto: photo.hiresPhoto
-      }
+      };
     });
 
     return {

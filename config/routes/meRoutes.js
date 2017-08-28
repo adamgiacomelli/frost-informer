@@ -58,15 +58,10 @@ module.exports = {
    * @apiDescription Endpoint updates photographers photos
    *
    * @apiHeader {String} authorization JW token.
-   * @apiParam {Object[]} photos array of photos
+   * @apiParam {String[]} photos array of instagram ids
    * @apiParamExample {json} Request-Example:
    *    {
-   *      "photos": [
-   *        {
-   *          "id": "312312312",
-   *          "photo": "photo-url"
-   *        }
-   *      ]
+   *      "photos": ['1231231231', '123123123123123']
    *    }
    *
    * @apiSuccess {Object} Success message

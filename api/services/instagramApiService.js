@@ -1,4 +1,4 @@
-const request = require('request');
+const request = require('request-promise');
 const ig = require('instagram-node').instagram();
 ig.use({
   client_id: sails.config.auth.IG_CLIENTID,
@@ -48,5 +48,23 @@ module.exports = {
         }
       }
     );
+  },
+
+  getPhoto: (id, photographer) => {
+    return request(
+      `https://api.instagram.com/v1/media/${id}?access_token=${photographer.instagramToken}`
+    )
+      .then(res => {
+        return {
+          instagramImageid: JSON.parse(res).data.id,
+          photo: JSON.parse(res).data.images.thumbnail.url,
+          hiresPhoto: JSON.parse(res).data.images.standard_resolution.url
+        };
+      })
+      .catch(err => {
+        return {
+          err
+        };
+      });
   }
 };
