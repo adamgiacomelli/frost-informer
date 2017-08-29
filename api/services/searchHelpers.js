@@ -34,7 +34,8 @@ module.exports = {
       followers_min,
       followers_max,
       studio,
-      expertise
+      expertise,
+      order
     } = query;
     let where = {};
     let categoryWhere = {};
@@ -55,6 +56,10 @@ module.exports = {
 
     if (expertise != undefined) {
       where.expertise = expertise == 'true' ? 'professional' : 'amateur';
+    }
+
+    if (order) {
+      order = order.split(',');
     }
 
     if (radius) {
@@ -91,7 +96,8 @@ module.exports = {
           as: 'categoryIds',
           where: categoryWhere
         }
-      ]
+      ],
+      order: [order]
     };
   }
 };

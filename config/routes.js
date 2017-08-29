@@ -57,6 +57,7 @@ let otherRoutes = {
    * @apiParam {Number} [followers_max] Filter by maximal number of followers.
    * @apiParam {Boolean} [studio] User studio filter
    * @apiParam {Boolean} [expertise] true for professional and false for amateur
+   * @apiParam {String} [order="followers,asc", "followers,desc", "priceRange,asc", "priceRange,desc"] Ordering results by given parameters
    *
    * @apiSuccess {Array} photographer List of results.
    */

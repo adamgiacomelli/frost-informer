@@ -12,10 +12,17 @@ module.exports = {
       studio,
       expertise,
       page,
-      results_per_page
+      results_per_page,
+      order
     } = req.query;
     page = parseInt(page) || 1;
     results_per_page = parseInt(results_per_page) || 10;
+
+    let sortAtt = [];
+    if(order) {
+      sortAtt = order.split(',');
+      console.log(sortAtt);
+    }
 
     if (!validationHelper.isPositiveInt(results_per_page)) {
       res
@@ -70,6 +77,10 @@ module.exports = {
     } else if (expertise != undefined && expertise != 'true' && expertise != 'false') {
       res.status(400).send({
         message: 'Expertise needs to be a true or false value.'
+      });
+    } else if (order && ((sortAtt[0] != 'followers' && sortAtt[0] != 'priceRange') || (sortAtt[1] != 'asc' && sortAtt[1] != 'desc'))) {
+      res.status(400).send({
+        message: 'Sorting parameters are not correct.'
       });
     } else {
       let pagination = {
