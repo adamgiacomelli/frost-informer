@@ -1,7 +1,7 @@
 module.exports.cron = {
 
   syncFollowers: {
-    schedule: '0 0 2 * * 6',
+    schedule: '0 0 2 * * *',
     onTick: function() {
 
       Photographer.findAll()
@@ -9,9 +9,7 @@ module.exports.cron = {
           photographers.map(photographer => {
             instagramApiService.getUser(photographer.instagramId, photographer.instagramToken)
               .then(res => {
-                if (res.err) {
-                  console.log('Error updating followers');
-                } else {
+                if (!res.err) {
                   photographer.updateAttributes({
                     followers: res.counts.follows
                   });
