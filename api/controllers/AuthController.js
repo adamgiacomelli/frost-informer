@@ -44,7 +44,7 @@ module.exports = {
             )
               .then(result => {
                 res.redirect(
-                  `http://localhost:3000/authorize-user?token=${token}`
+                  `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
                 );
               })
               .catch(err => {
@@ -73,7 +73,7 @@ module.exports = {
                       followers: instagramUser.counts.follows
                     }).then(newPhotographer => {
                       res.redirect(
-                        `http://localhost:3000/authorize-user?token=${token}`
+                        `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
                       );
                     });
                   })
