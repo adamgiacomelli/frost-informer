@@ -67,7 +67,7 @@ module.exports = {
       res.status(400).send({
         message: 'Studio needs to be a true or false value.'
       });
-    } else if (studio != undefined && studio != 'true' && studio != 'false') {
+    } else if (expertise != undefined && expertise != 'true' && expertise != 'false') {
       res.status(400).send({
         message: 'Expertise needs to be a true or false value.'
       });
