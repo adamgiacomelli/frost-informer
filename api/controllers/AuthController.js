@@ -62,15 +62,29 @@ module.exports = {
               if (user) {
                 token = jwToken.issue({ id: user.id });
                 user.update({ authToken: token });
-                Photographer.create({
-                  instagramId,
-                  userId: user.id,
-                  instagramToken: result.access_token
-                }).then(newPhotographer => {
-                  res.redirect(
-                    `http://localhost:3000/authorize-user?token=${token}`
-                  );
-                });
+
+                instagramApiService
+                  .getUser(instagramId, result.access_token)
+                  .then(instagramUser => {
+                    Photographer.create({
+                      instagramId,
+                      userId: user.id,
+                      instagramToken: result.access_token,
+                      followers: instagramUser.counts.follows
+                    }).then(newPhotographer => {
+                      res.redirect(
+                        `http://localhost:3000/authorize-user?token=${token}`
+                      );
+                    });
+                  })
+                  .catch(err => {
+                    res
+                      .status(400)
+                      .send({
+                        message: 'Error fetching and updating user data',
+                        err
+                      });
+                  });
               }
             });
           }

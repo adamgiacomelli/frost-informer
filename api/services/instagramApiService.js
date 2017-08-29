@@ -67,5 +67,19 @@ module.exports = {
           err
         };
       });
+  },
+
+  getUser: (id, accessToken) => {
+    return request(
+      `https://api.instagram.com/v1/users/${id}?access_token=${accessToken}`
+    )
+      .then(res => {
+        return JSON.parse(res).data;
+      })
+      .catch(err => {
+        return {
+          err
+        };
+      });
   }
 };
