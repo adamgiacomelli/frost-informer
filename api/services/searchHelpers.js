@@ -40,6 +40,7 @@ module.exports = {
     let where = {};
     let categoryWhere = {};
     let usersWhere = {};
+    let orderBy = null;
 
     lat = parseFloat(lat);
     lon = parseFloat(lon);
@@ -59,7 +60,7 @@ module.exports = {
     }
 
     if (order) {
-      order = order.split(',');
+      orderBy = [order.split(',')];
     }
 
     if (radius) {
@@ -97,7 +98,7 @@ module.exports = {
           where: categoryWhere
         }
       ],
-      order: [order]
+      order: orderBy
     };
   }
 };
