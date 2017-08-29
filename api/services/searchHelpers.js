@@ -26,7 +26,16 @@ module.exports = {
   },
 
   querySetup: query => {
-    let { lat, lon, category, radius, followers_min, followers_max } = query;
+    let {
+      lat,
+      lon,
+      category,
+      radius,
+      followers_min,
+      followers_max,
+      studio,
+      expertise
+    } = query;
     let where = {};
     let categoryWhere = {};
     let usersWhere = {};
@@ -38,6 +47,14 @@ module.exports = {
       where.followers = {
         $between: [followers_min, followers_max]
       };
+    }
+
+    if (studio != undefined) {
+      where.studio = studio == 'true' ? 1 : 0;
+    }
+
+    if (expertise != undefined) {
+      where.expertise = expertise == 'true' ? 'professional' : 'amateur';
     }
 
     if (radius) {

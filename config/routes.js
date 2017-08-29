@@ -55,6 +55,8 @@ let otherRoutes = {
    * @apiParam {Number} [radius] Filter results by radius in km.
    * @apiParam {Number} [followers_min] Filter by minimal number of followers.
    * @apiParam {Number} [followers_max] Filter by maximal number of followers.
+   * @apiParam {Boolean} [studio] User studio filter
+   * @apiParam {Boolean} [expertise] true for professional and false for amateur
    *
    * @apiSuccess {Array} photographer List of results.
    */

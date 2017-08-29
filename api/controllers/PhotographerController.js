@@ -125,7 +125,8 @@ module.exports = {
                 email,
                 lat,
                 lon,
-                locationString
+                locationString,
+                status: 'ACTIVE'
               })
             );
             promisses.push(

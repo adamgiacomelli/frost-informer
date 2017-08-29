@@ -9,7 +9,7 @@ const geocoder = NodeGeocoder(options);
 
 module.exports = {
   getGeolocString: (loc, response) => {
-    geocoder.reverse({lat: loc.lat, lon: loc.lon}, function(err, res) {
+    geocoder.reverse({ lat: loc.lat, lon: loc.lon }, function(err, res) {
       response(res);
     });
   }
