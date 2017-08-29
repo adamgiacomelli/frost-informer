@@ -19,7 +19,7 @@ module.exports = {
     results_per_page = parseInt(results_per_page) || 10;
 
     let sortAtt = [];
-    if(order) {
+    if (order) {
       sortAtt = order.split(',');
       console.log(sortAtt);
     }
@@ -74,11 +74,19 @@ module.exports = {
       res.status(400).send({
         message: 'Studio needs to be a true or false value.'
       });
-    } else if (expertise != undefined && expertise != 'true' && expertise != 'false') {
+    } else if (
+      expertise != undefined &&
+      expertise != 'true' &&
+      expertise != 'false'
+    ) {
       res.status(400).send({
         message: 'Expertise needs to be a true or false value.'
       });
-    } else if (order && ((sortAtt[0] != 'followers' && sortAtt[0] != 'priceRange') || (sortAtt[1] != 'asc' && sortAtt[1] != 'desc'))) {
+    } else if (
+      order &&
+      ((sortAtt[0] != 'followers' && sortAtt[0] != 'priceRange') ||
+        (sortAtt[1] != 'asc' && sortAtt[1] != 'desc'))
+    ) {
       res.status(400).send({
         message: 'Sorting parameters are not correct.'
       });

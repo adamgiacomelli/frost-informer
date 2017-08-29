@@ -78,12 +78,10 @@ module.exports = {
                     });
                   })
                   .catch(err => {
-                    res
-                      .status(400)
-                      .send({
-                        message: 'Error fetching and updating user data',
-                        err
-                      });
+                    res.status(400).send({
+                      message: 'Error fetching and updating user data',
+                      err
+                    });
                   });
               }
             });
