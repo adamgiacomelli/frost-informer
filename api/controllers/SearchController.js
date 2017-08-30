@@ -13,6 +13,7 @@ module.exports = {
       expertise,
       page,
       results_per_page,
+      price_range,
       order
     } = req.query;
     page = parseInt(page) || 1;
@@ -89,6 +90,13 @@ module.exports = {
     ) {
       res.status(400).send({
         message: 'Sorting parameters are not correct.'
+      });
+    } else if (
+      price_range &&
+      (!validationHelper.isPositiveInt(price_range) || price_range > 5)
+    ) {
+      res.status(400).send({
+        message: 'Price range has to be a number between 1 and 5'
       });
     } else {
       let pagination = {

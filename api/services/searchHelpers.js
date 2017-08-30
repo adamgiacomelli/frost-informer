@@ -34,6 +34,7 @@ module.exports = {
       followers_min,
       followers_max,
       studio,
+      price_range,
       expertise,
       order
     } = query;
@@ -57,6 +58,12 @@ module.exports = {
 
     if (expertise != undefined) {
       where.expertise = expertise == 'true' ? 'professional' : 'amateur';
+    }
+
+    if (price_range) {
+      where.priceRange = {
+        $between: [1, price_range]
+      };
     }
 
     if (order) {
