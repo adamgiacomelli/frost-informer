@@ -52,7 +52,7 @@ let otherRoutes = {
    * @apiParam {Number} [page=1] Which page of results to return.
    * @apiParam {Number} [results_per_page=10] How many results per page.
    * @apiParam {Number} [category] CategoryId.
-   * @apiParam {Number} [radius] Filter results by radius in km.
+   * @apiParam {Number} [radius=35] Filter results by radius in km.
    * @apiParam {Number} [followers_min] Filter by minimal number of followers.
    * @apiParam {Number} [followers_max] Filter by maximal number of followers.
    * @apiParam {Boolean} [studio] User studio filter

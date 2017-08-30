@@ -63,16 +63,18 @@ module.exports = {
       orderBy = [order.split(',')];
     }
 
-    if (radius) {
-      // 111km is aprox. 1 degree on a map
-      let degDist = parseInt(radius) / 111;
-      usersWhere.lat = {
-        $between: [lat - degDist, lat + degDist]
-      };
-      usersWhere.lon = {
-        $between: [lon - degDist, lon + degDist]
-      };
+    if (!radius) {
+      radius = 35;
     }
+
+    // 111km is aprox. 1 degree on a map
+    let degDist = parseInt(radius) / 111;
+    usersWhere.lat = {
+      $between: [lat - degDist, lat + degDist]
+    };
+    usersWhere.lon = {
+      $between: [lon - degDist, lon + degDist]
+    };
 
     if (category) {
       categoryWhere = {
