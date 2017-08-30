@@ -335,9 +335,9 @@ module.exports = {
       // hardcoded response for frontend use
       // todo: to be replaced with real database-model data
 
-      let pPhotographers;
+      //let pPhotographers;
 
-      /*
+
       let artists = [];
 
       for (let i = 0; i < results_per_page; i++) {
@@ -349,7 +349,7 @@ module.exports = {
         results: artists,
         total_pages: 24
       });
-      */
+
     }
   }
 };
