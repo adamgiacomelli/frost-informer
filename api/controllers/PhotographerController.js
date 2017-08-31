@@ -332,9 +332,6 @@ module.exports = {
         message: 'Number of results per page is not a positive integer'
       });
     } else {
-      // hardcoded response for frontend use
-      // todo: to be replaced with real database-model data
-
       let pPhotographers = Photographer.findAndCountAll({
         limit: results_per_page,
         offset: (page - 1) * results_per_page,
