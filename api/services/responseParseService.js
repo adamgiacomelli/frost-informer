@@ -31,6 +31,24 @@ module.exports = {
     };
   },
 
+  featuredPhotographersInfo: photographer => {
+    let selection = arrayHelpers.getRandomArrayItems(photographer.photos, 3);
+    let photos = selection.map(({ photo, hiresPhoto }) => ({
+      photo,
+      hiresPhoto
+    }));
+
+    return {
+      id: photographer.user.id,
+      firstName: photographer.user.firstName,
+      lastName: photographer.user.lastName,
+      lat: photographer.user.lat,
+      lon: photographer.user.lon,
+      locationString: photographer.user.locationString,
+      photos
+    };
+  },
+
   mediaPhotos: medias => {
     return _.map(medias, item => {
       return {

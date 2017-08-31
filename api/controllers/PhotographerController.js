@@ -319,8 +319,8 @@ module.exports = {
   },
 
   getFeatured: function(req, res) {
-    let page = req.query.page || 1;
-    let results_per_page = req.query.results_per_page || 6;
+    let page = parseInt(req.query.page) || 1;
+    let results_per_page = parseInt(req.query.results_per_page) || 6;
 
     if (!validationHelper.isPositiveInt(page)) {
       res.status(400).send({
@@ -335,21 +335,43 @@ module.exports = {
       // hardcoded response for frontend use
       // todo: to be replaced with real database-model data
 
-      //let pPhotographers;
-
-
-      let artists = [];
-
-      for (let i = 0; i < results_per_page; i++) {
-        artists.push(hardcodedHelpers.generateArtist());
-      }
-
-      // todo: replace total_pages number with real number of total pages
-      res.status(200).send({
-        results: artists,
-        total_pages: 24
+      let pPhotographers = Photographer.findAndCountAll({
+        limit: results_per_page,
+        offset: (page - 1) * results_per_page,
+        distinct: true,
+        include: [
+          {
+            model: User,
+            as: 'user',
+            where: {
+              status: 'ACTIVE'
+            }
+          },
+          {
+            model: Photo,
+            as: 'photos'
+          }
+        ],
+        order: [['createdAt', 'desc']]
       });
 
+      pPhotographers
+        .then(result => {
+          let r = result.rows;
+          let photographers = _.map(r, photographer => {
+            return responseParseService.featuredPhotographersInfo(photographer);
+          });
+          res.status(200).send({
+            results: photographers,
+            totalPages: Math.ceil(photographers.count / results_per_page)
+          });
+        })
+        .catch(err => {
+          res.status(400).send({
+            message: 'Error retrieving featured artists.',
+            err
+          });
+        });
     }
   }
 };
