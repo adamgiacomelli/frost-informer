@@ -360,7 +360,7 @@ module.exports = {
           });
           res.status(200).send({
             results: photographers,
-            totalPages: Math.ceil(photographers.count / results_per_page)
+            totalPages: Math.ceil(result.count / results_per_page)
           });
         })
         .catch(err => {

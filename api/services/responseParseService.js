@@ -34,17 +34,18 @@ module.exports = {
   featuredPhotographersInfo: photographer => {
     let selection = arrayHelpers.getRandomArrayItems(photographer.photos, 3);
     let photos = selection.map(({ photo, hiresPhoto }) => ({
-      photo,
+      thumbnailUrl: photo,
       hiresPhoto
     }));
 
     return {
-      id: photographer.user.id,
-      firstName: photographer.user.firstName,
-      lastName: photographer.user.lastName,
-      lat: photographer.user.lat,
-      lon: photographer.user.lon,
-      locationString: photographer.user.locationString,
+      name: `${photographer.user.firstName} ${photographer.user.lastName}`,
+      followers: photographer.followers,
+      location: {
+        city: photographer.user.locationString,
+        lat: photographer.user.lat,
+        lon: photographer.user.lon
+      },
       photos
     };
   },
