@@ -62,20 +62,27 @@ module.exports = {
               if (user) {
                 token = jwToken.issue({ id: user.id });
                 user.update({ authToken: token });
-
                 instagramApiService
                   .getUser(instagramId, result.access_token)
                   .then(instagramUser => {
-                    Photographer.create({
-                      instagramId,
-                      userId: user.id,
-                      instagramToken: result.access_token,
-                      followers: instagramUser.counts.follows
-                    }).then(newPhotographer => {
+
+                    if (instagramUser.counts.media < 9 && instagramUser.counts.follows < 99) {
+                      User.destroy({where: { id: user.id }});
                       res.redirect(
-                        `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
+                        `https://d3j4y9hlryww28.cloudfront.net/authorize-user?error=unable-to-authorize-user`
                       );
-                    });
+                    } else {
+                      Photographer.create({
+                        instagramId,
+                        userId: user.id,
+                        instagramToken: result.access_token,
+                        followers: instagramUser.counts.follows
+                      }).then(newPhotographer => {
+                        res.redirect(
+                          `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
+                        );
+                      });
+                    }
                   })
                   .catch(err => {
                     res.status(400).send({
