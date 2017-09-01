@@ -35,20 +35,25 @@ module.exports = {
   getUsersMedia: (photographer, resolve) => {
     ig.use({ access_token: photographer.instagramToken });
 
-    ig.user_media_recent(
-      photographer.instagramId,
-      { count: 50 },
-      (err, medias, pagination, remaining, limit) => {
-        if (err) {
-          resolve({
-            error: true,
-            err
-          });
-        } else {
-          resolve(medias);
+    ig.user(photographer.instagramId, (err, result, remaining, limit) => {
+
+      let mediacount = result.counts.media;
+
+      ig.user_media_recent(
+        photographer.instagramId,
+        { count: mediacount },
+        (err, medias, pagination, remaining, limit) => {
+          if (err) {
+            resolve({
+              error: true,
+              err
+            });
+          } else {
+            resolve(medias);
+          }
         }
-      }
-    );
+      );
+    })
   },
 
   getPhoto: (id, photographer) => {
