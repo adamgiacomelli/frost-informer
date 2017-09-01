@@ -20,6 +20,13 @@ module.exports = {
   // models: {
   //   connection: 'someMongodbServer'
   // }
+  models: {
+    connection: 'HerokuMysqlDB',
+    migrate: 'safe'
+  },
+  log: {
+    level: "verbose"
+  },
   port: 1338,
 
 };

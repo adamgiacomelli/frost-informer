@@ -34,7 +34,12 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+
+  'POST /v1/publishTemperatureEntry': {
+    controller: 'SensorsController',
+    action: 'publishTemperatureEntry'  
+  },
 
   /***************************************************************************
   *                                                                          *

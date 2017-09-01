@@ -7,16 +7,21 @@
   "dependencies": {
     "ejs": "2.3.4",
     "include-all": "^1.0.0",
+    "lodash": "^4.17.4",
+    "mysql": "^2.14.1",
+    "mysql2": "^1.4.2",
+    "prettier-standard": "^6.0.0",
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-hook-babel": "^6.0.3",
-    "sails-swagger": "^0.5.1",
+    "sails-hook-sequelize": "^1.0.1",
     "sails-test-helper": "^0.5.0"
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "style": "node ./node_modules/.bin/prettier-standard api/**/*.js"
   },
   "main": "app.js",
   "engines": {

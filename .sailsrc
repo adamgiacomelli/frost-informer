@@ -5,8 +5,11 @@
   "hooks": {
     "session": false,
     "blueprints": false,
+    "waterline": false,
     "grunt": false,
-    "views": false
+    "views": false,
+    "orm": false,
+    "pubsub": false
   },
   "paths": {
      "public": "assets/build"
