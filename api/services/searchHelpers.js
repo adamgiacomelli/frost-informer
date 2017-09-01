@@ -3,19 +3,17 @@ module.exports = {
   generatePhotographer: record => {
     let photos = [];
     // retrieve instagram photo details
-    _.map(record.photos, photo => {
-      let p = instagramApiService.getMedia(photo.instagramImageId);
-      photos.push({
-        thumbnailUrl: p.data.images.thumbnail.url
-      });
+    photos = _.map(record.photos, photo => {
+      return {
+        thumbnailUrl: photo.photo,
+        hiresPhoto: photo.hiresPhoto
+      };
     });
-
-    photos = arrayHelpers.getRandomArrayItems(photos, 3);
 
     return {
       name: `${record.user.firstName} ${record.user.lastName}`,
       location: {
-        city: 'This is yet to be retrieved'
+        city: record.user.locationString
       },
       id: record.user.id,
       followers: record.followers,
@@ -28,10 +26,22 @@ module.exports = {
   },
 
   querySetup: query => {
-    let { lat, lon, category, radius, followers_min, followers_max } = query;
+    let {
+      lat,
+      lon,
+      category,
+      radius,
+      followers_min,
+      followers_max,
+      studio,
+      price_range,
+      expertise,
+      order
+    } = query;
     let where = {};
     let categoryWhere = {};
     let usersWhere = {};
+    let orderBy = null;
 
     lat = parseFloat(lat);
     lon = parseFloat(lon);
@@ -42,16 +52,36 @@ module.exports = {
       };
     }
 
-    if (radius) {
-      // 111km is aprox. 1 degree on a map
-      let degDist = parseInt(radius) / 111;
-      usersWhere.lat = {
-        $between: [lat - degDist, lat + degDist]
-      };
-      usersWhere.lon = {
-        $between: [lon - degDist, lon + degDist]
+    if (studio != undefined) {
+      where.studio = studio == 'true' ? 1 : 0;
+    }
+
+    if (expertise != undefined) {
+      where.expertise = expertise == 'true' ? 'professional' : 'amateur';
+    }
+
+    if (price_range) {
+      where.priceRange = {
+        $between: [1, price_range]
       };
     }
+
+    if (order) {
+      orderBy = [order.split(',')];
+    }
+
+    if (!radius) {
+      radius = 35;
+    }
+
+    // 111km is aprox. 1 degree on a map
+    let degDist = parseInt(radius) / 111;
+    usersWhere.lat = {
+      $between: [lat - degDist, lat + degDist]
+    };
+    usersWhere.lon = {
+      $between: [lon - degDist, lon + degDist]
+    };
 
     if (category) {
       categoryWhere = {
@@ -76,7 +106,8 @@ module.exports = {
           as: 'categoryIds',
           where: categoryWhere
         }
-      ]
+      ],
+      order: orderBy
     };
   }
 };

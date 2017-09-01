@@ -427,6 +427,15 @@ module.exports = {
     { lat: 48.8587741, lon: 2.2069771 },
     { lat: 40.6976637, lon: -74.1197633 }
   ],
+  photos: [
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20634013_141375903115692_7423958787700031488_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20479060_129715610974195_1876355479433641984_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20583264_1375103902603035_6187719964137357312_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20633608_307471639663455_1160149144292032512_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20688077_344265775986623_1867672185137528832_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20687998_1120287794772909_1060496986672726016_n.jpg',
+    'https://scontent-frt3-2.cdninstagram.com/t51.2885-15/e35/20590085_135158967086929_4852177854558896128_n.jpg'
+  ],
 
   generateUser: () => {
     const randomPoint = arrayHelpers.getRandomArrayItem(
@@ -443,6 +452,7 @@ module.exports = {
       avatar: arrayHelpers.getRandomArrayItem(seederHelpers.avatars),
       lat: randomPoint.lat,
       lon: randomPoint.lon,
+      locationString: 'City, Country',
       status: 'ACTIVE'
     };
   },
@@ -465,10 +475,14 @@ module.exports = {
   },
 
   generatePhoto: (photographer, categoryId) => {
+    let gimmePhoto = arrayHelpers.getRandomArrayItem(seederHelpers.photos);
+
     return {
       categoryId,
       photographerId: photographer.id,
-      instagramImageId: Math.floor(Math.random() * 300000 + 100000)
+      instagramImageId: Math.floor(Math.random() * 300000 + 100000),
+      photo: gimmePhoto,
+      hiresPhoto: gimmePhoto
     };
   }
 };

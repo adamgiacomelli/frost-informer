@@ -9,11 +9,21 @@ module.exports = {
       radius,
       followers_min,
       followers_max,
+      studio,
+      expertise,
       page,
-      results_per_page
+      results_per_page,
+      price_range,
+      order
     } = req.query;
     page = parseInt(page) || 1;
     results_per_page = parseInt(results_per_page) || 10;
+
+    let sortAtt = [];
+    if (order) {
+      sortAtt = order.split(',');
+      console.log(sortAtt);
+    }
 
     if (!validationHelper.isPositiveInt(results_per_page)) {
       res
@@ -61,6 +71,33 @@ module.exports = {
       res.status(400).send({
         message: 'Radius should be positive integer (distance in kilometers).'
       });
+    } else if (studio != undefined && studio != 'true' && studio != 'false') {
+      res.status(400).send({
+        message: 'Studio needs to be a true or false value.'
+      });
+    } else if (
+      expertise != undefined &&
+      expertise != 'true' &&
+      expertise != 'false'
+    ) {
+      res.status(400).send({
+        message: 'Expertise needs to be a true or false value.'
+      });
+    } else if (
+      order &&
+      ((sortAtt[0] != 'followers' && sortAtt[0] != 'priceRange') ||
+        (sortAtt[1] != 'asc' && sortAtt[1] != 'desc'))
+    ) {
+      res.status(400).send({
+        message: 'Sorting parameters are not correct.'
+      });
+    } else if (
+      price_range &&
+      (!validationHelper.isPositiveInt(price_range) || price_range > 5)
+    ) {
+      res.status(400).send({
+        message: 'Price range has to be a number between 1 and 5'
+      });
     } else {
       let pagination = {
         limit: results_per_page,
@@ -82,7 +119,6 @@ module.exports = {
               searchHelpers.generatePhotographer(photographer)
             );
           });
-
           res.status(200).send({
             results: photographers,
             totalPages: Math.ceil(result.count / results_per_page)

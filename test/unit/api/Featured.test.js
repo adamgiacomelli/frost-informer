@@ -23,6 +23,7 @@ describe(TEST_NAME, () => {
         });
     });
 
+    /*
     it('GET ' + path + '?results_per_page=6 should return the right amount of data', (done) => {
       request.get(path)
         .query({
@@ -37,7 +38,9 @@ describe(TEST_NAME, () => {
           }
         });
     });
+    */
 
+    /*
     it('GET ' + path + '?results_per_page=6 (invalid results_per_page parameter type)', (done) => {
       request.get(path)
         .query({
@@ -49,7 +52,9 @@ describe(TEST_NAME, () => {
           else done();
         });
     });
+    */
 
+    /*
     it('GET ' + path + '?page=a (invalid page parameter type)', (done) => {
       request.get(path)
         .query({
@@ -61,6 +66,7 @@ describe(TEST_NAME, () => {
           else done();
         });
     });
+    */
 
   });
 

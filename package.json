@@ -19,9 +19,11 @@
     "randomstring": "^1.1.5",
     "rc": "1.0.1",
     "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-hook-babel": "^6.0.3",
+    "sails-hook-cron": "^2.2.0",
     "sails-hook-sequelize": "https://github.com/festo/sails-hook-sequelize.git",
     "sails-test-helper": "^0.5.0",
     "uuid": "^3.1.0"

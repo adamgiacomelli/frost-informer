@@ -24,6 +24,10 @@ module.exports = {
           {
             model: Category,
             as: 'categories'
+          },
+          {
+            model: Photo,
+            as: 'photos'
           }
         ]
       });
@@ -53,6 +57,7 @@ module.exports = {
       lastName,
       lat,
       lon,
+      locationString,
       email,
       expertise,
       studio,
@@ -87,15 +92,14 @@ module.exports = {
       !studio ||
       !priceRange ||
       !expertise ||
-      !categories
+      !categories ||
+      !locationString
     ) {
       res.status(400).send({ message: 'POST data object is not complete.' });
     } else if (expertise != 'amateur' && expertise != 'professional') {
-      res
-        .status(400)
-        .send({
-          message: "Expertise should be either 'amateur' or 'professional'"
-        });
+      res.status(400).send({
+        message: "Expertise should be either 'amateur' or 'professional'"
+      });
     } else {
       Photographer.findOne({
         where: { userId },
@@ -120,7 +124,9 @@ module.exports = {
                 lastName,
                 email,
                 lat,
-                lon
+                lon,
+                locationString,
+                status: 'ACTIVE'
               })
             );
             promisses.push(
@@ -161,12 +167,10 @@ module.exports = {
       .then(photographer => {
         instagramApiService.getUsersMedia(photographer, medias => {
           if (medias.error) {
-            res
-              .status(400)
-              .send({
-                message: 'Error retrieving data from instagram API.',
-                err: medias.err
-              });
+            res.status(400).send({
+              message: 'Error retrieving data from instagram API.',
+              err: medias.err
+            });
           } else {
             res.status(200).send(
               responseParseService.mediaPhotos(
@@ -190,9 +194,133 @@ module.exports = {
       });
   },
 
+  updatePhotos: function(req, res) {
+    let userId = req.token.id;
+    let { photos } = req.body;
+
+    if (photos.length == 0) {
+      res.status(400).send({ message: 'Photo ids not defined' });
+    } else if (photos.length > 9) {
+      res.status(400).send({ message: 'More than 9 photos specified.' });
+    } else {
+      Photographer.findOne({
+        where: {
+          userId
+        },
+        include: [
+          {
+            model: Photo,
+            as: 'photos'
+          }
+        ]
+      })
+        .then(photographer => {
+          let pPhotos = [];
+          Photo.destroy({
+            where: {
+              photographerId: photographer.id
+            }
+          })
+            .then(() => {
+              pPhotos = [];
+              let medias = [];
+              photos.map(photoId => {
+                medias.push(
+                  instagramApiService.getPhoto(photoId, photographer)
+                );
+              });
+
+              Promise.all(medias).then(m => {
+                let err = _.filter(m, media => media.err);
+                if (err.length) {
+                  res
+                    .status(400)
+                    .send({ message: 'Error retrieving instagram photo', err });
+                } else {
+                  m.map(item => {
+                    pPhotos.push(
+                      Photo.create({
+                        instagramImageId: item.intagramImageId,
+                        photographerId: photographer.id,
+                        photo: item.photo,
+                        hiresPhoto: item.hiresPhoto
+                      })
+                    );
+                  });
+
+                  Promise.all(pPhotos)
+                    .then(results => {
+                      let err = _.filter(results, photo => {
+                        return photo.err;
+                      });
+                      if (err.length) {
+                        res
+                          .status(400)
+                          .send({ message: 'Error updating photo' });
+                      } else {
+                        res
+                          .status(200)
+                          .send({ message: 'Success updating photos.' });
+                      }
+                    })
+                    .catch(err => {
+                      res.status(400).send({
+                        message: 'Error creating photos',
+                        err
+                      });
+                    });
+                }
+              });
+              return null;
+            })
+            .catch(err => {
+              res.status(400).send({ message: 'Error updating photos.', err });
+            });
+        })
+        .catch(err => {
+          res.status(400).send({ message: 'Photographer not found', err });
+        });
+    }
+  },
+
+  updatePhotoCategory: function(req, res) {
+    let { photoId, categoryId } = req.body;
+    console.log(photoId, categoryId);
+
+    if (
+      !photoId ||
+      !categoryId ||
+      !validationHelper.isPositiveInt(parseInt(photoId)) ||
+      !validationHelper.isPositiveInt(parseInt(categoryId))
+    ) {
+      res.status(400).send({
+        message: 'Both - photoId and categoryId - have to be positive integers.'
+      });
+    } else {
+      Photo.findOne({
+        where: {
+          id: photoId
+        }
+      })
+        .then(p => {
+          return p.updateAttributes({
+            categoryId: categoryId
+          });
+        })
+        .then(() => {
+          res.status(200).send({ message: 'Photo category updated' });
+        })
+        .catch(err => {
+          res
+            .status(400)
+            .send({ message: 'Error updating photo category.', err });
+        });
+    }
+  },
+
   getFeatured: function(req, res) {
-    let page = req.query.page || 1;
-    let results_per_page = req.query.results_per_page || 6;
+    let page = parseInt(req.query.page) || 1;
+    let results_per_page = parseInt(req.query.results_per_page) || 6;
 
     if (!validationHelper.isPositiveInt(page)) {
       res.status(400).send({
@@ -204,19 +332,43 @@ module.exports = {
         message: 'Number of results per page is not a positive integer'
       });
     } else {
-      // hardcoded response for frontend use
-      // todo: to be replaced with real database-model data
-      let artists = [];
-
-      for (let i = 0; i < results_per_page; i++) {
-        artists.push(hardcodedHelpers.generateArtist());
-      }
-
-      // todo: replace total_pages number with real number of total pages
-      res.status(200).send({
-        results: artists,
-        total_pages: 24
+      let pPhotographers = Photographer.findAndCountAll({
+        limit: results_per_page,
+        offset: (page - 1) * results_per_page,
+        distinct: true,
+        include: [
+          {
+            model: User,
+            as: 'user',
+            where: {
+              status: 'ACTIVE'
+            }
+          },
+          {
+            model: Photo,
+            as: 'photos'
+          }
+        ],
+        order: [['createdAt', 'desc']]
       });
+
+      pPhotographers
+        .then(result => {
+          let r = result.rows;
+          let photographers = _.map(r, photographer => {
+            return responseParseService.featuredPhotographersInfo(photographer);
+          });
+          res.status(200).send({
+            results: photographers,
+            totalPages: Math.ceil(result.count / results_per_page)
+          });
+        })
+        .catch(err => {
+          res.status(400).send({
+            message: 'Error retrieving featured artists.',
+            err
+          });
+        });
     }
   }
 };

@@ -1,4 +1,4 @@
-const request = require('request');
+const request = require('request-promise');
 const ig = require('instagram-node').instagram();
 ig.use({
   client_id: sails.config.auth.IG_CLIENTID,
@@ -35,18 +35,56 @@ module.exports = {
   getUsersMedia: (photographer, resolve) => {
     ig.use({ access_token: photographer.instagramToken });
 
-    ig.user_media_recent(
-      photographer.instagramId,
-      (err, medias, pagination, remaining, limit) => {
-        if (err) {
-          resolve({
-            error: true,
-            err
-          });
-        } else {
-          resolve(medias);
+    ig.user(photographer.instagramId, (err, result, remaining, limit) => {
+
+      let mediacount = result.counts.media;
+
+      ig.user_media_recent(
+        photographer.instagramId,
+        { count: mediacount },
+        (err, medias, pagination, remaining, limit) => {
+          if (err) {
+            resolve({
+              error: true,
+              err
+            });
+          } else {
+            resolve(medias);
+          }
         }
-      }
-    );
+      );
+    })
+  },
+
+  getPhoto: (id, photographer) => {
+    return request(
+      `https://api.instagram.com/v1/media/${id}?access_token=${photographer.instagramToken}`
+    )
+      .then(res => {
+        return {
+          instagramImageid: JSON.parse(res).data.id,
+          photo: JSON.parse(res).data.images.thumbnail.url,
+          hiresPhoto: JSON.parse(res).data.images.standard_resolution.url
+        };
+      })
+      .catch(err => {
+        return {
+          err
+        };
+      });
+  },
+
+  getUser: (id, accessToken) => {
+    return request(
+      `https://api.instagram.com/v1/users/${id}?access_token=${accessToken}`
+    )
+      .then(res => {
+        return JSON.parse(res).data;
+      })
+      .catch(err => {
+        return {
+          err
+        };
+      });
   }
 };

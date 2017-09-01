@@ -7,7 +7,10 @@ api.use({
 
 module.exports = {
   authorizeUser: function(req, res) {
-    res.redirect(api.get_authorization_url(redirectUrl));
+    let redirect = api.get_authorization_url(redirectUrl, {
+      scope: ['public_content', 'basic']
+    });
+    res.status(200).send({ redirectUrl: redirect });
   },
 
   handleAuth: function(req, res) {
@@ -40,9 +43,9 @@ module.exports = {
               { where: { id: photographer.userId } }
             )
               .then(result => {
-                res.status(200).send({
-                  token
-                });
+                res.redirect(
+                  `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
+                );
               })
               .catch(err => {
                 res.status(400).send({ message: 'Error updating auth token.' });
@@ -59,15 +62,34 @@ module.exports = {
               if (user) {
                 token = jwToken.issue({ id: user.id });
                 user.update({ authToken: token });
-                Photographer.create({
-                  instagramId,
-                  userId: user.id,
-                  instagramToken: result.access_token
-                }).then(newPhotographer => {
-                  res.status(200).send({
-                    token
+                instagramApiService
+                  .getUser(instagramId, result.access_token)
+                  .then(instagramUser => {
+
+                    if (instagramUser.counts.media < 9 && instagramUser.counts.follows < 99) {
+                      User.destroy({where: { id: user.id }});
+                      res.redirect(
+                        `https://d3j4y9hlryww28.cloudfront.net/authorize-user?error=unable-to-authorize-user`
+                      );
+                    } else {
+                      Photographer.create({
+                        instagramId,
+                        userId: user.id,
+                        instagramToken: result.access_token,
+                        followers: instagramUser.counts.follows
+                      }).then(newPhotographer => {
+                        res.redirect(
+                          `https://d3j4y9hlryww28.cloudfront.net/authorize-user?token=${token}`
+                        );
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    res.status(400).send({
+                      message: 'Error fetching and updating user data',
+                      err
+                    });
                   });
-                });
               }
             });
           }

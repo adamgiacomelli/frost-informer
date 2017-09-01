@@ -41,7 +41,6 @@ module.exports.bootstrap = function(cb) {
         let pPhotographers = [];
         Promise.all(pUsers)
           .then(users => {
-            // create photographers
             _.map(users, user => {
               pPhotographers.push(Photographer.create(seederHelpers.generatePhotographer(user.id, categories)));
             });

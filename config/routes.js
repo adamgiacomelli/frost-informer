@@ -20,7 +20,12 @@
  * http://sailsjs.org/#!/documentation/concepts/Routes/RouteTargetSyntax.html
  */
 
-module.exports.routes = {
+const meRoutes = require('./routes/meRoutes');
+const invitationRoutes = require('./routes/invitationRoutes');
+const authRoutes = require('./routes/authRoutes');
+const staticRoutes = require('./routes/staticRoutes');
+
+let otherRoutes = {
 
   /**
    * @api {get} /featured Request featured photographers
@@ -47,9 +52,12 @@ module.exports.routes = {
    * @apiParam {Number} [page=1] Which page of results to return.
    * @apiParam {Number} [results_per_page=10] How many results per page.
    * @apiParam {Number} [category] CategoryId.
-   * @apiParam {Number} [radius] Filter results by radius in km.
+   * @apiParam {Number} [radius=35] Filter results by radius in km.
    * @apiParam {Number} [followers_min] Filter by minimal number of followers.
    * @apiParam {Number} [followers_max] Filter by maximal number of followers.
+   * @apiParam {Boolean} [studio] User studio filter
+   * @apiParam {Boolean} [expertise] true for professional and false for amateur
+   * @apiParam {String="followers,asc", "followers,desc", "priceRange,asc", "priceRange,desc"} [order] Ordering results by given parameters
    *
    * @apiSuccess {Array} photographer List of results.
    */
@@ -58,103 +66,19 @@ module.exports.routes = {
     action: 'search',   
   },
 
-  // static page
-  'PUT /v1/static-page/': {
-    controller: 'StaticPageController',
-    action: 'create',
-    skipAssets: 'true',
-  },
-
-
-  'POST /v1/static-page/:id': {
-    controller: 'StaticPageController',
-    action: 'update',
-    skipAssets: 'true',
-  },
-
-  'GET /v1/static-page/:id': {
-    controller: 'StaticPageController',
-    action: 'get',
-    skipAssets: 'true',
-  },
-
-  'DELETE /v1/static-page/:id': {
-    controller: 'StaticPageController',
-    action: 'delete',
-    skipAssets: 'true',
-  },
-
-  // authentication
-  'GET /v1/authorize-user': {
-    controller: 'AuthController',
-    action: 'authorizeUser',
-  },
-
-  'GET /v1/handle-auth': {
-    controller: 'AuthController',
-    action: 'handleAuth'
-  },
-
-  // invitations
-  'POST /v1/invitation/request': {
-    controller: 'InvitationController',
-    action: 'requestInvitationCode'
-  },
-
-  'POST /v1/invitation/submit': {
-    controller: 'InvitationController',
-    action: 'submitInvitation'
-  },
-
   /**
-   * @api {get} /me Get basic information for logged in user
-   * @apiName Get basic user information
-   * @apiGroup User
+   * @api {get} /categories get categories
+   * @apiName GetCategories
+   * @apiGroup BasicData
    *
-   * @apiHeader {String} authorization JW token.
-   *
-   * @apiSuccess {Object} Current user basic data.
+   * @apiSuccess {Array} List of existing categories.
    */
-  'GET /v1/me': {
-    controller: 'PhotographerController',
-    action: 'getBasicInfo'
-  },
-
-  /** @api {put} /me Update basic information for logged in user
-   * @apiName Update basic user information
-   * @apiGroup User
-   *
-   * @apiHeader {String} authorization JW token.
-   * @apiParam {String} firstName User first name
-   * @apiParam {String} lastName User last name
-   * @apiParam {Number} lat latitude
-   * @apiParam {Number} lon longitude
-   * @apiParam {String} email User email
-   * @apiParam {String="amateur","professional"} expertise
-   * @apiParam {Boolean} studio
-   * @apiParam {Number} priceRange Price range 1-5
-   * @apiParam {Array} categories Array of category ids (Example: [1, 2])
-   *
-   * @apiSuccess {Object} Current user basic data.
-   * */
-  'PUT /v1/me': {
-    controller: 'PhotographerController',
-    action: 'updateBasicInfo'
-  },
-
-  /**
-   * @api {get} /me/most-liked Get 33 of the most liked user photos
-   * @apiName Most liked photos
-   * @apiGroup User
-   * @apiDescription This endpoint only returns 20 photos at the moment due to application not being reviewed by instagram wizards yet.
-   *
-   * @apiHeader {String} authorization JW token.
-   *
-   * @apiSuccess {Array} Array of objects with attributes: id and photo (url to photo)
-   * */
-  'GET /v1/me/most-liked': {
-    controller: 'PhotographerController',
-    action: 'instagramMostLiked'
+  'GET /v1/categories': {
+    controller: 'BasicDataController',
+    action: 'getCategories'
   }
 
 };
+let routes = {};
+Object.assign(routes, ...[otherRoutes, authRoutes, meRoutes, invitationRoutes, staticRoutes]);
+module.exports.routes = routes;
