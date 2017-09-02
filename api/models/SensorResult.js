@@ -2,21 +2,18 @@ module.exports = {
   schema: true,
 
   attributes: {
-    firstName: {
+    temperature: {
+      type: Sequelize.DOUBLE
+    },
+    humidity: {
+      type: Sequelize.DOUBLE
+    },
+    createdAt: {
+      type: Sequelize.DATE
+    },
+    deviceId: {
       type: Sequelize.STRING
     },
-    lastName: {
-      type: Sequelize.STRING
-    },
-    email: {
-      type: Sequelize.STRING
-    },
-    code: {
-      type: Sequelize.STRING
-    },
-    status: {
-      type: Sequelize.STRING
-    }
   },
   associations: function() {},
   defaultScope: function() {},

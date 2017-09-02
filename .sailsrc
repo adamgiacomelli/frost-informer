@@ -3,13 +3,13 @@
     "modules": {}
   },
   "hooks": {
+    "orm": false,
+    "pubsub": false,
     "session": false,
     "blueprints": false,
     "waterline": false,
-    "grunt": false,
     "views": false,
-    "orm": false,
-    "pubsub": false
+    "grunt": false
   },
   "paths": {
      "public": "assets/build"

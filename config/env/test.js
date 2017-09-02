@@ -11,12 +11,13 @@
  */
 
 module.exports = {
-
-  models: {
-    connection: 'HerokuMysqlDB',
-    migrate: 'alter'
-  },
-  log: {
-    level: "verbose"
-  },
-};
+  
+    models: {
+      connection: 'HerokuMysqlDB',
+      migrate: 'safe'
+    },
+    log: {
+      level: "verbose"
+    },
+  };
+  
