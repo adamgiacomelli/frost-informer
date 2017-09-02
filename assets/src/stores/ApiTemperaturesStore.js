@@ -39,6 +39,7 @@ export const ApiTemperaturesStore = types
       self.isLoading = loading
     },
     updateTemperatures ({ temperatures }) {
+      console.log(temperatures)
       temperatures.forEach(temperature => {
         self.temperatures.push(temperatures)
       })
