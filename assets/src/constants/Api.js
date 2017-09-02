@@ -1,3 +1,3 @@
 export const API = {
-  URL: 'http://frost-informer.herokuapp.com/v1/'
-};
+  URL: 'https://frost-informer.herokuapp.com/v1/'
+}

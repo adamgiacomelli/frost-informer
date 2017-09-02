@@ -1,5 +1,5 @@
-import { types, getEnv } from 'mobx-state-tree';
-import { ApiTemperaturesStore } from './ApiTemperaturesStore';
+import { types, getEnv } from 'mobx-state-tree'
+import { ApiTemperaturesStore } from './ApiTemperaturesStore'
 
 export const ApiStore = types
   .model('ApiStore', {
@@ -8,15 +8,15 @@ export const ApiStore = types
     })
   })
   .views(self => ({
-    get fetch() {
-      return getEnv(self).fetch;
+    get fetch () {
+      return getEnv(self).fetch
     },
-    get alert() {
-      return getEnv(self).alert;
+    get alert () {
+      return getEnv(self).alert
     }
   }))
   .actions(self => ({
-    afterCreate() {
-      self.apiTemperaturesStore.loadTemperatures();
+    afterCreate () {
+      self.apiTemperaturesStore.loadTemperatures()
     }
-  }));
+  }))
