@@ -19,7 +19,7 @@ const Dashboard = inject('store')(
               <CardBlock className='card-body'>
                 <Row>
                   <Col sm='5'>
-                    <CardTitle className='mb-0'>Temperatures</CardTitle>
+                    <CardTitle className='mb-0'>Spalnica</CardTitle>
                   </Col>
                   <Col sm='7' className='d-none d-sm-inline-block'>
                     <Button color='primary' className='float-right'>
@@ -30,6 +30,12 @@ const Dashboard = inject('store')(
                 {apiTemperaturesStore.temperatures.length > 0 && (
                   <TempChart
                     series={apiTemperaturesStore.temperatures.toJS()}
+                    range={[
+                      parseInt(
+                        ((new Date().getTime() - 60*60*24*1000) / 1000).toFixed(0)
+                      ),
+                      parseInt((new Date().getTime() / 1000).toFixed(0))
+                    ]}
                   />
                 )}
               </CardBlock>

@@ -35,7 +35,7 @@ import { TimeSeries, TimeRange } from 'pondjs'
 const style = {
   value: {
     stroke: '#a02c2c',
-    opacity: 0.2
+    opacity: 0.4
   }
 }
 
@@ -64,7 +64,7 @@ class TempChart extends Component {
     console.log('mount')
 
     let dataArray = this.props.series
-    
+
     let temperatures = dataArray.map(entry => {
       let unix = parseInt(
         (new Date(entry.createdAt).getTime() / 1000).toFixed(0)
@@ -72,14 +72,14 @@ class TempChart extends Component {
       return [unix, entry.temperature]
     })
 
-    function Comparator(a, b) {
-      if (a[0] < b[0]) return -1;
-      if (a[0] > b[0]) return 1;
-      return 0;
+    function Comparator (a, b) {
+      if (a[0] < b[0]) return -1
+      if (a[0] > b[0]) return 1
+      return 0
     }
 
-    let points  = temperatures.sort(Comparator);
-    
+    let points = temperatures.sort(Comparator)
+
     console.log(temperatures)
     let series = new TimeSeries({
       name: 'Temps',
@@ -87,27 +87,34 @@ class TempChart extends Component {
       points
     })
 
-    console.log('temperatures', series)
-    this.setState({series})
+    console.log('range:', series.range().toString(), this.props.range)
+    this.setState({ series })
   }
 
   render () {
     console.log(this.state.series)
     return (
       <Resizable>
-        <ChartContainer timeRange={this.state.series.range()} format="%b '%y">
+        <ChartContainer
+          timeRange={new TimeRange(this.props.range)}
+          format="%b '%y"
+        >
           <h1>test</h1>
           <ChartRow height='150'>
             <YAxis
-              id='price'
-              label='Price ($)'
+              id='temperature'
+              label='Temperature (°C)'
               min={this.state.series.min()}
               max={this.state.series.max()}
               width='60'
               format='.2f'
             />
             <Charts>
-              <LineChart axis='price' series={this.state.series} style={style} />
+              <LineChart
+                axis='temperature'
+                series={this.state.series}
+                style={style}
+              />
               <Baseline
                 axis='price'
                 style={baselineStyleLite}
