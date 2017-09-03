@@ -4,6 +4,7 @@ import { ApiTemperaturesStore } from './ApiTemperaturesStore'
 export const ApiStore = types
   .model('ApiStore', {
     apiTemperaturesStore: types.optional(ApiTemperaturesStore, {
+      values: [],
       temperatures: []
     })
   })

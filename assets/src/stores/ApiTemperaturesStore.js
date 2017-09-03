@@ -1,7 +1,7 @@
 import { types, getParent, process } from 'mobx-state-tree'
 import { getTemperatures } from '../api/Temperatures'
 
-export const Temperature = types.model('Temperature', {
+export const Value = types.model('Value', {
   id: types.number,
   temperature: types.number,
   humidity: types.number,
@@ -10,8 +10,14 @@ export const Temperature = types.model('Temperature', {
   updatedAt: types.string
 })
 
+export const Temperature = types.model('Temperature', {
+  createdAt: types.string,
+  temperature: types.number
+})
+
 export const ApiTemperaturesStore = types
   .model('ApiTemperaturesStore', {
+    values: types.array(Value),
     temperatures: types.array(Temperature)
   })
   .views(self => ({
@@ -38,10 +44,12 @@ export const ApiTemperaturesStore = types
     markLoading (loading) {
       self.isLoading = loading
     },
-    updateTemperatures ({ temperatures }) {
-      console.log(temperatures)
-      temperatures.forEach(temperature => {
-        self.temperatures.push(temperatures)
+    updateTemperatures (values) {
+      values.forEach(value => {
+        if(value.deviceId == 'Bedroom_test') {
+          self.temperatures.push({createdAt: value.createdAt, temperature: value.temperature})
+          self.values.push(value)
+        }
       })
     }
   }))
