@@ -1,40 +1,16 @@
-import React, { Component } from 'react'
-import { Bar, Line } from 'react-chartjs-2'
-import {
-  Badge,
-  Row,
-  Col,
-  Progress,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Card,
-  CardHeader,
-  CardBlock,
-  CardFooter,
-  CardTitle,
-  Button,
-  ButtonToolbar,
-  ButtonGroup,
-  ButtonDropdown,
-  Label,
-  Input,
-  Table
-} from 'reactstrap'
+import React from 'react'
+import { Row, Col, Card, CardBlock, CardTitle, Button } from 'reactstrap'
 
 import TempChart from '../../components/TempChart/'
 
 import { inject, observer } from 'mobx-react'
-
-
 
 const Dashboard = inject('store')(
   observer(({ store: { apiStore: { apiTemperaturesStore } } }) => {
     if (!apiTemperaturesStore) {
       return null
     }
-  
+
     return (
       <div className='animated fadeIn'>
         <Row>
@@ -51,7 +27,11 @@ const Dashboard = inject('store')(
                     </Button>
                   </Col>
                 </Row>
-                 <TempChart />
+                {apiTemperaturesStore.temperatures.length > 0 && (
+                  <TempChart
+                    series={apiTemperaturesStore.temperatures.toJS()}
+                  />
+                )}
               </CardBlock>
             </Card>
           </Col>

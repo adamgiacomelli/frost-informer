@@ -10,130 +10,141 @@
 
 /* eslint max-len:0 */
 
-import React from "react";
+import React, { Component } from 'react'
 
-import { Charts, ChartContainer, ChartRow, YAxis, LineChart, Baseline, Resizable } from "react-timeseries-charts";
-import { TimeSeries, TimeRange } from "pondjs";
+import {
+  Charts,
+  ChartContainer,
+  ChartRow,
+  YAxis,
+  LineChart,
+  Baseline,
+  Resizable
+} from 'react-timeseries-charts'
+import { TimeSeries, TimeRange } from 'pondjs'
 
 // Data
-const data = require("./test.json");
-const points = data.widget[0].data.reverse();
-const series = new TimeSeries({
-    name: "USD_vs_EURO",
-    columns: ["time", "value"],
-    points
-});
-
-// let dataArray = props.series
-// console.log(dataArray)
-// let temperatures = dataArray.map((entry) => {
-//   let unix = parseInt((new Date(entry.createdAt).getTime() / 1000).toFixed(0))
-//   return [
-//     unix,
-//     entry.temperature]
-// });
-
-// let time = 0;
-// temperatures = temperatures.filter((entry) => {
-//   let oldtime = time
-//   time = entry[0]
-
-//   return time >= oldtime
+// const data = require('./test.json')
+// const points = data.widget[0].data.reverse()
+// const series2 = new TimeSeries({
+//   name: 'USD_vs_EURO',
+//   columns: ['time', 'value'],
+//   points
 // })
 
-// ///
-
-
-
-
 const style = {
-    value: {
-        stroke: "#a02c2c",
-        opacity: 0.2
-    }
-};
+  value: {
+    stroke: '#a02c2c',
+    opacity: 0.2
+  }
+}
 
 const baselineStyle = {
-    line: {
-        stroke: "steelblue",
-        strokeWidth: 1
-    }
-};
+  line: {
+    stroke: 'steelblue',
+    strokeWidth: 1
+  }
+}
 
 const baselineStyleLite = {
-    line: {
-        stroke: "steelblue",
-        strokeWidth: 1,
-        opacity: 0.5
-    }
-};
+  line: {
+    stroke: 'steelblue',
+    strokeWidth: 1,
+    opacity: 0.5
+  }
+}
 
-const TempChart = React.createClass({
-    getInitialState() {
-        return {
-            tracker: null,
-            timerange: series.range()
-        };
-    },
-    handleTrackerChanged(tracker) {
-        this.setState({ tracker });
-    },
-    handleTimeRangeChange(timerange) {
-        this.setState({ timerange });
-    },
-    render() {
-        return (
-            <Resizable>
-                <ChartContainer timeRange={series.range()} format="%b '%y">
-                    <ChartRow height="150">
-                        <YAxis
-                            id="price"
-                            label="Price ($)"
-                            min={series.min()}
-                            max={series.max()}
-                            width="60"
-                            format="$,.2f"
-                        />
-                        <Charts>
-                            <LineChart axis="price" series={series} style={style} />
-                            <Baseline
-                                axis="price"
-                                style={baselineStyleLite}
-                                value={series.max()}
-                                label="Max"
-                                position="right"
-                            />
-                            <Baseline
-                                axis="price"
-                                style={baselineStyleLite}
-                                value={series.min()}
-                                label="Min"
-                                position="right"
-                            />
-                            <Baseline
-                                axis="price"
-                                style={baselineStyleLite}
-                                value={series.avg() - series.stdev()}
-                            />
-                            <Baseline
-                                axis="price"
-                                style={baselineStyleLite}
-                                value={series.avg() + series.stdev()}
-                            />
-                            <Baseline
-                                axis="price"
-                                style={baselineStyle}
-                                value={series.avg()}
-                                label="Avg"
-                                position="right"
-                            />
-                        </Charts>
-                    </ChartRow>
-                </ChartContainer>
-            </Resizable>
-        );
-    }
-});
+class TempChart extends Component {
+  constructor (props) {
+    super(props)
 
-// Export example
-export default TempChart;
+    this.state = {}
+  }
+  componentWillMount () {
+    console.log('mount')
+
+    let dataArray = this.props.series
+    
+    let temperatures = dataArray.map(entry => {
+      let unix = parseInt(
+        (new Date(entry.createdAt).getTime() / 1000).toFixed(0)
+      )
+      return [unix, entry.temperature]
+    })
+
+    function Comparator(a, b) {
+      if (a[0] < b[0]) return -1;
+      if (a[0] > b[0]) return 1;
+      return 0;
+    }
+
+    let points  = temperatures.sort(Comparator);
+    
+    console.log(temperatures)
+    let series = new TimeSeries({
+      name: 'Temps',
+      columns: ['time', 'value'],
+      points
+    })
+
+    console.log('temperatures', series)
+    this.setState({series})
+  }
+
+  render () {
+    console.log(this.state.series)
+    return (
+      <Resizable>
+        <ChartContainer timeRange={this.state.series.range()} format="%b '%y">
+          <h1>test</h1>
+          <ChartRow height='150'>
+            <YAxis
+              id='price'
+              label='Price ($)'
+              min={this.state.series.min()}
+              max={this.state.series.max()}
+              width='60'
+              format='.2f'
+            />
+            <Charts>
+              <LineChart axis='price' series={this.state.series} style={style} />
+              <Baseline
+                axis='price'
+                style={baselineStyleLite}
+                value={this.state.series.max()}
+                label='Max'
+                position='right'
+              />
+              <Baseline
+                axis='price'
+                style={baselineStyleLite}
+                value={this.state.series.min()}
+                label='Min'
+                position='right'
+              />
+              <Baseline
+                axis='price'
+                style={baselineStyleLite}
+                value={this.state.series.avg() - this.state.series.stdev()}
+              />
+              <Baseline
+                axis='price'
+                style={baselineStyleLite}
+                value={this.state.series.avg() + this.state.series.stdev()}
+              />
+              <Baseline
+                axis='price'
+                style={baselineStyle}
+                value={this.state.series.avg()}
+                label='Avg'
+                position='right'
+              />
+            </Charts>
+          </ChartRow>
+        </ChartContainer>
+      </Resizable>
+    )
+  }
+}
+
+export default TempChart

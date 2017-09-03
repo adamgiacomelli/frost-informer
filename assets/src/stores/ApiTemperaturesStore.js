@@ -46,8 +46,11 @@ export const ApiTemperaturesStore = types
     },
     updateTemperatures (values) {
       values.forEach(value => {
-        if(value.deviceId == 'Bedroom_test') {
-          self.temperatures.push({createdAt: value.createdAt, temperature: value.temperature})
+        if (value.deviceId === 'Bedroom_test') {
+          self.temperatures.push({
+            createdAt: value.createdAt,
+            temperature: value.temperature
+          })
           self.values.push(value)
         }
       })
